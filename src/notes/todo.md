@@ -1,0 +1,3 @@
+ - [x] test in browser
+ - [ ] add one or 2 sub-pages to home
+  - [ ] wire up 

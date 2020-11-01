@@ -1,5 +1,10 @@
 import React from "react"
+import { FunctionDetail } from "../components/FunctionDetail"
 
 export const ShowDirectoryPicker = () => {
-    return <div>showDirectoryPicker page</div>
+    return <div>
+        <FunctionDetail
+            name={`ShowDirectoryPicker`}
+        />
+    </div>
 }
