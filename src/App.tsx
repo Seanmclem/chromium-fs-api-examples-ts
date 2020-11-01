@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {useRoutes} from 'hookrouter';
+import { ShowSaveFilePicker } from './pages/ShowSaveFilePicker';
+import { ShowOpenFilePicker } from './pages/ShowOpenFilePicker';
+import { FourOhFour } from './pages/FourOhFour';
+import { HomePage } from './pages/HomePage';
+
+const routes = {
+    '/': () => <HomePage />,
+    '/showOpenfilepicker': () => <ShowOpenFilePicker />,
+    '/showsavefilepicker': () => <ShowSaveFilePicker />,
+    // '/products/:id': ({id}) => <ProductDetails id={id} />
+};
+	
+const App = () => {
+    const routeResult = useRoutes(routes);
+    
+    return routeResult || <FourOhFour />;
 }
 
 export default App;
