@@ -6,11 +6,13 @@ import { ShowSaveFilePicker } from './pages/ShowSaveFilePicker';
 import { ShowOpenFilePicker } from './pages/ShowOpenFilePicker';
 import { FourOhFour } from './pages/FourOhFour';
 import { HomePage } from './pages/HomePage';
+import { ShowDirectoryPicker } from './pages/ShowDirectoryPicker';
 
 const routes = {
     '/': () => <HomePage />,
     '/showOpenfilepicker': () => <ShowOpenFilePicker />,
     '/showsavefilepicker': () => <ShowSaveFilePicker />,
+    '/ShowDirectoryPicker': () => <ShowDirectoryPicker />
     // '/products/:id': ({id}) => <ProductDetails id={id} />
 };
 	
