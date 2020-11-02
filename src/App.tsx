@@ -7,6 +7,7 @@ import { ShowOpenFilePicker } from './pages/ShowOpenFilePicker';
 import { FourOhFour } from './pages/FourOhFour';
 import { HomePage } from './pages/HomePage';
 import { ShowDirectoryPicker } from './pages/ShowDirectoryPicker';
+import { Layout } from './pages/Layout';
 
 const routes = {
     '/': () => <HomePage />,
@@ -19,7 +20,7 @@ const routes = {
 const App = () => {
     const routeResult = useRoutes(routes);
     
-    return routeResult || <FourOhFour />;
+    return <Layout>{routeResult}</Layout> || <FourOhFour />;
 }
 
 export default App;

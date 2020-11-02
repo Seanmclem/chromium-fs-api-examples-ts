@@ -7,7 +7,6 @@ export const FunctionDetail: React.FC<functionDetailInterface> = ({
 }) => {
     return (
         <div>
-            <a href="/">Home</a>
             Function Name: {name}
         </div>
     )
