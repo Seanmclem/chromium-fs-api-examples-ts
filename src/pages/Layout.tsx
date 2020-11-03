@@ -10,7 +10,7 @@ interface page {
 const pages: page[] = [
     {
         name: "showDrectoryPicker",
-        path: "/ShowDirectoryPicker"
+        path: "/showDirectoryPicker"
     }
 ]
 

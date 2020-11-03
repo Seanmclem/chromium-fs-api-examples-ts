@@ -13,7 +13,7 @@ const routes = {
     '/': () => <HomePage />,
     '/showOpenfilepicker': () => <ShowOpenFilePicker />,
     '/showsavefilepicker': () => <ShowSaveFilePicker />,
-    '/ShowDirectoryPicker': () => <ShowDirectoryPicker />
+    '/showDirectoryPicker': () => <ShowDirectoryPicker />
     // '/products/:id': ({id}) => <ProductDetails id={id} />
 };
 	
