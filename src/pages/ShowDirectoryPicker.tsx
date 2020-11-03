@@ -29,7 +29,7 @@ export const ShowDirectoryPicker = () => {
             />
             <div className="exapmle-container">
                 <p>
-                    <b>This should all just be a separate page on </b><br />
+                    <b>This should all just be a separate page for FileSystemDirectoryHandle </b><br />
                     Returns Type: FileSystemDirectoryHandle <br />
                     It's an iterator of FileSystemHandle <br />
                     <br />
