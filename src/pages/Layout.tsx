@@ -9,8 +9,12 @@ interface page {
 
 const pages: page[] = [
     {
-        name: "showDrectoryPicker",
+        name: "ShowDrectoryPicker",
         path: "/showDirectoryPicker"
+    },
+    {
+        name: "FileSystemDirectoryHandle",
+        path: "/fileSystemDirectoryHandle"
     }
 ]
 

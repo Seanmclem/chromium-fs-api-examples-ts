@@ -1,7 +1,7 @@
 import React from "react"
 
 
-export const Project: React.FC<any> = () => {
+export const FileExplorer: React.FC<any> = () => {
     return (
         <div></div>
     )

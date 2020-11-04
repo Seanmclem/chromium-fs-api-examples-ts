@@ -3,9 +3,13 @@ export const getFilesFromDirectory = async (directoryHandle:FileSystemDirectoryH
     const handlesEntriesIterator = directoryHandle.entries()
     // ^ ? NativeFileSystemDirectoryIterator
     debugger;
-    const handlesArray = []
-    for await (const handle of handlesEntriesIterator) {
-        handlesArray.push(handle)
+    return asyncIteratorToArray(handlesEntriesIterator)
+}
+
+const asyncIteratorToArray = async (iterator: any) => {
+    const array = []
+    for await (const handle of iterator) {
+        array.push(handle)
     }
-    return handlesArray
+    return array
 }

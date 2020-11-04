@@ -7,14 +7,15 @@ import { ShowOpenFilePicker } from './pages/ShowOpenFilePicker';
 import { FourOhFour } from './pages/FourOhFour';
 import { HomePage } from './pages/HomePage';
 import { ShowDirectoryPicker } from './pages/ShowDirectoryPicker';
+import { FileSystemDirectoryHandle } from './pages/FileSystemDirectoryHandle'
 import { Layout } from './pages/Layout';
 
 const routes = {
     '/': () => <HomePage />,
     '/showOpenfilepicker': () => <ShowOpenFilePicker />,
     '/showsavefilepicker': () => <ShowSaveFilePicker />,
-    '/showDirectoryPicker': () => <ShowDirectoryPicker />
-    // '/products/:id': ({id}) => <ProductDetails id={id} />
+    '/showDirectoryPicker': () => <ShowDirectoryPicker />,
+    '/fileSystemDirectoryHandle': () => <FileSystemDirectoryHandle />
 };
 	
 const App = () => {
