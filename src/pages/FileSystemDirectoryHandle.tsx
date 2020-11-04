@@ -38,6 +38,10 @@ export const FileSystemDirectoryHandle: React.FC<any> = () => {
                         Data output from a function like above - will yield usable data as detailed below
                     </i>
                     <br />
+                    You will see the terms FileSystemHandle/FileSystemFileHandle/FileSystemDirectoryHandle used
+                    interchangeably. Basically they are all FileSystemHandles, but if their "kind" is "directory" 
+                    then it's a FileSystemDirectoryHandle, and if "kind" is "file" then it's a FileSystemFileHandle
+                    <br />
                     <hr />
                     <h3>
                         Data
@@ -76,6 +80,8 @@ name: "chromium-fs-api-examples-ts"
                     "kind", which is the type of FileSystemHandle, for an fs directory handle, it's <i>directory</i>. <br />
                     And "name", which is just the string name of the current directory/file.
                     <br />
+                    <i>Note: the FileSystemHandle will also contain all file or directory methods. 
+                    So you can use it to access a file or traverse deeper ito more directories.</i>
 <pre>
 <code>
 {`
@@ -98,6 +104,8 @@ name: "chromium-fs-api-examples-ts"
                     and Item 1 is a FileSystemHandle of that child. <br />
                     Containing the same two keys of kind/name specifying kind="directory/file", <br />
                     and name="the-file/folder-name" the same file or folder string name again.<br />
+                    <i>Note: the FileSystemHandle will also contain all file or directory methods. 
+                    So you can use it to access a file or traverse deeper ito more directories.</i>
                     <br />
 <pre>
 <code>
