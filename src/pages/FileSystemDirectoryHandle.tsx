@@ -1,8 +1,10 @@
 import React from "react"
 import styled from 'styled-components'
+import { CodeSample } from "../components/CodeSample"
 
 const ExmpleContainer = styled.div`
     margin: 15px;
+    word-break: break-word;
 `
 
 export const FileSystemDirectoryHandle: React.FC<any> = () => {
@@ -22,8 +24,8 @@ export const FileSystemDirectoryHandle: React.FC<any> = () => {
                     <br />
                     Loop over them with a function resemling the following to get an array of FileSystemHandles
                     <br />
-<pre>
-<code>
+
+<CodeSample>
 {`async function toArray(asyncIterator){
     const array = [];
     for await(const fileSystemhandle of asyncIterator) {
@@ -31,8 +33,8 @@ export const FileSystemDirectoryHandle: React.FC<any> = () => {
     }
     return array;
 }`}
-</code>
-</pre>
+</CodeSample>
+
                     <br />
                     <i>
                         Data output from a function like above - will yield usable data as detailed below
@@ -47,14 +49,14 @@ export const FileSystemDirectoryHandle: React.FC<any> = () => {
                     <h3>
                         Data
                     </h3>
-<pre>
-<code>
-{`
+
+<CodeSample>
+{`// Example
 kind: "directory"
 name: "chromium-fs-api-examples-ts"
 `}
-</code>
-</pre>
+</CodeSample>
+
 
 <hr />
                     <h3>
@@ -62,16 +64,14 @@ name: "chromium-fs-api-examples-ts"
                     </h3>
                     <b>.keys()</b> - Returns a string-key for each of the drectory children from the iterator, 
                     which is just the name of the folder, one for every handle/child.
-<pre>
-<code>
-{`
+<CodeSample>
+{`// Example
 [
     "filesystem_api_tests",
     "chromium-fs-api-examples-ts"
 ]
 `}
-</code>
-</pre>
+</CodeSample>
 
                     <br />
                     <br />
@@ -83,9 +83,9 @@ name: "chromium-fs-api-examples-ts"
                     <br />
                     <i>Note: the FileSystemHandle will also contain all file or directory methods. 
                     So you can use it to access a file or traverse deeper ito more directories.</i>
-<pre>
-<code>
-{`
+
+<CodeSample>
+{`// Example
 [
     {kind: "directory"
     name: "chromium-fs-api-examples-ts"},
@@ -93,8 +93,8 @@ name: "chromium-fs-api-examples-ts"
     name: "filesystem_api_tests"}
 ]
 `}
-</code>
-</pre>
+</CodeSample>
+
 
                     <br />
                     <br />
@@ -103,14 +103,15 @@ name: "chromium-fs-api-examples-ts"
                     Each item contains an array of 2 items.<br />
                     Item 0 is just a string of the name of the child file/folder, <br />
                     and Item 1 is a FileSystemHandle of that child. <br />
-                    Containing the same two keys of kind/name specifying kind="directory/file", <br />
-                    and name="the-file/folder-name" the same file or folder string name again.<br />
+                    Containing the same two data properties kind/name. <br />
+                    <i>kind</i> is alwayseither "directory" or "file", <br />
+                    <i>name</i> is the name of the file/folder again.<br />
                     <i>Note: the FileSystemHandle will also contain all file or directory methods. 
                     So you can use it to access a file or traverse deeper ito more directories.</i>
                     <br />
-<pre>
-<code>
-{`
+
+<CodeSample>
+{`// Example
 [
     [
         "package.json",
@@ -122,8 +123,8 @@ name: "chromium-fs-api-examples-ts"
     ],
 ]
 `}
-</code>
-</pre>
+</CodeSample>
+
                 </p>
 
             </ExmpleContainer>
