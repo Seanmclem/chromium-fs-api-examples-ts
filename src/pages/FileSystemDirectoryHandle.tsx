@@ -40,7 +40,7 @@ export const FileSystemDirectoryHandle: React.FC<any> = () => {
                         Data output from a function like above - will yield usable data as detailed below
                     </i>
                     <br />
-                    You will see the terms FileSystemHandle/FileSystemFileHandle/FileSystemDirectoryHandle used
+                    You will see the terms FileSystemHandle/ FileSystemFileHandle/ FileSystemDirectoryHandle used
                     interchangeably. Basically they are all FileSystemHandles, but if their "kind" is "directory" 
                     then it's a FileSystemDirectoryHandle, and if "kind" is "file" then it's a FileSystemFileHandle
                     {/* TODO use links ^ */}
