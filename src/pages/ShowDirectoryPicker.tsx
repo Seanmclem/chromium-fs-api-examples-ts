@@ -31,6 +31,9 @@ export const ShowDirectoryPicker = () => {
                 <p>
                     Returns Type: <a href="/fileSystemDirectoryHandle">FileSystemDirectoryHandle</a> <br />
                     It's an iterator of FileSystemHandle <br />
+                    The result of using this function to open a directory is an obect of type FileSystemDirectoryHandle, which is basically a reference to the directory we just picked. 
+                    This reference contains descriptive data properties and methods to interact with the direcotries children. 
+                    Which would be anyfiles or folders contained within the directory.
                 </p>
                 <button 
                     onClick={showFolderPicker}
