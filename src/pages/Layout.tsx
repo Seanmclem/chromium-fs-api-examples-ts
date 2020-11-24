@@ -11,9 +11,8 @@ const pages: string[] = [
 
 export const Layout = ({ children }: any) => {
     const [params] = useQueryParams()
-    console.log(params)
-    return (
 
+    return (
         <div className="layout">
             {!params.hideLayout && (
                 <div className="heading">
