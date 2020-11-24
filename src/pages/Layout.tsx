@@ -11,22 +11,25 @@ const pages: string[] = [
 
 export const Layout = ({ children }: any) => {
     const [params] = useQueryParams()
-console.log(params)
+    console.log(params)
     return (
 
-    <div className="layout">
-        {!params.hideLayout && (<div className="heading">
-            <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                {pages.map(page =>
-                    <li>
-                        <a href={`/${page}`}>{page.split("?")[0]}</a>
-                    </li>
-                )}
-            </ul>
-        </div>)}
-        {children}
-    </div>
-)}
+        <div className="layout">
+            {!params.hideLayout && (
+                <div className="heading">
+                    <ul>
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        {pages.map(page =>
+                            <li>
+                                <a href={`/${page}`}>{page.split("?")[0]}</a>
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            )}
+            {children}
+        </div>
+    )
+}
