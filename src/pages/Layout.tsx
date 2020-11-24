@@ -1,38 +1,32 @@
+import { useQueryParams } from 'hookrouter'
 import React from 'react'
-// import { A } from "hookrouter"
 
-
-interface page {
-    name: string;
-    path: string;
-}
-
-const pages: page[] = [
-    {
-        name: "ShowDrectoryPicker",
-        path: "/showDirectoryPicker"
-    },
-    {
-        name: "FileSystemDirectoryHandle",
-        path: "/fileSystemDirectoryHandle"
-    }
+const pages: string[] = [
+    "ShowOpenfilepicker",
+    "Showsavefilepicker",
+    "ShowDirectoryPicker",
+    "FileExplorer?hideLayout=true"
 ]
 
 
-export const Layout = ({ children }: any) => (
+export const Layout = ({ children }: any) => {
+    const [params] = useQueryParams()
+console.log(params)
+    return (
+
     <div className="layout">
-        <div className="heading">
+        {!params.hideLayout && (<div className="heading">
             <ul>
                 <li>
                     <a href="/">Home</a>
                 </li>
                 {pages.map(page =>
                     <li>
-                        <a href={page.path}>{page.name}</a>
+                        <a href={`/${page}`}>{page.split("?")[0]}</a>
                     </li>
                 )}
             </ul>
-        </div>
+        </div>)}
         {children}
     </div>
-)
+)}
