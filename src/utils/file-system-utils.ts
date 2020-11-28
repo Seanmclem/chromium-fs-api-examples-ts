@@ -1,13 +1,14 @@
+export type EntryType = [string, FileSystemHandle]
+
 const asyncIteratorToArray = async (iterator: any) => {
     const array = []
     for await (const handle of iterator) {
         array.push(handle)
     }
-    debugger;
     return array
 }
 
-export const createfile = async (
+export const createFileInDirectory = async (
     directoryHandle: FileSystemDirectoryHandle,
     filename: string
 ) => directoryHandle.getFileHandle(filename, { create: true}) 
@@ -22,7 +23,7 @@ export const writeFile = async (
     await writer.close();
 }
 
-export const getNewTextFileHandle = async () => { // dafuq test
+export const openTextFile = async () => { // dafuq test
     // https://wicg.github.io/file-system-access/#api-filpickeroptions-types
     const options: OpenFilePickerOptions = {
         types: [{
@@ -37,9 +38,7 @@ export const getNewTextFileHandle = async () => { // dafuq test
     return window.showOpenFilePicker(options);
 }
 
-export const getFilesFromDirectory = async (directoryHandle:FileSystemDirectoryHandle) => {
-    const handlesEntriesIterator = directoryHandle //entires() // test
-    // ^ ? NativeFileSystemDirectoryIterator
-    debugger;
+export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle) => {
+    const handlesEntriesIterator = directoryHandle.entries();
     return asyncIteratorToArray(handlesEntriesIterator)
 }

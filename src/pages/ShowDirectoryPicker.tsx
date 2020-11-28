@@ -1,12 +1,19 @@
 import React, { useState } from "react"
 import { FunctionDetail } from "../components/FunctionDetail"
-import { getFilesFromDirectory } from '../utils/file-system-utils'
+import { FileListView } from "../projects/file-list-view/FileListView"
+import { EntryType, getDirectoryContents } from '../utils/file-system-utils'
 
 export const ShowDirectoryPicker = () => {
+    const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
+    const [directoryHandle, setDirectoryHandle] = useState<FileSystemDirectoryHandle | undefined>(undefined)
+
+    // ^^ maybe be a hook
+
     const showFolderPicker = async () => {
         const handle = await window.showDirectoryPicker()
-        const test = await getFilesFromDirectory(handle) // test this <----------------
-        debugger
+        const contents = await getDirectoryContents(handle) // test this <----------------
+        setDirectoryHandle(handle)
+        setDirectoryContents(contents)
     }
 //Post-Docs?
 
@@ -24,6 +31,10 @@ export const ShowDirectoryPicker = () => {
                     Open Directory
                 </button>
             </div>
+            <FileListView
+                rootHandle={directoryHandle}
+                directoryContents={directoryContents}
+            />
         </div>
     )
 }
