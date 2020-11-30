@@ -21,7 +21,7 @@ export const Layout = ({ children }: any) => {
                             <a href="/">Home</a>
                         </li>
                         {pages.map(page =>
-                            <li>
+                            <li key={page}>
                                 <a href={`/${page}`}>{page.split("?")[0]}</a>
                             </li>
                         )}

@@ -1,0 +1,16 @@
+.main-folder-list-container {
+  min-width: 200px;
+
+  user-select: none;
+}
+
+.main-folder-list {
+  border: 1px solid black;
+  width: fit-content;
+  min-width: 250px;
+
+  overflow: auto;
+  height: 75vh;
+
+  user-select: none;
+}

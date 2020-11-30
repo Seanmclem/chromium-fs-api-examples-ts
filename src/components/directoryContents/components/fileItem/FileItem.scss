@@ -1,0 +1,17 @@
+.file-item {
+  white-space: nowrap;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 3px 0;
+  width: 100%;
+
+  cursor: pointer;
+  .file-icon-container {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    background-color: lightgray;
+  }
+}

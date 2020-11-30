@@ -23,7 +23,7 @@ export const writeFile = async (
     await writer.close();
 }
 
-export const openTextFile = async () => { // dafuq test
+export const openTextFile = async () => { // dafuq test // or create?
     // https://wicg.github.io/file-system-access/#api-filpickeroptions-types
     const options: OpenFilePickerOptions = {
         types: [{
@@ -38,7 +38,7 @@ export const openTextFile = async () => { // dafuq test
     return window.showOpenFilePicker(options);
 }
 
-export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle) => {
+export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle): Promise<EntryType[]>  => {
     const handlesEntriesIterator = directoryHandle.entries();
     return asyncIteratorToArray(handlesEntriesIterator)
 }
