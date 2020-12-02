@@ -36,13 +36,10 @@ export const ShowDirectoryPicker = () => {
                 rootHandle={directoryHandle}
                 directoryContents={directoryContents}
             />
-            {/* ^v hide/show logic should be in the component ^v */}
-            {directoryHandle &&
-                <DirectoryContents
-                    rootHandle={directoryHandle}
-                    directoryContents={directoryContents}
-                />
-            }
+            <DirectoryContents
+                rootHandle={directoryHandle}
+                directoryContents={directoryContents}
+            />
         </div>
     )
 }

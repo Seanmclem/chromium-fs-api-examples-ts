@@ -4,7 +4,7 @@ import { FileOrFolderList } from './components/fileOrFolderList/FileOrFolderList
 import { EntryType } from '../../utils/file-system-utils'
 
 interface Props {
-    rootHandle: FileSystemDirectoryHandle;
+    rootHandle?: FileSystemDirectoryHandle;
     directoryContents: EntryType[];
 }
 
@@ -14,7 +14,7 @@ export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHand
     } else if (directoryContents.length === 0) {
         return (<div className="main-folder-list-container">Folder Empty</div>)
     } else {
-        return (
+        return (rootHandle ? (
             <div className="main-folder-list-container">
                 <div>'{rootHandle.name}' Contents:</div>
                 <div className="main-folder-list">
@@ -23,6 +23,8 @@ export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHand
                     ))}
                 </div>
             </div>
-        )
+        ) : (
+            <div>No folder selected</div>
+        ))
     }
 }
