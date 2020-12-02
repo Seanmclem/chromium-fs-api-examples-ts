@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { DirectoryContents } from "../components/directoryContents/DirectoryContents"
 import { FunctionDetail } from "../components/FunctionDetail"
 import { FileListView } from "../projects/file-list-view/FileListView"
 import { EntryType, getDirectoryContents } from '../utils/file-system-utils'
@@ -35,6 +36,13 @@ export const ShowDirectoryPicker = () => {
                 rootHandle={directoryHandle}
                 directoryContents={directoryContents}
             />
+            {/* ^v hide/show logic should be in the component ^v */}
+            {directoryHandle &&
+                <DirectoryContents
+                    rootHandle={directoryHandle}
+                    directoryContents={directoryContents}
+                />
+            }
         </div>
     )
 }
