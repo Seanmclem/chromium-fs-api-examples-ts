@@ -5,18 +5,13 @@ import { FileListView } from "../projects/file-list-view/FileListView"
 import { EntryType, getDirectoryContents } from '../utils/file-system-utils'
 
 export const ShowDirectoryPicker = () => {
-    const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
+    // const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
     const [directoryHandle, setDirectoryHandle] = useState<FileSystemDirectoryHandle | undefined>(undefined)
-
-    // ^^ maybe be a hook
 
     const showFolderPicker = async () => {
         const handle = await window.showDirectoryPicker()
-        const contents = await getDirectoryContents(handle) // test this <----------------
         setDirectoryHandle(handle)
-        setDirectoryContents(contents)
     }
-    // ^roll into file browser component and/or hook
 
     const handleSelectFileCustom = (file: any) => {
         console.log({customFileFn:file})
@@ -41,9 +36,8 @@ export const ShowDirectoryPicker = () => {
                 directoryContents={directoryContents}
             /> */}
             <DirectoryContents
-                rootHandle={directoryHandle}
-                directoryContents={directoryContents}
                 handleSelectFile={handleSelectFileCustom}
+                altRootHandle={directoryHandle}
             />
         </div>
     )

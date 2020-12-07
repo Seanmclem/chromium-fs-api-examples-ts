@@ -1,19 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DirectoryContents.scss'
 import { FileOrFolderList } from './components/fileOrFolderList/FileOrFolderList'
-import { EntryType } from '../../utils/file-system-utils'
+import { EntryType, getDirectoryContents } from '../../utils/file-system-utils'
 
 interface Props {
-    rootHandle?: FileSystemDirectoryHandle;
-    directoryContents: EntryType[];
-    handleSelectFile? : any
+    handleSelectFile? : any;
+    altRootHandle?: FileSystemDirectoryHandle;
 }
 
-export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHandle, handleSelectFile }) => {
-    if (!directoryContents) {
-        return (<div className="main-folder-list-container">No Folder Selected</div>)
+//rename to FileBrowserSidebar
+
+export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHandle }) => {
+    const [rootHandle, setRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
+    const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
+
+    useEffect(() => {altRootHandle && setupFileSystem(altRootHandle)}, [altRootHandle])
+
+    const showFolderPicker = async () => {
+        const handle = await window.showDirectoryPicker()
+        setupFileSystem(handle)
+    }
+
+    const setupFileSystem = async (handle: FileSystemDirectoryHandle) => {
+        const contents = await getDirectoryContents(handle)
+        setRootHandle(handle)
+        setDirectoryContents(contents)
+    }
+
+    if (!rootHandle || !directoryContents) {
+        return (
+            <div className="main-folder-list-container">
+                <div className="main-folder-list no-contents">
+                    <p>No Folder Selected</p>
+                    <button onClick={showFolderPicker}>
+                        Select Root Folder
+                    </button>
+                </div>
+            </div>
+        )
     } else if (directoryContents.length === 0) {
-        return (<div className="main-folder-list-container">Folder Empty</div>)
+        return (
+            <div className="main-folder-list-container">
+                <div className="main-folder-list no-contents">
+                    <p>Folder Empty</p>
+                    <button onClick={showFolderPicker}>
+                        Select Root Folder
+                    </button>
+                </div>
+            </div>
+        )
     } else {
         return (rootHandle ? (
             <div className="main-folder-list-container">
