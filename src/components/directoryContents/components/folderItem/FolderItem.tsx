@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import './FolderItem.scss'
 import { FolderIcon } from './components/folderIcon/FolderIcon'
 import { ChildItems } from './components/childItems/ChildItems'
+import { ItemMenu } from '../ItemMenu'
 
-export const FolderItem: React.FC<{entry: FileSystemDirectoryHandle}> = ({ entry }) => {
+interface Props {
+    entry: FileSystemDirectoryHandle,
+    handleSelectFile?: any
+}
+
+export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile }) => {
     const [open, setOpen] = useState(false)
-
-    const handleMenuClick = (e: any) => {
-        debugger;
-        e.stopPropagation();
-        debugger;
-        e.preventDefault()
-    }
 
     return (
         <div className="folder-item-conatiner">
@@ -19,17 +18,15 @@ export const FolderItem: React.FC<{entry: FileSystemDirectoryHandle}> = ({ entry
                 <FolderIcon open={open} />
                 <div className="folder-name-button">
                     <div>{entry.name}</div>
-                    <div className="item-folder-menu" onClick={(e) => { handleMenuClick(e) }}>
-                        (...)
-                    </div>
-                    {/* ^^ can maybe move this out by overlaying it and having a pointer-events: none everywhere but on the (...) That would work */}
+                    <ItemMenu />
                 </div>
-
             </div>
 
-            <ChildItems parent={entry} show={open} />
-
+            <ChildItems
+                parent={entry}
+                show={open}
+                handleSelectFile={handleSelectFile}
+            />
         </div>
-
     )
 }

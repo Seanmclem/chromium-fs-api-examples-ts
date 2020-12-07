@@ -6,9 +6,10 @@ import { EntryType } from '../../utils/file-system-utils'
 interface Props {
     rootHandle?: FileSystemDirectoryHandle;
     directoryContents: EntryType[];
+    handleSelectFile? : any
 }
 
-export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHandle }) => {
+export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHandle, handleSelectFile }) => {
     if (!directoryContents) {
         return (<div className="main-folder-list-container">No Folder Selected</div>)
     } else if (directoryContents.length === 0) {
@@ -19,7 +20,11 @@ export const DirectoryContents: React.FC<Props> = ({ directoryContents, rootHand
                 <div>'{rootHandle.name}' Contents:</div>
                 <div className="main-folder-list">
                     {directoryContents.map(entry => (
-                        <FileOrFolderList key={entry[0]} entry={entry[1]} />
+                        <FileOrFolderList
+                            key={entry[0]}
+                            entry={entry[1]}
+                            handleSelectFile={handleSelectFile}
+                        />
                     ))}
                 </div>
             </div>

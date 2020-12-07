@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './ChildItems.scss'
-// import { getFilesFromDirectory } from '../../../../../../services/file-system-service'
 import { FileOrFolderList } from '../../../fileOrFolderList/FileOrFolderList'
 import { EntryType, getDirectoryContents } from '../../../../../../utils/file-system-utils'
 
-export const ChildItems = ({ parent, show }: { parent: FileSystemDirectoryHandle, show: boolean }) => {
+interface Props {
+    parent: FileSystemDirectoryHandle,
+    show: boolean,
+    handleSelectFile?: any
+}
+
+export const ChildItems: React.FC<Props> = ({ parent, show, handleSelectFile }) => {
     const [folderContentsHandles, setFolderContentsHandles] = useState<EntryType[]>([])
 
     useEffect(() => {
@@ -20,7 +25,11 @@ export const ChildItems = ({ parent, show }: { parent: FileSystemDirectoryHandle
         return (
             <div className="child-items">
                 {folderContentsHandles.map((entry: EntryType) => (
-                    <FileOrFolderList key={entry[0]} entry={entry[1]} />
+                    <FileOrFolderList
+                        key={entry[0]}
+                        entry={entry[1]}
+                        handleSelectFile={handleSelectFile}
+                    />
                 ))}
             </div>
         )

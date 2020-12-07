@@ -20,7 +20,7 @@
       width: inherit;
     }
 
-    .item-folder-menu {
+    .item-menu {
       width: 21px;
       margin-right: 20px;
       opacity: 0;
@@ -30,7 +30,7 @@
     &:hover {
       background-color: lightgray;
 
-      .item-folder-menu {
+      .item-menu {
         position: relative;
         z-index: 10;
         opacity: 1;

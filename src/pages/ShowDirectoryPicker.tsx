@@ -16,7 +16,11 @@ export const ShowDirectoryPicker = () => {
         setDirectoryHandle(handle)
         setDirectoryContents(contents)
     }
-//Post-Docs?
+    // ^roll into file browser component and/or hook
+
+    const handleSelectFileCustom = (file: any) => {
+        console.log({customFileFn:file})
+    }
 
 
     return (
@@ -32,13 +36,14 @@ export const ShowDirectoryPicker = () => {
                     Open Directory
                 </button>
             </div>
-            <FileListView
+            {/* <FileListView
                 rootHandle={directoryHandle}
                 directoryContents={directoryContents}
-            />
+            /> */}
             <DirectoryContents
                 rootHandle={directoryHandle}
                 directoryContents={directoryContents}
+                handleSelectFile={handleSelectFileCustom}
             />
         </div>
     )
