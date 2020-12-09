@@ -5,7 +5,6 @@ import { FileListView } from "../projects/file-list-view/FileListView"
 import { EntryType, getDirectoryContents } from '../utils/file-system-utils'
 
 export const ShowDirectoryPicker = () => {
-    // const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
     const [directoryHandle, setDirectoryHandle] = useState<FileSystemDirectoryHandle | undefined>(undefined)
 
     const showFolderPicker = async () => {

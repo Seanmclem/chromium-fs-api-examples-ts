@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './DirectoryContents.scss'
 import { FileOrFolderList } from './components/fileOrFolderList/FileOrFolderList'
 import { EntryType, getDirectoryContents } from '../../utils/file-system-utils'
+import { HideDrawerBtn } from './components/HideDrawerBtn'
+import { MdKeyboardArrowRight } from 'react-icons/md'
 
 interface Props {
     handleSelectFile? : any;
@@ -13,6 +15,8 @@ interface Props {
 export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHandle }) => {
     const [rootHandle, setRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
     const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
+
+    const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
     useEffect(() => {altRootHandle && setupFileSystem(altRootHandle)}, [altRootHandle])
 
@@ -51,18 +55,27 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
         )
     } else {
         return (rootHandle ? (
-            <div className="main-folder-list-container">
-                <div>'{rootHandle.name}' Contents:</div>
-                <div className="main-folder-list">
-                    {directoryContents.map(entry => (
-                        <FileOrFolderList
-                            key={entry[0]}
-                            entry={entry[1]}
-                            handleSelectFile={handleSelectFile}
-                        />
-                    ))}
-                </div>
-            </div>
+            <>
+                {!drawerOpen && (
+                    <MdKeyboardArrowRight style={{position: 'absolute', top: '48%'}}  onClick={() => setDrawerOpen(!drawerOpen)} />
+                )}  
+                <div className={`main-folder-list-container ${!drawerOpen ? `closed` : ''}`}>
+                    {drawerOpen && (
+                        <HideDrawerBtn onClick={() => setDrawerOpen(!drawerOpen)} />
+                    )}
+                    <div className="main-folder-list">
+                        <div className="folder-name">'{rootHandle.name}' Contents:</div>
+                        {directoryContents.map(entry => (
+                            <FileOrFolderList
+                                key={entry[0]}
+                                entry={entry[1]}
+                                handleSelectFile={handleSelectFile}
+                            />
+                        ))}
+                    </div>
+                </div>            
+            </>
+
         ) : (
             <div>No folder selected</div>
         ))
