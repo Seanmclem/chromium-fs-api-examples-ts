@@ -1,12 +1,7 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import { DirectoryContents } from "../components/directoryContents/DirectoryContents"
 import styled from "styled-components"
-
-const ViewerPane = styled.div`
-    width: 100%;
-    height: auto;
-    background-color: red;
-`
+import { ModelViewerPane } from "../components/ModelViewerPane"
 
 const FileExplorerContainer = styled.div`
     display: flex;
@@ -14,18 +9,19 @@ const FileExplorerContainer = styled.div`
 `
 
 export const FileExplorer: React.FC<any> = () => {
-    const handleSelectFileCustom = (file: any) => {
+    const [selectedFile, setSelectedFile] = useState<FileSystemHandle| undefined>(undefined)
+
+    const handleSelectFileCustom = useCallback((file: FileSystemHandle) => {
         console.log({customFileFn:file})
-    }
+        setSelectedFile(file)
+    }, [])
 
     return (
         <FileExplorerContainer>
-            <DirectoryContents
+            <DirectoryContents //needs memoized when sober
                 handleSelectFile={handleSelectFileCustom}
             /> 
-
-            <ViewerPane />
-            {/* next... make a css grid */}
+            <ModelViewerPane selectedFile={selectedFile} />
         </FileExplorerContainer>
     )
 }
