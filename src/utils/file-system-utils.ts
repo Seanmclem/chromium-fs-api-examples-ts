@@ -1,6 +1,6 @@
 export type EntryType = [string, FileSystemHandle]
 
-const asyncIteratorToArray = async (iterator: any) => {
+const asyncIteratorToArray = async (iterator: any) => { // verified
     const array = []
     for await (const handle of iterator) {
         array.push(handle)
@@ -11,8 +11,9 @@ const asyncIteratorToArray = async (iterator: any) => {
 export const createFileInDirectory = async (
     directoryHandle: FileSystemDirectoryHandle,
     filename: string
-) => directoryHandle.getFileHandle(filename, { create: true}) 
+) => directoryHandle.getFileHandle(filename, { create: true})  // UNverified
 
+// UNverified
 export const writeFile = async (
     fileHandle: FileSystemFileHandle, 
     contents: FileSystemWriteChunkType // is it? Dafuq is that
@@ -37,7 +38,8 @@ export const openTextFile = async () => { // dafuq test // or create?
     };
     return window.showOpenFilePicker(options);
 }
-
+ 
+// Verified
 export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle): Promise<EntryType[]>  => {
     const handlesEntriesIterator = directoryHandle.entries();
     return asyncIteratorToArray(handlesEntriesIterator)

@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Editor from '@monaco-editor/react';
 
 const Contianer = styled.div`
     width: 100%;
@@ -17,7 +18,7 @@ export const ModelViewerPane: React.FC<props> = () => {
 
     return (
         <Contianer>
-            
+            <Editor height="90vh" language="typescript" />
         </Contianer>
     )
 }
