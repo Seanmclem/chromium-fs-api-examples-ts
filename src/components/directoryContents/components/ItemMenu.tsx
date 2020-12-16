@@ -16,9 +16,9 @@ const ItemMenuStyled = styled.div`
 `
 
 export const ItemMenu = () => {
-    const handleMenuClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        e.stopPropagation();
-        e.preventDefault()
+    const handleMenuClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
+        event.preventDefault();
         debugger
     }
 
