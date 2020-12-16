@@ -16,5 +16,5 @@ export const FileViewerByType: React.FC<props> = ({fileHandle}) => {
     else if(type === 'text'){
         return <TextFileViewer fileHandle={fileHandle} />
     }
-    return <div>no file worky/div>
+    return <div>no file worky</div>
 }
