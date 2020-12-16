@@ -36,11 +36,27 @@ export const openTextFile = async () => { // dafuq test // or create?
         }],
         multiple: false
     };
-    return window.showOpenFilePicker(options);
+    return window.showOpenFilePicker(options)
 }
  
 // Verified
 export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle): Promise<EntryType[]>  => {
-    const handlesEntriesIterator = directoryHandle.entries();
+    const handlesEntriesIterator = directoryHandle.entries()
     return asyncIteratorToArray(handlesEntriesIterator)
+}
+
+// Files
+export const getTextFileContents = async (fileHandle: FileSystemFileHandle) => {
+    const file: File = await fileHandle.getFile()
+    const fileText: string = await file.text()
+    return fileText
+}
+
+export const getFileBlobUrl = async (fileHandle: FileSystemFileHandle) => {
+    const file: File = await fileHandle.getFile()
+    const farp: string = await file.type
+    const poop =  await file.arrayBuffer()
+    let url = URL.createObjectURL(file)
+
+    return url
 }

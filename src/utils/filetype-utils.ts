@@ -1,5 +1,5 @@
 // const typeCategories: string[] = ['image', 'video', 'text']
-const imageExtentions: string[] = ['png', 'jpeg', 'jpg', 'bmp', 'gif', 'webp']
+const imageExtentions: string[] = ['png', 'jpeg', 'jpg', 'bmp', 'gif', 'webp', 'svg', 'ico']
 const videoExtentions: string[] = ['mov', 'mp4', 'mpeg', 'mpg', 'webm', 'mkv', 'avi', 'gifv' ]
 
 export const getFileTypeByExtension = (extension: string): 'image' | 'video' | 'text' => {
