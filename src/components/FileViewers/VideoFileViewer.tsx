@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import { getFileBlobUrl } from "../../utils/file-system-utils";
+import { getVideoData, VideoData } from "../../utils/file-system-utils";
 
 const Contianer = styled.div`
     /* display: flex;
@@ -19,22 +19,24 @@ interface props {
     fileHandle: FileSystemFileHandle;
 }
 
-export const ImageFileViewer: React.FC<props> = ({fileHandle}) => {
-    const [url, setUrl] = useState<string>('')
+export const VideoFileViewer: React.FC<props> = ({fileHandle}) => {
+    const [data, setData] = useState<VideoData | undefined>(undefined)
 
     useEffect(() => {
         fileToUrlState(fileHandle)
     }, [fileHandle])
 
     const fileToUrlState = async (fileHandle: FileSystemFileHandle) => {
-        const urlResult = await getFileBlobUrl(fileHandle)
-        setUrl(urlResult)
+        const dataResult = await getVideoData(fileHandle)
+        setData(dataResult)
     }
-    
+
     return (
         <Contianer>
-            {url ?
-                <img src={url} height="100px" width="100px"/>
+            {data ?
+                <video width="auto" height="auto" controls>
+                    <source src={data.blobUrl} type={data.type} />
+                </video>
             : null}
         </Contianer>
     )

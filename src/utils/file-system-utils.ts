@@ -54,9 +54,26 @@ export const getTextFileContents = async (fileHandle: FileSystemFileHandle) => {
 
 export const getFileBlobUrl = async (fileHandle: FileSystemFileHandle) => {
     const file: File = await fileHandle.getFile()
-    const farp: string = await file.type
-    const poop =  await file.arrayBuffer()
     let url = URL.createObjectURL(file)
 
     return url
+}
+
+export interface VideoData {
+    blobUrl: string;
+    type: string;
+    name: string;
+}
+
+export const getVideoData = async (fileHandle: FileSystemFileHandle): Promise<VideoData> => {
+    const file: File = await fileHandle.getFile()
+    const type: string = await file.type
+    let blobUrl = URL.createObjectURL(file)
+
+    const data: VideoData = {
+        blobUrl,
+        type,
+        name: file.name
+    }
+    return data
 }

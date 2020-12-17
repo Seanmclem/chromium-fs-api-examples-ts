@@ -22,7 +22,7 @@ export const getExtension = (fileHandle: FileSystemFileHandle) => {
 }
 
 export const getFileExtensionFromHandle = (fileHandle: FileSystemFileHandle) => {
-    const ext = getExtension(fileHandle);
+    const ext = getExtension(fileHandle)
     const type = getFileTypeByExtension(ext)
     return type
 }
