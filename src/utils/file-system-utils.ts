@@ -1,12 +1,22 @@
 export type EntryType = [string, FileSystemHandle]
 
-const asyncIteratorToArray = async (iterator: any) => { // verified
+const asyncIteratorToArray = async (iterator: any, sort?: boolean) => { // verified
     const array = []
     for await (const handle of iterator) {
         array.push(handle)
     }
+
+    console.log({array})
+    sort && array.sort(comparator)
     return array
 }
+
+function comparator(a: string, b: string) {
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+    return 0;
+}
+// https://stackoverflow.com/questions/5435228/sort-an-array-with-arrays-in-it-by-string/5435341
 
 export const createFileInDirectory = async (
     directoryHandle: FileSystemDirectoryHandle,
@@ -40,9 +50,9 @@ export const openTextFile = async () => { // dafuq test // or create?
 }
  
 // Verified
-export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle): Promise<EntryType[]>  => {
+export const getDirectoryContents = async (directoryHandle:FileSystemDirectoryHandle, sort = true): Promise<EntryType[]>  => {
     const handlesEntriesIterator = directoryHandle.entries()
-    return asyncIteratorToArray(handlesEntriesIterator)
+    return asyncIteratorToArray(handlesEntriesIterator, sort)
 }
 
 // Files
