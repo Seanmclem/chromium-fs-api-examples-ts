@@ -18,7 +18,7 @@ export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile }) => {
                 <FolderIcon open={open} />
                 <div className="folder-name-button">
                     <div>{entry.name}</div>
-                    <ItemMenu />
+                    <ItemMenu folderHandle={entry} />
                 </div>
             </div>
 

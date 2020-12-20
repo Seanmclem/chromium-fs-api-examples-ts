@@ -6,6 +6,7 @@ const CloseButton = styled.div`
     position: absolute;
     right: -20px;
     top: 48%;
+    z-index: 10;
 `
 
 export const HideDrawerBtn: React.FC<any> = ({onClick}) => {

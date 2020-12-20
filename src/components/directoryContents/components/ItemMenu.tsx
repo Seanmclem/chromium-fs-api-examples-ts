@@ -1,5 +1,8 @@
 import React from 'react'
+import { useContextMenu } from 'react-contexify';
 import styled from 'styled-components'
+
+const MENU_ID = "menu-id";
 
 const ItemMenuStyled = styled.div`
       width: 21px;
@@ -15,11 +18,24 @@ const ItemMenuStyled = styled.div`
     }
 `
 
-export const ItemMenu = () => {
+interface props {
+    folderHandle?: FileSystemDirectoryHandle;
+}
+
+const handleItemClick = ({ event, props, triggerEvent, data }:any) => {
+    console.log(event, props, triggerEvent, data );
+}
+
+export const ItemMenu: React.FC<props> = ({folderHandle}) => {
+    const { show } = useContextMenu({
+        id: MENU_ID
+    });
+
     const handleMenuClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
         debugger
+        show(event)
     }
 
     return (
