@@ -6,7 +6,7 @@ const asyncIteratorToArray = async (iterator: any, sort?: boolean) => { // verif
         array.push(handle)
     }
 
-    console.log({array})
+    // console.log({array})
     sort && array.sort(comparator)
     return array
 }

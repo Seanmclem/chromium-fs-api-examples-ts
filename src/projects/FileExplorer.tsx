@@ -3,18 +3,7 @@ import { DirectoryContents } from "../components/directoryContents/DirectoryCont
 import styled from "styled-components"
 import { FileViewerByType } from "../components/FileViewerByType"
 import { FileMenu } from "../components/FileMenu"
-
-import {
-    Menu,
-    Item,
-    Separator,
-    Submenu,
-} from "react-contexify";
-  
-  import "react-contexify/dist/ReactContexify.css";
-
-  const MENU_ID = "menu-id";
-
+import { ContextifyMenu } from "../components/ContextifyMenu"
 
 const FileExplorerContainer = styled.div`
     height: 100vh;
@@ -25,10 +14,6 @@ const InnerStuffContainer = styled.div`
     flex-direction: row;
     height: 95%;
 `
-
-function handleItemClick({ event, props, triggerEvent, data } : any){
-    console.log(event, props, triggerEvent, data );
-  }
 
 export const FileExplorer: React.FC<any> = () => {
     const [altRootHandle, setAltRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
@@ -52,23 +37,7 @@ export const FileExplorer: React.FC<any> = () => {
                 {selectedFile && <FileViewerByType fileHandle={selectedFile as FileSystemFileHandle} />}
             </InnerStuffContainer>
 
-            <Menu id={MENU_ID}>
-        <Item onClick={handleItemClick}>
-          Item 1
-        </Item>
-        <Item onClick={handleItemClick}>
-          Item 2
-        </Item>
-        <Separator />
-        <Item disabled>Disabled</Item>
-        <Separator />
-        <Submenu label="Submenu">
-          <Item onClick={handleItemClick}>
-            Sub Item 1
-          </Item>
-          <Item onClick={handleItemClick}>Sub Item 2</Item>
-        </Submenu>
-      </Menu>
+            <ContextifyMenu />
         </FileExplorerContainer>
     )
 }

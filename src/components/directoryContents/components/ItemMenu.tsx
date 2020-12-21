@@ -22,10 +22,6 @@ interface props {
     folderHandle?: FileSystemDirectoryHandle;
 }
 
-const handleItemClick = ({ event, props, triggerEvent, data }:any) => {
-    console.log(event, props, triggerEvent, data );
-}
-
 export const ItemMenu: React.FC<props> = ({folderHandle}) => {
     const { show } = useContextMenu({
         id: MENU_ID
@@ -34,8 +30,7 @@ export const ItemMenu: React.FC<props> = ({folderHandle}) => {
     const handleMenuClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        debugger
-        show(event)
+        show(event, {id: MENU_ID, props: {folderHandle}})
     }
 
     return (
