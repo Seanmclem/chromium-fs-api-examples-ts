@@ -6,8 +6,10 @@ import {
     Submenu,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
+import { TextInput } from 'ready-fields'
 
 import styled from 'styled-components'
+import { createDirectory } from '../utils/file-system-utils';
 
 const ModalBackdrop = styled.div`
   /* display: none;  */
@@ -33,27 +35,66 @@ const ModalBody = styled.div`
 
 const MENU_ID = "menu-id";
 
+enum Actions {
+    NewFolder = "new-folder",
+    NewFile = "new-file",
+} 
 
+interface DirectoryCreation {
+    modalOpen: boolean;
+    folderHandle?: FileSystemDirectoryHandle;
+    // refreshfunction?: (handle: FileSystemDirectoryHandle) => void
+}
+const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 
 export const ContextifyMenu = () => {
 
-    const [openDirectoryModal, setOpenDirectoryModal] = useState(false)
+    const [directoryCreation, setDirectoryCreation] = useState<DirectoryCreation>(initialDirectoryCreation)
+    const [folderNameText, setFolderNameText] = useState("")
+    // const [isFileModalOpen, setIsFileModalOpen] = useState(false)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
-        const folderHandle: FileSystemDirectoryHandle = props?.folderHandle;
-        setOpenDirectoryModal(!openDirectoryModal)
+        const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from ItemMenu.tsx
+        
+        if(action === Actions.NewFolder) {
+            setDirectoryCreation({modalOpen: true, folderHandle})
+        }
+        else if(action === Actions.NewFile) {
+
+        }
+    }
+
+    const onCloseDirectoryModal = () => {
+        setFolderNameText("")
+        setDirectoryCreation(initialDirectoryCreation)
+    }
+
+    const preventCloseModal = (e: any) => {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    const doCreating = (
+        {folderHandle, newName, refreshFunction}
+        :{folderHandle?: FileSystemDirectoryHandle, newName?: string, refreshFunction?: (handle: FileSystemDirectoryHandle) => void}
+    ) => {
+        debugger;
+        if(folderHandle && newName){
+            createDirectory(folderHandle, newName)
+            onCloseDirectoryModal()
+        }
     }
     
     return (
         <>
 
         <Menu id={MENU_ID}>
-            <Item onClick={(obj) => handleItemClick({...obj, action: "item-1"})}>
-                Open modal
+            <Item onClick={(obj) => handleItemClick({...obj, action: Actions.NewFolder})}>
+                New Directory
             </Item>
-            <Item onClick={(obj) => handleItemClick({...obj, action: "item-2"})}>
-                Item 2
+            <Item onClick={(obj) => handleItemClick({...obj, action: Actions.NewFile})}>
+                New File
             </Item>
             <Separator />
             <Item disabled>Disabled</Item>
@@ -66,14 +107,21 @@ export const ContextifyMenu = () => {
             </Submenu>
         </Menu>     
         
-        {openDirectoryModal && <ModalBackdrop id="toots" onClick={() => setOpenDirectoryModal(!openDirectoryModal)}>
-            <ModalBody onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-            }}>
-            HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA
-            </ModalBody>
-        </ModalBackdrop>}
+        {directoryCreation.modalOpen && (
+            <ModalBackdrop id="toots" onClick={onCloseDirectoryModal}>
+                <ModalBody onClick={preventCloseModal}>
+                    <p>
+                        Add new folder to "{directoryCreation.folderHandle?.name}"
+                    </p>
+                    <TextInput label="New Folder Name" name="folder-name" text={folderNameText} setText={setFolderNameText} />
+                    <button
+                        onClick={() => doCreating({folderHandle: directoryCreation.folderHandle, newName: folderNameText })}
+                    >
+                        Create
+                    </button>
+                </ModalBody>
+            </ModalBackdrop>
+        )}
         
         </>
 

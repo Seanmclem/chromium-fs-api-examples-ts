@@ -21,7 +21,12 @@ function comparator(a: string, b: string) {
 export const createFileInDirectory = async (
     directoryHandle: FileSystemDirectoryHandle,
     filename: string
-) => directoryHandle.getFileHandle(filename, { create: true})  // UNverified
+) => await directoryHandle.getFileHandle(filename, { create: true})  // UNverified
+
+export const createDirectory = async (    
+    directoryHandle: FileSystemDirectoryHandle,
+    directoryName: string
+) => await directoryHandle.getDirectoryHandle(directoryName, { create: true }) // UNverified
 
 // UNverified
 export const writeFile = async (

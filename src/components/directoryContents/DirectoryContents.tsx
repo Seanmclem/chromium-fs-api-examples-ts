@@ -4,6 +4,7 @@ import { FileOrFolderList } from './components/fileOrFolderList/FileOrFolderList
 import { EntryType, getDirectoryContents } from '../../utils/file-system-utils'
 import { HideDrawerBtn } from './components/HideDrawerBtn'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import { ActionsBar } from './components/ActionsBar'
 
 interface Props {
     handleSelectFile? : any;
@@ -65,6 +66,7 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                     )}
                     <div className="main-folder-list">
                         <div className="folder-name">'{rootHandle.name}' Contents:</div>
+                        <ActionsBar rootHandle={rootHandle} setupFileSystem={setupFileSystem} />
                         {directoryContents.map(entry => (
                             <FileOrFolderList
                                 key={entry[0]}
