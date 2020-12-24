@@ -72,6 +72,7 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                                 key={entry[0]}
                                 entry={entry[1]}
                                 handleSelectFile={handleSelectFile}
+                                dirPath={rootHandle.name}
                             />
                         ))}
                     </div>

@@ -5,15 +5,17 @@ import { FileItem } from '../fileItem/FileItem'
 
 interface Props {
     entry: FileSystemHandle,
-    handleSelectFile? : any
+    handleSelectFile? : any,
+    dirPath?: string
 }
 
-export const FileOrFolderList: React.FC<Props> = ({ entry, handleSelectFile }) => {
+export const FileOrFolderList: React.FC<Props> = ({ entry, handleSelectFile, dirPath }) => {
     if (entry.kind === "directory") {
         return (
             <FolderItem 
                 entry={entry}
                 handleSelectFile={handleSelectFile}
+                dirPath={dirPath}
             />
         )
     } else {
@@ -21,6 +23,7 @@ export const FileOrFolderList: React.FC<Props> = ({ entry, handleSelectFile }) =
             <FileItem
                 entry={entry}
                 handleSelectFile={handleSelectFile}
+                dirPath={dirPath}
             />
         )
     }

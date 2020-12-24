@@ -6,10 +6,13 @@ import { ItemMenu } from '../ItemMenu'
 
 interface Props {
     entry: FileSystemDirectoryHandle,
-    handleSelectFile?: any
+    handleSelectFile?: any,
+    dirPath?: string
 }
 
-export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile }) => {
+export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile, dirPath }) => {
+    const [folderPath] = useState(`${dirPath}/${entry.name}`)
+    console.log(entry.name,folderPath)
     const [open, setOpen] = useState(false)
 
     return (
@@ -26,6 +29,7 @@ export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile }) => {
                 parent={entry}
                 show={open}
                 handleSelectFile={handleSelectFile}
+                dirPath={`${dirPath}/${entry.name}`}
             />
         </div>
     )

@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './FileItem.scss'
 import { FileIcon } from './components/fileIcon/FileIcon'
 
 interface Props {
     entry:FileSystemFileHandle,
-    handleSelectFile?: any
+    handleSelectFile?: any,
+    dirPath?: string
 }
 
-export const FileItem: React.FC<Props> = ({ entry, handleSelectFile }) => {
+export const FileItem: React.FC<Props> = ({ entry, handleSelectFile, dirPath }) => {
+    const [filePath] = useState(`${dirPath}/${entry.name}`)
+    console.log(entry.name,filePath)
     const handleSelectFileDefault = (file:FileSystemFileHandle) => {
         console.log({file})
     }

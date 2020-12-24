@@ -15,13 +15,13 @@ const ActionsBarContainer = styled.div`
 
 export const ActionsBar = ({rootHandle, setupFileSystem}:any) => {
 
-    const refreshRoot = () => {
+    const handleRefreshRoot = () => {
         setupFileSystem(rootHandle)
     }
 
     return (
         <ActionsBarContainer>
-            <MdRefresh size="20px" style={{cursor: 'pointer'}} onClick={refreshRoot}/>
+            <MdRefresh size="20px" style={{cursor: 'pointer'}} onClick={handleRefreshRoot}/>
         </ActionsBarContainer>
     )
 }
