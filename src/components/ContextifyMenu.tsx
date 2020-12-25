@@ -7,11 +7,10 @@ import {
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 
-import { createDirectory } from '../utils/file-system-utils';
 
-import { TextInput } from 'ready-fields'
 import styled from 'styled-components'
 import { ModalReady } from './ModalReady';
+import { DirectoryCreator } from './modals/DirectoryCreator';
 
 
 
@@ -22,17 +21,14 @@ enum Actions {
     NewFile = "new-file",
 } 
 
-interface DirectoryCreation {
+export interface DirectoryCreation {
     modalOpen: boolean;
     folderHandle?: FileSystemDirectoryHandle;
-    // refreshfunction?: (handle: FileSystemDirectoryHandle) => void
 }
 const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 
 export const ContextifyMenu = () => {
     const [directoryCreation, setDirectoryCreation] = useState<DirectoryCreation>(initialDirectoryCreation)
-    const [folderNameText, setFolderNameText] = useState("")
-    // const [isFileModalOpen, setIsFileModalOpen] = useState(false)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
@@ -47,16 +43,10 @@ export const ContextifyMenu = () => {
     }
 
     const onCloseDirectoryModal = () => {
-        setFolderNameText("")
         setDirectoryCreation(initialDirectoryCreation)
     }
 
-    const handleCreateDirectory = (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
-        if(detinationFolderHandle){
-            createDirectory(detinationFolderHandle, newName)
-            onCloseDirectoryModal()    
-        }
-    }
+
     
     return (
         <>
@@ -80,15 +70,10 @@ export const ContextifyMenu = () => {
             
             { directoryCreation.modalOpen && (
                 <ModalReady onCloseModal={onCloseDirectoryModal}>
-                    <p>
-                        Add new folder to "{directoryCreation.folderHandle?.name}"
-                    </p>
-                    <TextInput label="New Folder Name" name="folder-name" text={folderNameText} setText={setFolderNameText} />
-                    <button
-                        onClick={() => handleCreateDirectory(folderNameText, directoryCreation.folderHandle)}
-                    >
-                        Create
-                    </button>
+                    <DirectoryCreator 
+                        directoryCreation={directoryCreation}
+                        setDirectoryCreation={setDirectoryCreation}
+                    />
                 </ModalReady>
             )}
         </>
