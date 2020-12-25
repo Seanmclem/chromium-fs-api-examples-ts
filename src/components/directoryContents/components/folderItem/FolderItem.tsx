@@ -12,7 +12,7 @@ interface Props {
 
 export const FolderItem: React.FC<Props> = ({ entry, handleSelectFile, dirPath }) => {
     const [folderPath] = useState(`${dirPath}/${entry.name}`)
-    console.log(entry.name,folderPath)
+    console.log(entry.name, folderPath)
     const [open, setOpen] = useState(false)
 
     return (
