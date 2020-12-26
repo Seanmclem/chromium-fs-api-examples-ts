@@ -16,8 +16,7 @@ const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 export const DirectoryCreator: React.FC<props> = ({
     directoryCreation,
     setDirectoryCreation
-}) => {
-
+}) => { 
     const [folderNameText, setFolderNameText] = useState("")
 
     const onCloseDirectoryModal = () => {

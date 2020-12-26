@@ -11,6 +11,7 @@ import "react-contexify/dist/ReactContexify.css";
 import styled from 'styled-components'
 import { ModalReady } from './ModalReady';
 import { DirectoryCreator } from './modals/DirectoryCreator';
+import { FileCreator } from './modals/FileCreator';
 
 
 
@@ -27,8 +28,15 @@ export interface DirectoryCreation {
 }
 const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 
+export interface FileCreation {
+    modalOpen: boolean;
+    folderHandle?: FileSystemDirectoryHandle;
+}
+const initialFileCreation = {modalOpen: false, folderHandle: undefined}
+
 export const ContextifyMenu = () => {
     const [directoryCreation, setDirectoryCreation] = useState<DirectoryCreation>(initialDirectoryCreation)
+    const [fileCreation, setFileCreation] = useState<FileCreation>(initialFileCreation)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
@@ -38,12 +46,13 @@ export const ContextifyMenu = () => {
             setDirectoryCreation({modalOpen: true, folderHandle})
         }
         else if(action === Actions.NewFile) {
-
+            setFileCreation({modalOpen: true, folderHandle})
         }
     }
 
-    const onCloseDirectoryModal = () => {
+    const onCloseModal = () => {
         setDirectoryCreation(initialDirectoryCreation)
+        setFileCreation(initialFileCreation)
     }
 
 
@@ -69,10 +78,19 @@ export const ContextifyMenu = () => {
             </Menu>
             
             { directoryCreation.modalOpen && (
-                <ModalReady onCloseModal={onCloseDirectoryModal}>
+                <ModalReady onCloseModal={onCloseModal}>
                     <DirectoryCreator 
                         directoryCreation={directoryCreation}
                         setDirectoryCreation={setDirectoryCreation}
+                    />
+                </ModalReady>
+            )}
+
+            { fileCreation.modalOpen && (
+                <ModalReady onCloseModal={onCloseModal}>
+                    <FileCreator 
+                        fileCreation={fileCreation}
+                        setFileCreation={setFileCreation}
                     />
                 </ModalReady>
             )}
