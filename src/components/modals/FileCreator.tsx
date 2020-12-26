@@ -23,10 +23,10 @@ export const FileCreator: React.FC<props> = ({
         setFileCreation(initialFileCreation)
     }
 
-    const handleCreateDirectory = (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
+    const handleCreateDirectory = async (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
         debugger
         if(detinationFolderHandle){
-            createFileInDirectory(detinationFolderHandle, newName)
+            await createFileInDirectory(detinationFolderHandle, newName)
             cleanup()    
         }
     }

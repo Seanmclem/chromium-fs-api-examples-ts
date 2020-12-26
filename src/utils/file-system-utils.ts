@@ -21,7 +21,11 @@ function comparator(a: string, b: string) {
 export const createFileInDirectory = async (
     directoryHandle: FileSystemDirectoryHandle,
     filename: string
-) => await directoryHandle.getFileHandle(filename, { create: true})  // UNverified
+) => {
+    const fileHandle = await directoryHandle.getFileHandle(filename, { create: true})
+    await writeFile(fileHandle, " ")
+    return fileHandle
+}  // Can only save with a space
 
 export const createDirectory = async (    
     directoryHandle: FileSystemDirectoryHandle,
