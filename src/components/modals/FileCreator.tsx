@@ -24,7 +24,6 @@ export const FileCreator: React.FC<props> = ({
     }
 
     const handleCreateDirectory = async (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
-        debugger
         if(detinationFolderHandle){
             await createFileInDirectory(detinationFolderHandle, newName)
             cleanup()    
