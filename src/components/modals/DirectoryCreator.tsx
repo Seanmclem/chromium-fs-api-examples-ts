@@ -2,7 +2,7 @@ import React from 'react'
 
 import { createDirectory } from '../../utils/file-system-utils';
 
-import { TextInput } from 'ready-fields'
+import { TextInput } from '../TextInput'
 import { useState } from 'react';
 
 interface props {
@@ -37,6 +37,7 @@ export const DirectoryCreator: React.FC<props> = ({
                 name="directory-name"
                 text={directoryName}
                 setText={setDirectoryName}
+                stealFocus
             />
             <button
                 onClick={() => handleCreateDirectory(directoryName, directoryHandle)}

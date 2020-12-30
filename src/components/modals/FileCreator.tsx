@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { createFileInDirectory } from '../../utils/file-system-utils';
 
-import { TextInput } from 'ready-fields'
-import { useState } from 'react';
+import { TextInput } from '../TextInput'
 
 interface props {
     directoryHandle: FileSystemDirectoryHandle,
@@ -37,6 +36,7 @@ export const FileCreator: React.FC<props> = ({
                 name="file-name"
                 text={fileNameText}
                 setText={setfileNameText}
+                stealFocus
             />
             <button
                 onClick={() => handleCreateDirectory(fileNameText, directoryHandle)}
