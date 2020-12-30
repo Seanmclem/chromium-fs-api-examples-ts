@@ -4,27 +4,24 @@ import { createFileInDirectory } from '../../utils/file-system-utils';
 
 import { TextInput } from 'ready-fields'
 import { useState } from 'react';
-import { FileCreation } from '../ContextifyMenu';
 
 interface props {
-    fileCreation: FileCreation,
-    setFileCreation: React.Dispatch<React.SetStateAction<FileCreation>>
+    directoryHandle: FileSystemDirectoryHandle,
+    setCreateFileModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const initialFileCreation = {modalOpen: false, folderHandle: undefined}
-
 export const FileCreator: React.FC<props> = ({
-    fileCreation,
-    setFileCreation
+    directoryHandle,
+    setCreateFileModalOpen
 }) => { 
     const [fileNameText, setfileNameText] = useState("")
 
     const cleanup = () => {
-        setFileCreation(initialFileCreation)
+        setCreateFileModalOpen(false)
     }
 
-    const handleCreateDirectory = async (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
-        if(detinationFolderHandle){
+    const handleCreateDirectory = async (newName: string, detinationFolderHandle: FileSystemDirectoryHandle) => {
+        if(fileNameText){
             await createFileInDirectory(detinationFolderHandle, newName)
             cleanup()    
         }
@@ -33,7 +30,7 @@ export const FileCreator: React.FC<props> = ({
     return (
         <div>
             <p>
-                Add new file to "{fileCreation.folderHandle?.name}"
+                Add new file to "{directoryHandle.name}"
             </p>
             <TextInput
                 label="New File Name and extension"
@@ -42,7 +39,7 @@ export const FileCreator: React.FC<props> = ({
                 setText={setfileNameText}
             />
             <button
-                onClick={() => handleCreateDirectory(fileNameText, fileCreation.folderHandle)}
+                onClick={() => handleCreateDirectory(fileNameText, directoryHandle)}
             >
                 Create
             </button>

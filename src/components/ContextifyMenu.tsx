@@ -28,31 +28,30 @@ export interface DirectoryCreation {
 }
 const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 
-export interface FileCreation {
-    modalOpen: boolean;
-    folderHandle?: FileSystemDirectoryHandle;
-}
-const initialFileCreation = {modalOpen: false, folderHandle: undefined}
-
 export const ContextifyMenu = () => {
-    const [directoryCreation, setDirectoryCreation] = useState<DirectoryCreation>(initialDirectoryCreation)
-    const [fileCreation, setFileCreation] = useState<FileCreation>(initialFileCreation)
+    const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
+    const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
+    const [ createDirectoryModalOpen, setCreateDirectoryModalOpen ] = useState<boolean>(false)
+
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
         const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from ItemMenu.tsx
         
+        setDirectoryHandle(folderHandle)
+
         if(action === Actions.NewFolder) {
-            setDirectoryCreation({modalOpen: true, folderHandle})
+            setCreateDirectoryModalOpen(true)
         }
         else if(action === Actions.NewFile) {
-            setFileCreation({modalOpen: true, folderHandle})
+            setCreateFileModalOpen(true)
         }
     }
 
     const onCloseModal = () => {
-        setDirectoryCreation(initialDirectoryCreation)
-        setFileCreation(initialFileCreation)
+        setDirectoryHandle(undefined)
+        setCreateFileModalOpen(false)
+        setCreateDirectoryModalOpen(false)
     }
 
 
@@ -77,20 +76,20 @@ export const ContextifyMenu = () => {
                 </Submenu>
             </Menu>
             
-            { directoryCreation.modalOpen && (
+            { (createDirectoryModalOpen && directoryHandle) && (
                 <ModalReady onCloseModal={onCloseModal}>
                     <DirectoryCreator 
-                        directoryCreation={directoryCreation}
-                        setDirectoryCreation={setDirectoryCreation}
+                        directoryHandle={directoryHandle}
+                        setCreateDirectoryModalOpen={setCreateDirectoryModalOpen}
                     />
                 </ModalReady>
             )}
 
-            { fileCreation.modalOpen && (
+            { (createFileModalOpen && directoryHandle) && (
                 <ModalReady onCloseModal={onCloseModal}>
                     <FileCreator 
-                        fileCreation={fileCreation}
-                        setFileCreation={setFileCreation}
+                        directoryHandle={directoryHandle}
+                        setCreateFileModalOpen={setCreateFileModalOpen}
                     />
                 </ModalReady>
             )}

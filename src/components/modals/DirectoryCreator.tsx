@@ -4,28 +4,25 @@ import { createDirectory } from '../../utils/file-system-utils';
 
 import { TextInput } from 'ready-fields'
 import { useState } from 'react';
-import { DirectoryCreation } from '../ContextifyMenu';
 
 interface props {
-    directoryCreation: DirectoryCreation,
-    setDirectoryCreation: React.Dispatch<React.SetStateAction<DirectoryCreation>>
+    directoryHandle: FileSystemDirectoryHandle,
+    setCreateDirectoryModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
-
 export const DirectoryCreator: React.FC<props> = ({
-    directoryCreation,
-    setDirectoryCreation
+    directoryHandle,
+    setCreateDirectoryModalOpen
 }) => { 
-    const [folderNameText, setFolderNameText] = useState("")
+    const [directoryName, setDirectoryName] = useState("")
 
     const onCloseDirectoryModal = () => {
-        setDirectoryCreation(initialDirectoryCreation)
+        setCreateDirectoryModalOpen(false)
     }
 
-    const handleCreateDirectory = (newName: string, detinationFolderHandle?: FileSystemDirectoryHandle) => {
-        if(detinationFolderHandle){
-            createDirectory(detinationFolderHandle, newName)
+    const handleCreateDirectory = (newName: string, detinationDirectoryHandle: FileSystemDirectoryHandle) => {
+        if (directoryName){
+            createDirectory(detinationDirectoryHandle, newName)
             onCloseDirectoryModal()    
         }
     }
@@ -33,16 +30,16 @@ export const DirectoryCreator: React.FC<props> = ({
     return (
         <div>
             <p>
-                Add new folder to "{directoryCreation.folderHandle?.name}"
+                Add new directory to "{directoryHandle.name}"
             </p>
             <TextInput
-                label="New Folder Name"
-                name="folder-name"
-                text={folderNameText}
-                setText={setFolderNameText}
+                label="New Directory Name"
+                name="directory-name"
+                text={directoryName}
+                setText={setDirectoryName}
             />
             <button
-                onClick={() => handleCreateDirectory(folderNameText, directoryCreation.folderHandle)}
+                onClick={() => handleCreateDirectory(directoryName, directoryHandle)}
             >
                 Create
             </button>
