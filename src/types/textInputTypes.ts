@@ -7,6 +7,7 @@ export interface ITextInputProps {
     error?: string;
     placeholder?: string;
     stealFocus?: boolean;
+    onPressEnter?: (...args:any[]) => void;
 }
 
 export interface ItemsInterface {

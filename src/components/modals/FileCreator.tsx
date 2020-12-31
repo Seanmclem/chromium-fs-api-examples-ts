@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
 import { createFileInDirectory } from '../../utils/file-system-utils';
+import { FormBox } from '../FormBox';
+import { SubmitButton } from '../SubmitButton';
 
 import { TextInput } from '../TextInput'
 
@@ -19,15 +21,15 @@ export const FileCreator: React.FC<props> = ({
         setCreateFileModalOpen(false)
     }
 
-    const handleCreateDirectory = async (newName: string, detinationFolderHandle: FileSystemDirectoryHandle) => {
+    const handleCreateFile = async  () => {
         if(fileNameText){
-            await createFileInDirectory(detinationFolderHandle, newName)
+            await createFileInDirectory(directoryHandle, fileNameText)
             cleanup()    
         }
     }
 
     return (
-        <div>
+        <FormBox>
             <p>
                 Add new file to "{directoryHandle.name}"
             </p>
@@ -36,13 +38,14 @@ export const FileCreator: React.FC<props> = ({
                 name="file-name"
                 text={fileNameText}
                 setText={setfileNameText}
+                onPressEnter={handleCreateFile}
                 stealFocus
             />
-            <button
-                onClick={() => handleCreateDirectory(fileNameText, directoryHandle)}
+            <SubmitButton
+                onClick={handleCreateFile}
             >
                 Create
-            </button>
-        </div>
+            </SubmitButton>
+        </FormBox>
     )
 }

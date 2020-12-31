@@ -4,6 +4,8 @@ import { createDirectory } from '../../utils/file-system-utils';
 
 import { TextInput } from '../TextInput'
 import { useState } from 'react';
+import { FormBox } from '../FormBox';
+import { SubmitButton } from '../SubmitButton';
 
 interface props {
     directoryHandle: FileSystemDirectoryHandle,
@@ -16,19 +18,19 @@ export const DirectoryCreator: React.FC<props> = ({
 }) => { 
     const [directoryName, setDirectoryName] = useState("")
 
-    const onCloseDirectoryModal = () => {
+    const cleanup = () => {
         setCreateDirectoryModalOpen(false)
     }
 
-    const handleCreateDirectory = (newName: string, detinationDirectoryHandle: FileSystemDirectoryHandle) => {
+    const handleCreateDirectory = () => {
         if (directoryName){
-            createDirectory(detinationDirectoryHandle, newName)
-            onCloseDirectoryModal()    
+            createDirectory(directoryHandle, directoryName)
+            cleanup()    
         }
     }
 
     return (
-        <div>
+        <FormBox >
             <p>
                 Add new directory to "{directoryHandle.name}"
             </p>
@@ -37,13 +39,14 @@ export const DirectoryCreator: React.FC<props> = ({
                 name="directory-name"
                 text={directoryName}
                 setText={setDirectoryName}
+                onPressEnter={handleCreateDirectory}
                 stealFocus
             />
-            <button
-                onClick={() => handleCreateDirectory(directoryName, directoryHandle)}
+            <SubmitButton
+                onClick={handleCreateDirectory}
             >
                 Create
-            </button>
-        </div>
+            </SubmitButton>
+        </FormBox>
     )
 }

@@ -9,7 +9,8 @@ export const TextInput: React.FC<ITextInputProps> = ({
     type = '',
     error = '',
     placeholder = '',
-    stealFocus = false
+    stealFocus = false,
+    onPressEnter
 }) => {
 
     const inputRef = useRef<HTMLInputElement>();
@@ -24,6 +25,12 @@ export const TextInput: React.FC<ITextInputProps> = ({
         setText(event.target.value);
     }
 
+    const onEnterKey =(event:any) => {
+        if(event.key === 'Enter'){
+            onPressEnter?.()
+        }
+    }
+
     return (
         <div className="input-label-container">
             {label ? (
@@ -33,6 +40,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
                 name={name}
                 type={type || 'text'}
                 onChange={handleChange}
+                onKeyPress={onEnterKey}
                 value={text}
                 placeholder={placeholder}
                 ref={inputRef as any}
