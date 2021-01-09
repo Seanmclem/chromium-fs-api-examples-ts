@@ -58,7 +58,7 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
         return (rootHandle ? (
             <>
                 {!drawerOpen && (
-                    <MdKeyboardArrowRight style={{position: 'absolute', top: '48%'}}  onClick={() => setDrawerOpen(!drawerOpen)} />
+                    <MdKeyboardArrowRight style={{position: 'absolute', top: '48%', zIndex: 10}}  onClick={() => setDrawerOpen(!drawerOpen)} />
                 )}  
                 <div className={`main-folder-list-container ${!drawerOpen ? `closed` : ''}`}>
                     {drawerOpen && (
