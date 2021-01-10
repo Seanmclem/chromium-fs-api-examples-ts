@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import './ChildItems.scss'
 import { FileOrFolderList } from '../../../fileOrFolderList/FileOrFolderList'
 import { EntryType, getDirectoryContents } from '../../../../../../utils/file-system-utils'
+import styled from 'styled-components'
+
+const ChildItemsContainer = styled.div`
+`
 
 interface Props {
     parent: FileSystemDirectoryHandle,
     show: boolean,
     handleSelectFile?: any,
-    dirPath?: string
+    dirPath?: string,
 }
 
 export const ChildItems: React.FC<Props> = ({ parent, show, handleSelectFile, dirPath }) => {
@@ -23,7 +26,7 @@ export const ChildItems: React.FC<Props> = ({ parent, show, handleSelectFile, di
     }
     if (show && folderContentsHandles.length) {
         return (
-            <div className="child-items">
+            <ChildItemsContainer>
                 {folderContentsHandles.map((entry: EntryType) => (
                     <FileOrFolderList
                         dirPath={dirPath}
@@ -32,7 +35,7 @@ export const ChildItems: React.FC<Props> = ({ parent, show, handleSelectFile, di
                         handleSelectFile={handleSelectFile}
                     />
                 ))}
-            </div>
+            </ChildItemsContainer>
         )
     } else {
         return null

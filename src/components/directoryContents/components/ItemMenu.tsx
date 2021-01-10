@@ -1,8 +1,7 @@
 import React from 'react'
 import { useContextMenu } from 'react-contexify';
 import styled from 'styled-components'
-
-const MENU_ID = "menu-id";
+import { MENU_ID } from '../enums';
 
 const ItemMenuStyled = styled.div`
       width: 21px;

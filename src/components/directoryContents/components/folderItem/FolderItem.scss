@@ -4,8 +4,6 @@
     display: flex;
     align-items: center;
     padding: 3px 0;
-    width: 100%;
-    min-width: 200px;
     position: relative;
     z-index: 5;
 
@@ -17,7 +15,7 @@
     .folder-name-button {
       display: flex;
       justify-content: space-between;
-      width: inherit;
+      width: 100%;
     }
 
     .item-menu {

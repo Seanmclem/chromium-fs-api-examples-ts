@@ -6,27 +6,16 @@ import {
     Submenu,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
+import { MENU_ID } from './directoryContents/enums';
 
-
-import styled from 'styled-components'
 import { ModalReady } from './ModalReady';
 import { DirectoryCreator } from './modals/DirectoryCreator';
 import { FileCreator } from './modals/FileCreator';
-
-
-
-const MENU_ID = "menu-id";
 
 enum Actions {
     NewFolder = "new-folder",
     NewFile = "new-file",
 } 
-
-export interface DirectoryCreation {
-    modalOpen: boolean;
-    folderHandle?: FileSystemDirectoryHandle;
-}
-const initialDirectoryCreation = {modalOpen: false, folderHandle: undefined}
 
 export const ContextifyMenu = () => {
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
