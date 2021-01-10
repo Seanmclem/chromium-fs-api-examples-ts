@@ -12,12 +12,10 @@ interface Props {
 }
 
 export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectFile, dirPath }) => {
-    const [folderPath] = useState(`${dirPath}/${folderHandle.name}`)
-    console.log(folderHandle.name, folderPath)
     const [open, setOpen] = useState(false)
     const depth = (dirPath?.split("/").length || 0) - 1 || 0;  
-
     const { show } = useContextMenu({ id: MENU_ID });
+
     const handleMenuClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         show(event, {id: MENU_ID, props: {folderHandle}})
     }
