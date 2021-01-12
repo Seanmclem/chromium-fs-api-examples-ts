@@ -16,7 +16,6 @@ interface Props {
 export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHandle }) => {
     const [rootHandle, setRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
     const [directoryContents, setDirectoryContents] = useState<EntryType[]>([])
-
     const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
     useEffect(() => {altRootHandle && setupFileSystem(altRootHandle)}, [altRootHandle])

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Menu,
     Item,
@@ -12,6 +12,8 @@ import { ModalReady } from './ModalReady';
 import { DirectoryCreator } from './modals/DirectoryCreator';
 import { FileCreator } from './modals/FileCreator';
 
+import { useTodoStore } from '../stores/selectedStore';
+
 enum Actions {
     NewFolder = "new-folder",
     NewFile = "new-file",
@@ -21,7 +23,7 @@ export const ContextifyMenu = () => {
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
     const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
     const [ createDirectoryModalOpen, setCreateDirectoryModalOpen ] = useState<boolean>(false)
-
+    const setContextHighlightFolder = useTodoStore(state => state.setContextHighlightFolder)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
@@ -37,6 +39,10 @@ export const ContextifyMenu = () => {
         }
     }
 
+    const onCloseMenu = () => {
+        setContextHighlightFolder(undefined)
+    }
+
     const onCloseModal = () => {
         setDirectoryHandle(undefined)
         setCreateFileModalOpen(false)
@@ -47,7 +53,7 @@ export const ContextifyMenu = () => {
     
     return (
         <>
-            <Menu id={MENU_ID}>
+            <Menu id={MENU_ID} onHidden={onCloseMenu}>
                 <Item onClick={(obj) => handleItemClick({...obj, action: Actions.NewFolder})}>
                     New Directory
                 </Item>

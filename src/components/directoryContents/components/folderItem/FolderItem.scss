@@ -7,6 +7,10 @@
     position: relative;
     z-index: 5;
 
+    &.context-click {
+      background-color: lightblue;
+    }
+
     cursor: pointer;
     div {
       cursor: pointer;

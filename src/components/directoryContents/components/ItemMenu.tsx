@@ -21,6 +21,8 @@ interface props {
     folderHandle?: FileSystemDirectoryHandle;
 }
 
+// Deprecated ! Deprecated ! Deprecated ! Deprecated ! Deprecated ! Deprecated ! Deprecated ! Deprecated ! 
+
 export const ItemMenu: React.FC<props> = ({folderHandle}) => {
     const { show } = useContextMenu({
         id: MENU_ID
