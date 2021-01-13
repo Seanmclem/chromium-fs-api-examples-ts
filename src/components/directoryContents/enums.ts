@@ -1,1 +1,2 @@
-export const MENU_ID = "menu-id";
+export const FOLDER_MENU_ID = "folder-menu-id";
+export const FILE_MENU_ID = "file-menu-id";
