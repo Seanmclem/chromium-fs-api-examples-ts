@@ -11,11 +11,8 @@ import { Layout } from './pages/Layout';
 import { FileExplorer } from './projects/FileExplorer';
 
 const routes = {
-    '/': () => <HomePage />,
-    '/ShowOpenfilepicker': () => <ShowOpenFilePicker />,
-    '/Showsavefilepicker': () => <ShowSaveFilePicker />,
-    '/ShowDirectoryPicker': () => <ShowDirectoryPicker />,
-    '/FileExplorer': () => <FileExplorer />
+    '/test': () => <ShowDirectoryPicker />,
+    '/': () => <FileExplorer />
 };
 	
 const App = () => {

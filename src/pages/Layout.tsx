@@ -2,9 +2,7 @@ import { useQueryParams } from 'hookrouter'
 import React from 'react'
 
 const pages: string[] = [
-    "ShowOpenfilepicker",
-    "Showsavefilepicker",
-    "ShowDirectoryPicker",
+    "test",
     "FileExplorer?hideLayout=true"
 ]
 
@@ -14,7 +12,7 @@ export const Layout = ({ children }: any) => {
 
     return (
         <div className="layout">
-            {!params.hideLayout && (
+            {/* {!params.hideLayout && (
                 <div className="heading">
                     <ul>
                         <li>
@@ -27,7 +25,7 @@ export const Layout = ({ children }: any) => {
                         )}
                     </ul>
                 </div>
-            )}
+            )} */}
             {children}
         </div>
     )

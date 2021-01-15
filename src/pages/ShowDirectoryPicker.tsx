@@ -1,43 +1,81 @@
-import React, { useState } from "react"
-import { DirectoryContents } from "../components/directoryContents/DirectoryContents"
-import { FunctionDetail } from "../components/FunctionDetail"
-import { FileListView } from "../projects/file-list-view/FileListView"
-import { EntryType, getDirectoryContents } from '../utils/file-system-utils'
+import * as React from "react";
+import { useState, useEffect } from "react";
+
+const FileContents = ({ value }: { value?: string }) => {
+    useEffect(() => {
+        if(value){
+            setText(value)
+        }
+    }, [value])
+
+    const [text, setText] = useState<string>("");
+
+
+    return value ? (
+        <div>
+        <textarea
+            name="file"
+            value={text}
+            rows={40}
+            cols={40}
+        />
+        </div>
+    ) : null;
+};
+
+const getTextFileContents = async (fileHandle: FileSystemFileHandle) => {
+  const file: File = await fileHandle.getFile();
+  const fileText: string = await file.text();
+  return fileText;
+};
+
+export const writeFile = async (
+    fileHandle: FileSystemFileHandle, 
+    contents: FileSystemWriteChunkType
+) => {
+    const writer = await fileHandle.createWritable();
+    await writer.truncate(0);// Make sure we start with an empty file
+    await writer.write(contents);
+    await writer.close();
+    return fileHandle;
+}
 
 export const ShowDirectoryPicker = () => {
-    const [directoryHandle, setDirectoryHandle] = useState<FileSystemDirectoryHandle | undefined>(undefined)
+  const [text, setText] = useState<string>("");
+  const [fileHandle, setFileHandle] = useState<
+    FileSystemFileHandle | undefined
+  >(undefined);
 
-    const showFolderPicker = async () => {
-        const handle = await window.showDirectoryPicker()
-        setDirectoryHandle(handle)
+  const fileTextToState = async (fileHandle: FileSystemFileHandle) => {
+    const fileText = await getTextFileContents(fileHandle);
+    setText(fileText);
+  };
+
+  const handleOpenFile = async () => {
+    const handles = await window.showOpenFilePicker();
+    if(handles?.length && handles[0]){
+        setFileHandle(handles[0]);
+        fileTextToState(handles[0]);
     }
+  };
 
-    const handleSelectFileCustom = (file: any) => {
-        console.log({customFileFn:file})
+  const handleAddComponent = async () => {
+    if(text && fileHandle){
+        let newText = text;
+        newText = text.replace("{/*PHRASE*/}",`{/*PHRASE*/}
+<InjectedComponent/>`)
+        const newFileHandle = await writeFile(fileHandle, newText);
+        setFileHandle(newFileHandle);
+        fileTextToState(newFileHandle);
     }
+  };
 
-
-    return (
-        <div>
-            <FunctionDetail
-                name={`ShowDirectoryPicker`}
-                link={`https://wicg.github.io/file-system-access/#api-filesystemdirectoryhandle`}
-            />
-            <div className="exapmle-container">
-                <button 
-                    onClick={showFolderPicker}
-                >
-                    Open Directory
-                </button>
-            </div>
-            {/* <FileListView
-                rootHandle={directoryHandle}
-                directoryContents={directoryContents}
-            /> */}
-            <DirectoryContents
-                handleSelectFile={handleSelectFileCustom}
-                altRootHandle={directoryHandle}
-            />
-        </div>
-    )
+  return (
+    <div className="App">
+      <h1>File stuff</h1>
+      <button onClick={handleOpenFile}>Open File</button>
+      {fileHandle && <button onClick={handleAddComponent}>Add component, save file</button>}
+      <FileContents value={text} />
+    </div>
+  );
 }
