@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Seanmclem/chromium-fs-api-examples-ts/static/css/main.f1314073.chunk.css",
+    "main.js": "/Seanmclem/chromium-fs-api-examples-ts/static/js/main.d68321b0.chunk.js",
+    "main.js.map": "/Seanmclem/chromium-fs-api-examples-ts/static/js/main.d68321b0.chunk.js.map",
+    "runtime-main.js": "/Seanmclem/chromium-fs-api-examples-ts/static/js/runtime-main.74ba5744.js",
+    "runtime-main.js.map": "/Seanmclem/chromium-fs-api-examples-ts/static/js/runtime-main.74ba5744.js.map",
+    "static/css/2.3271a457.chunk.css": "/Seanmclem/chromium-fs-api-examples-ts/static/css/2.3271a457.chunk.css",
+    "static/js/2.5ba54943.chunk.js": "/Seanmclem/chromium-fs-api-examples-ts/static/js/2.5ba54943.chunk.js",
+    "static/js/2.5ba54943.chunk.js.map": "/Seanmclem/chromium-fs-api-examples-ts/static/js/2.5ba54943.chunk.js.map",
+    "static/js/3.a7bd536c.chunk.js": "/Seanmclem/chromium-fs-api-examples-ts/static/js/3.a7bd536c.chunk.js",
+    "static/js/3.a7bd536c.chunk.js.map": "/Seanmclem/chromium-fs-api-examples-ts/static/js/3.a7bd536c.chunk.js.map",
+    "index.html": "/Seanmclem/chromium-fs-api-examples-ts/index.html",
+    "static/css/2.3271a457.chunk.css.map": "/Seanmclem/chromium-fs-api-examples-ts/static/css/2.3271a457.chunk.css.map",
+    "static/css/main.f1314073.chunk.css.map": "/Seanmclem/chromium-fs-api-examples-ts/static/css/main.f1314073.chunk.css.map",
+    "static/js/2.5ba54943.chunk.js.LICENSE.txt": "/Seanmclem/chromium-fs-api-examples-ts/static/js/2.5ba54943.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.74ba5744.js",
+    "static/css/2.3271a457.chunk.css",
+    "static/js/2.5ba54943.chunk.js",
+    "static/css/main.f1314073.chunk.css",
+    "static/js/main.d68321b0.chunk.js"
+  ]
+}
