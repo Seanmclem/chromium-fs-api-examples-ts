@@ -5,20 +5,24 @@ import { TextFileViewer } from './FileViewers/TextFileViewer'
 import { VideoFileViewer } from './FileViewers/VideoFileViewer'
 
 interface props {
-    fileHandle: FileSystemFileHandle;
+    fileHandle?: FileSystemFileHandle;
 }
 
 export const FileViewerByType: React.FC<props> = ({fileHandle}) => {
-    const type = getFileExtensionFromHandle(fileHandle)
+    if(fileHandle){
+        const type = getFileExtensionFromHandle(fileHandle)
 
-    if(type === 'image'){
-        return <ImageFileViewer fileHandle={fileHandle} />
+        if(type === 'image'){
+            return <ImageFileViewer fileHandle={fileHandle} />
+        }
+        else if(type === 'video'){
+            return <VideoFileViewer fileHandle={fileHandle} />
+        }
+        else if(type === 'text'){
+            return <TextFileViewer fileHandle={fileHandle} />
+        }
+        return <div>file type not recognized</div>
+    } else {
+        return null
     }
-    else if(type === 'video'){
-        return <VideoFileViewer fileHandle={fileHandle} />
-    }
-    else if(type === 'text'){
-        return <TextFileViewer fileHandle={fileHandle} />
-    }
-    return <div>no file worky</div>
 }

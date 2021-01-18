@@ -1,24 +1,30 @@
 import React from 'react';
 import './App.css';
 
-import {useRoutes} from 'hookrouter';
 import { ShowSaveFilePicker } from './pages/ShowSaveFilePicker';
 import { ShowOpenFilePicker } from './pages/ShowOpenFilePicker';
 import { FourOhFour } from './pages/FourOhFour';
-import { HomePage } from './pages/HomePage';
+
 import { ShowDirectoryPicker } from './pages/ShowDirectoryPicker';
-import { Layout } from './pages/Layout';
 import { FileExplorer } from './projects/FileExplorer';
 
-const routes = {
-    '/test': () => <ShowDirectoryPicker />,
-    '/': () => <FileExplorer />
-};
-	
+import {
+    HashRouter,
+    Switch,
+    Route,
+  } from "react-router-dom";
+
 const App = () => {
-    const routeResult = useRoutes(routes);
-    
-    return <Layout>{routeResult}</Layout> || <FourOhFour />;
+    return (
+        <div className="app">
+            <HashRouter basename={process.env.PUBLIC_URL}>
+                <Switch>
+                    <Route exact path="/" component={ShowDirectoryPicker}/>
+                    <Route exact path="/file-browser" component={FileExplorer}/>
+                </Switch>
+            </HashRouter>
+        </div>
+    )
 }
 
 export default App;

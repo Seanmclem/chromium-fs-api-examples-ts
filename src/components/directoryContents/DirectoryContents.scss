@@ -1,4 +1,8 @@
 .main-folder-list-container {
+  display: flex;
+  flex-direction: row;
+  height: 95%;
+
   position: relative;
   user-select: none;
 
