@@ -9,7 +9,7 @@ import { ShowDirectoryPicker } from './pages/ShowDirectoryPicker';
 import { FileExplorer } from './projects/FileExplorer';
 
 import {
-    HashRouter,
+    BrowserRouter,
     Switch,
     Route,
   } from "react-router-dom";
@@ -17,12 +17,12 @@ import {
 const App = () => {
     return (
         <div className="app">
-            <HashRouter basename={process.env.PUBLIC_URL}>
+            <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={ShowDirectoryPicker}/>
-                    <Route exact path="/file-browser" component={FileExplorer}/>
+                    <Route exact path="/some-demo" component={ShowDirectoryPicker}/>
+                    <Route exact path="/" component={FileExplorer}/>
                 </Switch>
-            </HashRouter>
+            </BrowserRouter>
         </div>
     )
 }
