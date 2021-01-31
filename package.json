@@ -1,6 +1,5 @@
 {
   "name": "chromium-fs-api-examples-ts",
-  "homepage": "http://Seanmclem.github.io/chromium-fs-api-examples-ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
