@@ -5,6 +5,10 @@
   align-items: center;
   padding: 3px 0;
 
+  &.context-click {
+    background-color: lightblue;
+  }
+
   cursor: pointer;
   .file-icon-container {
     margin-left: 5px;

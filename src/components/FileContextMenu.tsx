@@ -4,8 +4,8 @@ import {
     Item,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
+import { HighlightedService } from '../services/HighlightedService';
 import { FILE_MENU_ID } from './directoryContents/enums';
-// import { useTodoStore } from '../stores/selectedStore';
 
 enum Actions {
     EditAstTest = "edit-ast-test",
@@ -14,7 +14,6 @@ enum Actions {
 
 export const FileContextMenu = () => {
     const [ fileHandle, setFileHandle ] = useState<FileSystemFileHandle | undefined>(undefined)
-    // const setContextHighlightFile = useTodoStore(state => state.setContextHighlightFile)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
@@ -30,7 +29,7 @@ export const FileContextMenu = () => {
     }
 
     const onCloseMenu = () => {
-        setFileHandle(undefined)
+        HighlightedService.clearItem()
     }
     
     return (

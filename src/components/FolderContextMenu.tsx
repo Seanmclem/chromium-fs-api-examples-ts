@@ -11,8 +11,7 @@ import { FOLDER_MENU_ID } from './directoryContents/enums';
 import { ModalReady } from './ModalReady';
 import { DirectoryCreator } from './modals/DirectoryCreator';
 import { FileCreator } from './modals/FileCreator';
-
-import { useTodoStore } from '../stores/selectedStore';
+import { HighlightedService } from '../services/HighlightedService';
 
 enum Actions {
     NewFolder = "new-folder",
@@ -23,7 +22,6 @@ export const FolderContextMenu = () => {
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
     const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
     const [ createDirectoryModalOpen, setCreateDirectoryModalOpen ] = useState<boolean>(false)
-    const setContextHighlightFolder = useTodoStore(state => state.setContextHighlightFolder)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
@@ -40,7 +38,7 @@ export const FolderContextMenu = () => {
     }
 
     const onCloseMenu = () => {
-        setContextHighlightFolder(undefined)
+        HighlightedService.clearItem()
     }
 
     const onCloseModal = () => {
@@ -48,8 +46,6 @@ export const FolderContextMenu = () => {
         setCreateFileModalOpen(false)
         setCreateDirectoryModalOpen(false)
     }
-
-
     
     return (
         <>
