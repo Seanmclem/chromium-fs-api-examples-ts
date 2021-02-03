@@ -40,7 +40,6 @@ export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectF
 
     const subscribeHighlightFolder = () => {
         const sub = HighlightedService.getItem().subscribe((folder) => {
-            debugger;
             if (folder?.path === specificPath) {
                 setIsHighlighted(true)
             } else {

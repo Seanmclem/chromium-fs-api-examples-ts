@@ -10,6 +10,12 @@ const FileExplorerContainer = styled.div`
     height: 100vh;
 `
 
+const InnerStuffContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: 95%;
+`
+
 export const FileExplorer: React.FC<{}> = () => {
     const [altRootHandle, setAltRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
     const [selectedFile, setSelectedFile] = useState<FileSystemHandle| undefined>(undefined)
@@ -22,13 +28,15 @@ export const FileExplorer: React.FC<{}> = () => {
     return (
         <FileExplorerContainer>
             <FileMenu setAltRootHandle={setAltRootHandle} />
-                <DirectoryContents //needs memoized when sober
-                    handleSelectFile={handleSelectFileCustom}
-                    altRootHandle={altRootHandle}
-                /> 
-                <FileViewerByType
-                    fileHandle={selectedFile as FileSystemFileHandle}
-                />
+                <InnerStuffContainer>
+                    <DirectoryContents
+                        handleSelectFile={handleSelectFileCustom}
+                        altRootHandle={altRootHandle}
+                    /> 
+                    <FileViewerByType
+                        fileHandle={selectedFile as FileSystemFileHandle}
+                    />
+                </InnerStuffContainer>
             <FolderContextMenu />
             <FileContextMenu />
         </FileExplorerContainer>
