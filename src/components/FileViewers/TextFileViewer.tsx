@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import Editor, { EditorDidMount} from '@monaco-editor/react';
-import { getTextFileContents } from "../../utils/file-system-utils";
+import Editor from '@monaco-editor/react';
+import { getTextFileContents, writeFile } from "../../utils/file-system-utils";
 import ts from "typescript"
 import { editor } from "monaco-editor";
 
@@ -25,7 +25,8 @@ export const TextFileViewer: React.FC<props> = ({fileHandle}) => {
     }
 
     const handleSave = () => {
-        alert(editorRef.current?.getValue())
+        const textToSave = editorRef.current?.getValue();
+        textToSave && writeFile(fileHandle, textToSave);
     }
 
     useEffect(() => {
