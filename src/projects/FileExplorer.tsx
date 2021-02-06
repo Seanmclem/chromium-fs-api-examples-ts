@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react"
 import { DirectoryContents } from "../components/directoryContents/DirectoryContents"
 import styled from "styled-components"
 import { FileViewerByType } from "../components/FileViewerByType"
-import { FileMenu } from "../components/FileMenu"
+import { TopMenu } from "../components/TopMenu"
 import { FolderContextMenu } from "../components/FolderContextMenu"
 import { FileContextMenu } from "../components/FileContextMenu"
 
@@ -27,7 +27,7 @@ export const FileExplorer: React.FC<{}> = () => {
 
     return (
         <FileExplorerContainer>
-            <FileMenu setAltRootHandle={setAltRootHandle} />
+                <TopMenu setAltRootHandle={setAltRootHandle} />
                 <InnerStuffContainer>
                     <DirectoryContents
                         handleSelectFile={handleSelectFileCustom}
