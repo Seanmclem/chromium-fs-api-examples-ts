@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { transform } from '@babel/standalone'
+import typestuff from "@babel/preset-typescript"
 
 const originalFiles = {
     blank: ``,
@@ -43,11 +44,15 @@ const Column = styled.div`
 
 const parseTheShit = (code: string) => {
     debugger
-    var hat = transform(code, {
-        presets: ["@babel/preset-typescript"],
+   const hat = transform(code, {
+        ast: true,
+        babelrc: false,
+        presets: [typestuff],
+        filename: "example.tsx"
     });
     debugger;
     // const myCode = parse(code);
+    // debugger;
     // console.log({myCode})
 }
 
