@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { transform } from '@babel/standalone'
-import typestuff from "@babel/preset-typescript"
+import { transform } from '@babel/core'
+import tsPlugin from "@babel/plugin-syntax-typescript"
+import generate from "@babel/generator"
 
 const originalFiles = {
     blank: ``,
@@ -42,42 +43,60 @@ const Column = styled.div`
     overflow-x: auto;
 `
 
-const parseTheShit = (code: string) => {
-    debugger
-   const hat = transform(code, {
+const codtToAstToCode = (code: string, setFinalCode: any) => {
+   const astEtc = transform(code, {
         ast: true,
         babelrc: false,
-        presets: [typestuff],
+        plugins: [
+            [
+                tsPlugin,
+                {
+                    "isTSX": true,
+                    allExtensions: true,
+                }
+            ]
+        ],
         filename: "example.tsx"
     });
-    debugger;
-    // const myCode = parse(code);
-    // debugger;
-    // console.log({myCode})
+
+    if(astEtc?.ast && astEtc?.code){
+        const backToCode = generate(
+            astEtc.ast,
+            {
+              sourceFileName: "example.tsx",
+              filename: "example.tsx",
+            },
+            astEtc.code
+          );
+          setFinalCode(backToCode.code)
+    }
 }
 
 export const AstTools: React.FC<{}> = ({}) => {
     const codeBlock = originalFiles.hasJSXcomponent;
+    const [finalCode, setFinalCode] = useState("");
 
     return (
         <ASTtoolsContainer>
-            <TopBar>
+            {/* <TopBar>
                 <div>Mode: </div>
                 <button>
                     {`Text -> AST -> Text`}
                 </button>
-            </TopBar>
+            </TopBar> */}
             <TopBar>
                 <div>Run: </div>
-                <button onClick={() => parseTheShit(codeBlock)}>
-                    {`Text -> AST`}
+                <button onClick={() => codtToAstToCode(codeBlock, setFinalCode)}>
+                    {`Code -> AST -> Code`}
                 </button>
             </TopBar>
             <ColumnsContainer>
                 <Column>
                     {codeBlock}
                 </Column>
-                <Column> moar column stuff</Column>
+                <Column>
+                    {finalCode}
+                </Column>
             </ColumnsContainer>
         </ASTtoolsContainer>
     )

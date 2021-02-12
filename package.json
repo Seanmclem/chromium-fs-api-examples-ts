@@ -4,8 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.12.13",
-    "@babel/preset-typescript": "^7.12.13",
-    "@babel/standalone": "^7.12.15",
+    "@babel/plugin-syntax-typescript": "^7.12.13",
     "@monaco-editor/react": "^3.7.2",
     "@szhsin/react-menu": "^1.2.0",
     "@testing-library/jest-dom": "^5.11.5",
