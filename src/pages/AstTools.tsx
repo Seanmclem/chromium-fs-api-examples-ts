@@ -47,6 +47,11 @@ const Column = styled.div`
     overflow-x: auto;
 `
 
+const Spacer = styled.div`
+    height: 100%; 
+    width: 20px;
+`
+
 const codeToAstToCode = (code: string, setFinalCode: any) => {
     const babelFileResult = changeCodetoAST(code)
     const newAST = transformAST(babelFileResult)
@@ -114,6 +119,9 @@ export const AstTools: React.FC<{}> = ({}) => {
     const codeBlock = originalFiles.hasJSXcomponent;
     const [finalCode, setFinalCode] = useState("");
 
+    const [babelFileResult, setBabelFileResult] = useState<any>()
+    const [astResult, setAstResult] = useState<any>()
+
     return (
         <ASTtoolsContainer>
             {/* <TopBar>
@@ -127,17 +135,33 @@ export const AstTools: React.FC<{}> = ({}) => {
                 <button onClick={() => codeToAstToCode(codeBlock, setFinalCode)}>
                     {`Code -> AST -> Code`}
                 </button>
-                {/*
-                // TODO: would need a way to store these values temporarily. With like, a wrapping context?
-                <button onClick={() => changeCodetoAST()}>
+                <Spacer />
+                                
+                <button 
+                    id="code-to-ast"
+                    onClick={() => {
+                        const ast = changeCodetoAST(codeBlock);
+                        setBabelFileResult(ast);
+                    }}
+                >
                     {`Code -> AST`}
                 </button>
-                <button onClick={() => transformAST()}>
+                <Spacer /> 
+
+                <button onClick={() => {
+                    const ast = transformAST(babelFileResult)
+                    setAstResult(ast)
+                }}>
                     {`Do Transform`}
                 </button>
-                <button onClick={() => changeAstToCode()}>
+                <Spacer />
+
+                 <button onClick={() => {
+                    const finalCode = changeAstToCode(astResult, babelFileResult)
+                    setFinalCode(finalCode?.code || '')
+                }}>
                     {`AST to Code`}
-                </button> */}
+                </button>
             </TopBar>
             <ColumnsContainer>
                 <Column>
