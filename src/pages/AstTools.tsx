@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { transform } from '@babel/core'
+import { BabelFileResult, transform } from '@babel/core'
 import tsPlugin from "@babel/plugin-syntax-typescript"
 import generate from "@babel/generator"
+import template from '@babel/template'
+import traverse from "@babel/traverse";
+import * as types from "@babel/types";
+
 
 const originalFiles = {
     blank: ``,
@@ -43,8 +47,51 @@ const Column = styled.div`
     overflow-x: auto;
 `
 
-const codtToAstToCode = (code: string, setFinalCode: any) => {
-   const astEtc = transform(code, {
+const codeToAstToCode = (code: string, setFinalCode: any) => {
+    const babelFileResult = changeCodetoAST(code)
+    const newAST = transformAST(babelFileResult)
+    const finalCode = changeAstToCode(newAST, babelFileResult)
+
+    setFinalCode(finalCode?.code || '')
+    console.log({babelFileResult})
+}
+
+
+const transformAST = (babelFileResult:BabelFileResult | null) => {
+    if(!babelFileResult?.ast){
+        return undefined
+    }
+    else {
+        const ast = babelFileResult.ast
+        traverse(ast, {
+            Program(path) { // When the current node is the Program node
+                path.pushContainer('body', types.stringLiteral("Hello World")); //types.exportNamedDeclaration()
+                // can do more things here.. find docs on babel typed, traverse.
+            }
+        })
+        return ast
+    }
+
+}
+
+const changeAstToCode = (newAST: any, babelFileResult: BabelFileResult | null) => {
+    if(!babelFileResult?.code){
+        return undefined;
+    } else {
+        const backToCode = generate(
+            newAST,
+            {
+                sourceFileName: "example.tsx",
+                filename: "example.tsx",
+            },
+            babelFileResult.code
+        );
+        return backToCode;
+    }
+}
+
+const changeCodetoAST = (code: string) => {
+    return transform(code, {
         ast: true,
         babelrc: false,
         plugins: [
@@ -58,19 +105,10 @@ const codtToAstToCode = (code: string, setFinalCode: any) => {
         ],
         filename: "example.tsx"
     });
-
-    if(astEtc?.ast && astEtc?.code){
-        const backToCode = generate(
-            astEtc.ast,
-            {
-              sourceFileName: "example.tsx",
-              filename: "example.tsx",
-            },
-            astEtc.code
-          );
-          setFinalCode(backToCode.code)
-    }
 }
+
+
+
 
 export const AstTools: React.FC<{}> = ({}) => {
     const codeBlock = originalFiles.hasJSXcomponent;
@@ -86,9 +124,20 @@ export const AstTools: React.FC<{}> = ({}) => {
             </TopBar> */}
             <TopBar>
                 <div>Run: </div>
-                <button onClick={() => codtToAstToCode(codeBlock, setFinalCode)}>
+                <button onClick={() => codeToAstToCode(codeBlock, setFinalCode)}>
                     {`Code -> AST -> Code`}
                 </button>
+                {/*
+                // TODO: would need a way to store these values temporarily. With like, a wrapping context?
+                <button onClick={() => changeCodetoAST()}>
+                    {`Code -> AST`}
+                </button>
+                <button onClick={() => transformAST()}>
+                    {`Do Transform`}
+                </button>
+                <button onClick={() => changeAstToCode()}>
+                    {`AST to Code`}
+                </button> */}
             </TopBar>
             <ColumnsContainer>
                 <Column>
