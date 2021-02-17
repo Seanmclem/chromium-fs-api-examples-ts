@@ -7,6 +7,7 @@ import template from '@babel/template'
 import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 
+import ReactJson from 'react-json-view'
 
 const originalFiles = {
     blank: ``,
@@ -39,7 +40,7 @@ const ColumnsContainer = styled.div`
 `
 
 const Column = styled.div`
-    width: 50%;
+    width: 33%;
     border: 1px solid black;
     margin: 5px 10px;
     padding: 10px;
@@ -70,8 +71,16 @@ const transformAST = (babelFileResult:BabelFileResult | null) => {
         const ast = babelFileResult.ast
         traverse(ast, {
             Program(path) { // When the current node is the Program node
-                path.pushContainer('body', types.stringLiteral("Hello World")); //types.exportNamedDeclaration()
+                // path.pushContainer('body', types.stringLiteral("Hello World")); //types.exportNamedDeclaration()
                 // can do more things here.. find docs on babel typed, traverse.
+
+                path.pushContainer('body', types.importDeclaration(
+                    [
+                    types.importDefaultSpecifier(types.identifier("React"))
+                    ],
+                    types.stringLiteral("react")
+                )); //()
+
             }
         })
         return ast
@@ -80,7 +89,7 @@ const transformAST = (babelFileResult:BabelFileResult | null) => {
 }
 
 const changeAstToCode = (newAST: any, babelFileResult: BabelFileResult | null) => {
-    if(!babelFileResult?.code){
+    if(!babelFileResult?.code && babelFileResult?.code !== ""){
         return undefined;
     } else {
         const backToCode = generate(
@@ -116,7 +125,7 @@ const changeCodetoAST = (code: string) => {
 
 
 export const AstTools: React.FC<{}> = ({}) => {
-    const codeBlock = originalFiles.hasJSXcomponent;
+    const codeBlock = originalFiles.blank;
     const [finalCode, setFinalCode] = useState("");
 
     const [babelFileResult, setBabelFileResult] = useState<any>()
@@ -136,7 +145,7 @@ export const AstTools: React.FC<{}> = ({}) => {
                     {`Code -> AST -> Code`}
                 </button>
                 <Spacer />
-                                
+
                 <button 
                     id="code-to-ast"
                     onClick={() => {
@@ -164,8 +173,18 @@ export const AstTools: React.FC<{}> = ({}) => {
                 </button>
             </TopBar>
             <ColumnsContainer>
-                <Column>
+                {/* <Column>
                     {codeBlock}
+                </Column> */}
+                <Column>
+                    
+                </Column>
+                <Column>
+                    {babelFileResult?.ast && <ReactJson
+                        src={babelFileResult.ast}
+                        collapsed
+                        enableClipboard={false}
+                    />}
                 </Column>
                 <Column>
                     {finalCode}
