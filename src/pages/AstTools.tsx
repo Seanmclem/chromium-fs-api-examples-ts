@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+
 import { BabelFileResult, transform } from '@babel/core'
 import tsPlugin from "@babel/plugin-syntax-typescript"
 import generate from "@babel/generator"
@@ -8,6 +9,7 @@ import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 
 import ReactJson from 'react-json-view'
+import { useToasts } from 'react-toast-notifications';
 
 const originalFiles = {
     blank: ``,
@@ -131,6 +133,8 @@ export const AstTools: React.FC<{}> = ({}) => {
     const [babelFileResult, setBabelFileResult] = useState<any>()
     const [astResult, setAstResult] = useState<any>()
 
+    const { addToast } = useToasts();
+
     return (
         <ASTtoolsContainer>
             {/* <TopBar>
@@ -160,6 +164,7 @@ export const AstTools: React.FC<{}> = ({}) => {
                 <button onClick={() => {
                     const ast = transformAST(babelFileResult)
                     setAstResult(ast)
+                    addToast("Transform done~", {appearance: "success"})
                 }}>
                     {`Do Transform`}
                 </button>
@@ -177,7 +182,7 @@ export const AstTools: React.FC<{}> = ({}) => {
                     {codeBlock}
                 </Column> */}
                 <Column>
-                    
+                    put like, custom transforms here? need some toasts
                 </Column>
                 <Column>
                     {babelFileResult?.ast && <ReactJson
