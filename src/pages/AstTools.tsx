@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { BabelFileResult, transform } from '@babel/core'
+import { BabelFileResult, NodePath, transform } from '@babel/core'
 import tsPlugin from "@babel/plugin-syntax-typescript"
 import generate from "@babel/generator"
 import template from '@babel/template'
@@ -10,6 +10,7 @@ import * as types from "@babel/types";
 
 import ReactJson from 'react-json-view'
 import { useToasts } from 'react-toast-notifications';
+import { type } from 'os'
 
 const originalFiles = {
     blank: ``,
@@ -73,21 +74,53 @@ const transformAST = (babelFileResult:BabelFileResult | null) => {
         const ast = babelFileResult.ast
         traverse(ast, {
             Program(path) { // When the current node is the Program node
-                // path.pushContainer('body', types.stringLiteral("Hello World")); //types.exportNamedDeclaration()
-                // can do more things here.. find docs on babel typed, traverse.
-
-                path.pushContainer('body', types.importDeclaration(
-                    [
-                    types.importDefaultSpecifier(types.identifier("React"))
-                    ],
-                    types.stringLiteral("react")
-                )); //()
-
+                addImports(path)
+                addExport(path)
             }
         })
         return ast
     }
+}
 
+const addExport = (path: NodePath<types.Program>) => {
+    path.pushContainer('body', types.exportNamedDeclaration(
+        types.variableDeclaration("const", [
+            types.variableDeclarator( // need to find out how to add type annotations 'React.FC<{}>'
+                types.identifier("AstTools"),
+                types.arrowFunctionExpression([
+                        types.objectPattern([])
+                    ],
+                    types.blockStatement([
+                        types.returnStatement(
+                            types.jsxElement(
+                                types.jsxOpeningElement(
+                                    types.jsxIdentifier("div"),
+                                    []
+                                ),
+                                types.jsxClosingElement(
+                                    types.jsxIdentifier("div")
+                                ),
+                                [
+                                    types.jsxText("\n            AST test poop \n")
+                                ]
+                            )
+                        )
+                    ]//,
+                        //types.objectPattern([])
+                    )
+                )
+            )
+        ])
+    ))
+};
+
+const addImports = (path: NodePath<types.Program>) => {
+    path.pushContainer('body', types.importDeclaration(
+        [
+        types.importDefaultSpecifier(types.identifier("React"))
+        ],
+        types.stringLiteral("react")
+    ));
 }
 
 const changeAstToCode = (newAST: any, babelFileResult: BabelFileResult | null) => {
@@ -127,7 +160,7 @@ const changeCodetoAST = (code: string) => {
 
 
 export const AstTools: React.FC<{}> = ({}) => {
-    const codeBlock = originalFiles.blank;
+    const codeBlock = originalFiles.hasJSXcomponent;
     const [finalCode, setFinalCode] = useState("");
 
     const [babelFileResult, setBabelFileResult] = useState<any>()
@@ -145,7 +178,7 @@ export const AstTools: React.FC<{}> = ({}) => {
             </TopBar> */}
             <TopBar>
                 <div>Run: </div>
-                <button onClick={() => codeToAstToCode(codeBlock, setFinalCode)}>
+                <button onClick={() => codeToAstToCode(originalFiles.blank, setFinalCode)}>
                     {`Code -> AST -> Code`}
                 </button>
                 <Spacer />
@@ -153,7 +186,7 @@ export const AstTools: React.FC<{}> = ({}) => {
                 <button 
                     id="code-to-ast"
                     onClick={() => {
-                        const ast = changeCodetoAST(codeBlock);
+                        const ast = changeCodetoAST(originalFiles.blank);
                         setBabelFileResult(ast);
                     }}
                 >
@@ -178,12 +211,12 @@ export const AstTools: React.FC<{}> = ({}) => {
                 </button>
             </TopBar>
             <ColumnsContainer>
-                {/* <Column>
-                    {codeBlock}
-                </Column> */}
                 <Column>
-                    put like, custom transforms here? need some toasts
+                    {codeBlock}
                 </Column>
+                {/* <Column>
+                    put like, custom transforms here? need some toasts
+                </Column> */}
                 <Column>
                     {babelFileResult?.ast && <ReactJson
                         src={babelFileResult.ast}
