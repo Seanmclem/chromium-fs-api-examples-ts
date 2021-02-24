@@ -10,7 +10,6 @@ import * as types from "@babel/types";
 
 import ReactJson from 'react-json-view'
 import { useToasts } from 'react-toast-notifications';
-import { type } from 'os'
 
 const originalFiles = {
     blank: ``,
@@ -62,12 +61,12 @@ const codeToAstToCode = (code: string, setFinalCode: any) => {
     const finalCode = changeAstToCode(newAST, babelFileResult)
 
     setFinalCode(finalCode?.code || '')
-    console.log({babelFileResult})
+    console.log({ babelFileResult })
 }
 
 
-const transformAST = (babelFileResult:BabelFileResult | null) => {
-    if(!babelFileResult?.ast){
+const transformAST = (babelFileResult: BabelFileResult | null) => {
+    if (!babelFileResult?.ast) {
         return undefined
     }
     else {
@@ -85,11 +84,26 @@ const transformAST = (babelFileResult:BabelFileResult | null) => {
 const addExport = (path: NodePath<types.Program>) => {
     path.pushContainer('body', types.exportNamedDeclaration(
         types.variableDeclaration("const", [
-            types.variableDeclarator( // need to find out how to add type annotations 'React.FC<{}>'
-                types.identifier("AstTools"),
+            types.variableDeclarator( // typeAnnotation on identifier -> https://github.com/babel/babel/issues/12895
+                Object.assign(
+                    types.identifier("AstTools"),
+                    {
+                        typeAnnotation: types.typeAnnotation(
+                            types.genericTypeAnnotation(
+                                types.qualifiedTypeIdentifier(
+                                    types.identifier("FC"),
+                                    types.identifier("React")
+                                ),
+                                types.typeParameterInstantiation([
+                                    types.objectTypeAnnotation([])
+                                ])
+                            )
+                        )
+                    }
+                ),
                 types.arrowFunctionExpression([
-                        types.objectPattern([])
-                    ],
+                    types.objectPattern([])
+                ],
                     types.blockStatement([
                         types.returnStatement(
                             types.jsxElement(
@@ -117,14 +131,14 @@ const addExport = (path: NodePath<types.Program>) => {
 const addImports = (path: NodePath<types.Program>) => {
     path.pushContainer('body', types.importDeclaration(
         [
-        types.importDefaultSpecifier(types.identifier("React"))
+            types.importDefaultSpecifier(types.identifier("React"))
         ],
         types.stringLiteral("react")
     ));
 }
 
 const changeAstToCode = (newAST: any, babelFileResult: BabelFileResult | null) => {
-    if(!babelFileResult?.code && babelFileResult?.code !== ""){
+    if (!babelFileResult?.code && babelFileResult?.code !== "") {
         return undefined;
     } else {
         const backToCode = generate(
@@ -159,7 +173,7 @@ const changeCodetoAST = (code: string) => {
 
 
 
-export const AstTools: React.FC<{}> = ({}) => {
+export const AstTools: React.FC<{}> = ({ }) => {
     const codeBlock = originalFiles.hasJSXcomponent;
     const [finalCode, setFinalCode] = useState("");
 
@@ -183,7 +197,7 @@ export const AstTools: React.FC<{}> = ({}) => {
                 </button>
                 <Spacer />
 
-                <button 
+                <button
                     id="code-to-ast"
                     onClick={() => {
                         const ast = changeCodetoAST(originalFiles.blank);
@@ -192,18 +206,18 @@ export const AstTools: React.FC<{}> = ({}) => {
                 >
                     {`Code -> AST`}
                 </button>
-                <Spacer /> 
+                <Spacer />
 
                 <button onClick={() => {
                     const ast = transformAST(babelFileResult)
                     setAstResult(ast)
-                    addToast("Transform done~", {appearance: "success"})
+                    addToast("Transform done~", { appearance: "success" })
                 }}>
                     {`Do Transform`}
                 </button>
                 <Spacer />
 
-                 <button onClick={() => {
+                <button onClick={() => {
                     const finalCode = changeAstToCode(astResult, babelFileResult)
                     setFinalCode(finalCode?.code || '')
                 }}>
