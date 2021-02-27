@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './FileItem.scss'
 import { FileIcon } from './components/fileIcon/FileIcon'
 import { useContextMenu } from 'react-contexify'
@@ -16,16 +16,17 @@ export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile,
 
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
-    useEffect(() => {
-        return unsubscribe()
-    }, [])
-
-    const unsubscribe = () => {
+    const unsubscribe = useCallback(() => {
         if(subscription){
             subscription.unsubscribe()
             setSubscription(undefined)
         }
-    }
+    }, [subscription])
+    useEffect(() => {
+        return unsubscribe()
+    }, [unsubscribe])
+
+
 
     const subscribeHighlightFolder = () => {
         const sub = HighlightedService.getItem().subscribe((folder) => {

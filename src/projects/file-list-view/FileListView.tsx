@@ -10,8 +10,8 @@ interface Props {
 
 const List = ({directoryContents}: {directoryContents:EntryType[]}) => {
     const items = directoryContents.map(entry => {
-        var hat = entry[0]
-        var poo = entry[1]
+        // var hat = entry[0]
+        // var poo = entry[1]
         return (<Item key={entry[0]} entry={entry} />)
     })
     return (

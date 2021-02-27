@@ -13,7 +13,7 @@ enum Actions {
 } 
 
 export const FileContextMenu = () => {
-    const [ fileHandle, setFileHandle ] = useState<FileSystemFileHandle | undefined>(undefined)
+    const [ , setFileHandle ] = useState<FileSystemFileHandle | undefined>(undefined)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );

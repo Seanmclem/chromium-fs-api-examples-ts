@@ -34,7 +34,7 @@ export const ImageFileViewer: React.FC<props> = ({fileHandle}) => {
     return (
         <Contianer>
             {url ?
-                <img src={url} height="100px" width="100px"/>
+                <img alt="failed to load. I'm sorry.." src={url} height="100px" width="100px"/>
             : null}
         </Contianer>
     )

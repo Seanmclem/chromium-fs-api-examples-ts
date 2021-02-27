@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './FolderIcon.scss'
 import { MdKeyboardArrowRight } from "react-icons/md"
 

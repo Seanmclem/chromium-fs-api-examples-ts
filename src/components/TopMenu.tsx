@@ -4,7 +4,7 @@ import {
     Menu,
     MenuItem,
     MenuButton,
-    SubMenu
+    // SubMenu
 } from '@szhsin/react-menu';
 
 import '@szhsin/react-menu/dist/index.css';

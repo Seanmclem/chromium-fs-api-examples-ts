@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { BabelFileResult, NodePath, transform } from '@babel/core'
 import tsPlugin from "@babel/plugin-syntax-typescript"
 import generate from "@babel/generator"
-import template from '@babel/template'
+// import template from '@babel/template'
 import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 
@@ -175,7 +175,7 @@ const changeCodetoAST = (code: string) => {
 
 
 
-export const AstTools: React.FC<{}> = ({ }) => {
+export const AstTools: React.FC<{}> = () => {
     const history = useHistory();
     const gotoFormCreator = () => history.push('/form-creator')
 
