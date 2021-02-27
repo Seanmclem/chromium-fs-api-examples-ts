@@ -27,7 +27,8 @@ export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
         setAltRootHandle(handle)
     }
 
-    const goToAstTools = () => history.push('/ast-tools')
+    const gotoAstTools = () => history.push('/ast-tools')
+    const gotoFormCreator = () => history.push('/form-creator')
     
     return (
         <TopMenuContainer>
@@ -41,8 +42,11 @@ export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
             <Menu menuButton={
                 <MenuButton>Go To</MenuButton>
             }>
-                <MenuItem onClick={goToAstTools}>
+                <MenuItem onClick={gotoAstTools}>
                     AST Tools
+                </MenuItem>
+                <MenuItem onClick={gotoFormCreator}>
+                    Form Creator
                 </MenuItem>
             </Menu>
         </TopMenuContainer>

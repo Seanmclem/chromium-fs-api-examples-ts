@@ -8,6 +8,8 @@ import template from '@babel/template'
 import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 
+
+import { useHistory } from 'react-router-dom';
 import ReactJson from 'react-json-view'
 import { useToasts } from 'react-toast-notifications';
 
@@ -174,6 +176,9 @@ const changeCodetoAST = (code: string) => {
 
 
 export const AstTools: React.FC<{}> = ({ }) => {
+    const history = useHistory();
+    const gotoFormCreator = () => history.push('/form-creator')
+
     const codeBlock = originalFiles.hasJSXcomponent;
     const [finalCode, setFinalCode] = useState("");
 
@@ -190,6 +195,12 @@ export const AstTools: React.FC<{}> = ({ }) => {
                     {`Text -> AST -> Text`}
                 </button>
             </TopBar> */}
+            <TopBar>
+                <div>Links: </div>
+                <button onClick={gotoFormCreator}>
+                    Form Creator
+                </button>
+            </TopBar>
             <TopBar>
                 <div>Run: </div>
                 <button onClick={() => codeToAstToCode(originalFiles.blank, setFinalCode)}>

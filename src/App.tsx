@@ -16,6 +16,7 @@ import {
     Route,
   } from "react-router-dom";
 import { AstTools } from './pages/AstTools';
+import { FormCreator } from './pages/FormCreator';
 
 const App = () => {
     return (
@@ -27,6 +28,7 @@ const App = () => {
             >
                 <BrowserRouter>
                     <Switch>
+                        <Route exact path="/form-creator" component={FormCreator}/>
                         <Route exact path="/ast-tools" component={AstTools}/>
                         <Route exact path="/some-demo" component={ShowDirectoryPicker}/>
                         <Route exact path="/" component={FileExplorer}/>
