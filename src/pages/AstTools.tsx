@@ -26,9 +26,9 @@ const originalFiles = {
 } `
 }
 
-const ASTtoolsContainer = styled.div``
+export const ASTtoolsContainer = styled.div``
 
-const TopBar = styled.div`
+export const TopBar = styled.div`
     display: flex;  
     align-items: center;
     width: auto;
@@ -38,12 +38,12 @@ const TopBar = styled.div`
     padding: 10px;
 `
 
-const ColumnsContainer = styled.div`
+export const ColumnsContainer = styled.div`
     display: flex;
     flex-direction: row;
 `
 
-const Column = styled.div`
+export const Column = styled.div`
     width: 33%;
     border: 1px solid black;
     margin: 5px 10px;
@@ -52,7 +52,7 @@ const Column = styled.div`
     overflow-x: auto;
 `
 
-const Spacer = styled.div`
+export const Spacer = styled.div`
     height: 100%; 
     width: 20px;
 `
