@@ -45,11 +45,59 @@ const changeAstToCode = (newAST: any, babelFileResult: BabelFileResult | null) =
 const addImports = (path: NodePath<types.Program>) => {
     path.pushContainer('body', types.importDeclaration(
         [
-            types.importDefaultSpecifier(types.identifier("React"))
+            types.importDefaultSpecifier(types.identifier("React")),
+            types.importSpecifier(types.identifier("useState"), types.identifier("useState")),
         ],
         types.stringLiteral("react")
     ));
+
+    path.pushContainer('body', types.importDeclaration(
+        [
+            types.importSpecifier(types.identifier("TextInput"), types.identifier("TextInput")),
+        ],
+        types.stringLiteral("ready-fields")
+    ));
 }
+
+const addExport = (path: NodePath<types.Program>) => {
+    path.pushContainer('body', types.exportNamedDeclaration(
+        types.variableDeclaration("const", [
+            types.variableDeclarator(types.identifier("handleSubmit"),
+                types.arrowFunctionExpression([
+                    Object.assign(
+                        types.identifier("event"),
+                        {
+                            typeAnnotation: types.typeAnnotation(
+                                types.genericTypeAnnotation(
+                                    types.identifier("any")
+                                )
+                            ),
+                            // leadingComment: "//"
+                        }
+                    ),                   
+                ],
+                    types.blockStatement([
+                        types.returnStatement(
+                            types.jsxElement(
+                                types.jsxOpeningElement(
+                                    types.jsxIdentifier("div"),
+                                    []
+                                ),
+                                types.jsxClosingElement(
+                                    types.jsxIdentifier("div")
+                                ),
+                                [
+                                    types.jsxText("\n            AST test poop \n")
+                                ]
+                            )
+                        )
+                    ])
+                )
+            )
+        ])
+    ))
+};
+
 
 const transformAST = (babelFileResult: BabelFileResult | null, setBabelFileResult: any) => {
     if (!babelFileResult?.ast) {
@@ -60,7 +108,7 @@ const transformAST = (babelFileResult: BabelFileResult | null, setBabelFileResul
         traverse(ast, {
             Program(path) { // When the current node is the Program node
                 addImports(path)
-                // addExport(path)
+                addExport(path)
             }
         })
         setBabelFileResult(babelFileResult)
@@ -78,7 +126,7 @@ export const FormCreator: React.FC<{}> = () => {
 
     return (
         <ASTtoolsContainer>
-            <TopBar>
+            {/* <TopBar>
                 <button onClick={() => {
                     codeToAst("", setBabelFileResult)
                 }}>
@@ -86,7 +134,7 @@ export const FormCreator: React.FC<{}> = () => {
                 </button>
                 <Spacer />
                
-            </TopBar>
+            </TopBar> */}
             <TopBar>
                 <button onClick={() => {
                     codeToAst("", setBabelFileResult)
@@ -111,6 +159,53 @@ export const FormCreator: React.FC<{}> = () => {
             <ColumnsContainer>
                 <Column>
                     <FormCreatorInner />
+                    <div>
+{`----------------------------------------------
+import React, { useState } from "react";
+import { TextInput } from "ready-fields";
+
+
+const handleSubmit = (event: any) => {
+    event.preventDefault();
+    debugger;
+}
+export const FormCreatorInner: React.FC<{}> = () => {
+    const [firstName, setFirstName] = useState<string>("")
+    const [phone, setPhone] = useState<string>("")
+    const [email, setEmail] = useState<string>("")
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <TextInput
+                    name="first-name"
+                    label="First Name"
+                    text={firstName}
+                    setText={setFirstName}
+                />
+                <TextInput
+                    name="phone"
+                    label="Phone"
+                    text={phone}
+                    setText={setPhone}
+                    type="tel"
+                />
+                <TextInput
+                    name="email"
+                    label="Email"
+                    text={email}
+                    setText={setEmail}
+                    type="email"
+                />
+                <button
+                    type="submit"
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
+    )
+}`}
+                    </div>
                 </Column>
                 
                 <Column>
