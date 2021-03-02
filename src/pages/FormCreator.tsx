@@ -60,42 +60,49 @@ const addImports = (path: NodePath<types.Program>) => {
 }
 
 const addExport = (path: NodePath<types.Program>) => {
-    path.pushContainer('body', types.exportNamedDeclaration(
-        types.variableDeclaration("const", [
-            types.variableDeclarator(types.identifier("handleSubmit"),
-                types.arrowFunctionExpression([
-                    Object.assign(
-                        types.identifier("event"),
-                        {
-                            typeAnnotation: types.typeAnnotation(
-                                types.genericTypeAnnotation(
-                                    types.identifier("any")
+    const commentDebugger = types.debuggerStatement();
+        commentDebugger.leadingComments = [{
+            "type": "CommentLine",
+            "value": "  ",
+        } as any]
+
+    path.pushContainer('body',
+/// START Simple function declaration/body
+        [
+            types.variableDeclaration("const", [
+                types.variableDeclarator(types.identifier("handleSubmit"),
+                    types.arrowFunctionExpression(
+                        [
+                            Object.assign(
+                                types.identifier("event"),
+                                {
+                                    typeAnnotation: types.typeAnnotation(
+                                        types.genericTypeAnnotation(
+                                            types.identifier("any")
+                                        )
+                                    ),
+                                    // leadingComment: "//"
+                                }
+                            ),                   
+                        ],
+                        types.blockStatement([
+                            types.expressionStatement(
+                                types.callExpression(
+                                    types.memberExpression(
+                                        types.identifier("event"),
+                                        types.identifier("preventDefault")
+                                    ),
+                                    []
                                 )
                             ),
-                            // leadingComment: "//"
-                        }
-                    ),                   
-                ],
-                    types.blockStatement([
-                        types.returnStatement(
-                            types.jsxElement(
-                                types.jsxOpeningElement(
-                                    types.jsxIdentifier("div"),
-                                    []
-                                ),
-                                types.jsxClosingElement(
-                                    types.jsxIdentifier("div")
-                                ),
-                                [
-                                    types.jsxText("\n            AST test poop \n")
-                                ]
-                            )
-                        )
-                    ])
+                            commentDebugger
+                        ])
+                    )
                 )
-            )
-        ])
-    ))
+            ]),
+        ]
+/// END Simple function declaration/body
+    )
 };
 
 
