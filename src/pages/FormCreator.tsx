@@ -100,6 +100,35 @@ const addExport = (path: NodePath<types.Program>) => {
                     )
                 )
             ]),
+            types.exportNamedDeclaration(
+                types.variableDeclaration("const", [
+                    types.variableDeclarator( // typeAnnotation on identifier -> https://github.com/babel/babel/issues/12895
+                        Object.assign(
+                            types.identifier("FormCreatorInner"),
+                            {
+                                typeAnnotation: types.typeAnnotation(
+                                    types.genericTypeAnnotation(
+                                        types.qualifiedTypeIdentifier(
+                                            types.identifier("FC"),
+                                            types.identifier("React")
+                                        ),
+                                        types.typeParameterInstantiation([
+                                            types.objectTypeAnnotation([])
+                                        ])
+                                    )
+                                )
+                            }
+                        ),
+                        types.arrowFunctionExpression([
+                            // types.objectPattern([])
+                        ],
+                            types.blockStatement([
+                                
+                            ])
+                        )
+                    )
+                ])
+            )
         ]
 /// END Simple function declaration/body
     )
