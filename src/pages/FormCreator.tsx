@@ -9,6 +9,7 @@ import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 import ReactJson from "react-json-view"
 import { ASTtoolsContainer, TopBar, Spacer, ColumnsContainer, Column } from "./AstTools"
+import * as importFunctions from "../functions/imports_functions"
 //
 
 const changeCodetoAST = (code: string) => {
@@ -122,8 +123,26 @@ const addExport = (path: NodePath<types.Program>) => {
                         types.arrowFunctionExpression([
                             // types.objectPattern([])
                         ],
+                            //this, BODY, is just an array of the function statements...
                             types.blockStatement([
-                                
+                                types.variableDeclaration("const", [
+                                        types.variableDeclarator(
+                                            types.arrayPattern([
+                                                types.identifier("firstName"),
+                                                types.identifier("setFirstName")
+                                            ]),
+                                            types.binaryExpression(
+                                                ">",
+                                                types.binaryExpression(
+                                                    "<",
+                                                    types.identifier("useState"),
+                                                    types.identifier("string")
+                                                ),
+                                                types.parenthesizedExpression(types.stringLiteral(""))
+                                            )
+                                        )
+                                    ]
+                                )
                             ])
                         )
                     )
