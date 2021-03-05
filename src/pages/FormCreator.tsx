@@ -9,7 +9,7 @@ import traverse from "@babel/traverse";
 import * as types from "@babel/types";
 import ReactJson from "react-json-view"
 import { ASTtoolsContainer, TopBar, Spacer, ColumnsContainer, Column } from "./AstTools"
-import * as importFunctions from "../functions/imports_functions"
+import * as astFunctions from "../functions/ast_functions"
 //
 
 const changeCodetoAST = (code: string) => {
@@ -67,90 +67,100 @@ const addExport = (path: NodePath<types.Program>) => {
             "value": "  ",
         } as any]
 
-    path.pushContainer('body',
-/// START Simple function declaration/body
+    const useStateTypeCallExpression = types.callExpression(
+        types.identifier("useState"),
         [
-            types.variableDeclaration("const", [
-                types.variableDeclarator(types.identifier("handleSubmit"),
-                    types.arrowFunctionExpression(
-                        [
-                            Object.assign(
-                                types.identifier("event"),
-                                {
-                                    typeAnnotation: types.typeAnnotation(
-                                        types.genericTypeAnnotation(
-                                            types.identifier("any")
-                                        )
-                                    ),
-                                    // leadingComment: "//"
-                                }
-                            ),                   
-                        ],
-                        types.blockStatement([
-                            types.expressionStatement(
-                                types.callExpression(
-                                    types.memberExpression(
-                                        types.identifier("event"),
-                                        types.identifier("preventDefault")
-                                    ),
-                                    []
-                                )
-                            ),
-                            commentDebugger
-                        ])
-                    )
-                )
-            ]),
-            types.exportNamedDeclaration(
-                types.variableDeclaration("const", [
-                    types.variableDeclarator( // typeAnnotation on identifier -> https://github.com/babel/babel/issues/12895
-                        Object.assign(
-                            types.identifier("FormCreatorInner"),
-                            {
-                                typeAnnotation: types.typeAnnotation(
-                                    types.genericTypeAnnotation(
-                                        types.qualifiedTypeIdentifier(
-                                            types.identifier("FC"),
-                                            types.identifier("React")
-                                        ),
-                                        types.typeParameterInstantiation([
-                                            types.objectTypeAnnotation([])
-                                        ])
-                                    )
-                                )
-                            }
-                        ),
-                        types.arrowFunctionExpression([
-                            // types.objectPattern([])
-                        ],
-                            //this, BODY, is just an array of the function statements...
-                            types.blockStatement([
-                                types.variableDeclaration("const", [
-                                        types.variableDeclarator(
-                                            types.arrayPattern([
-                                                types.identifier("firstName"),
-                                                types.identifier("setFirstName")
-                                            ]),
-                                            types.binaryExpression(
-                                                ">",
-                                                types.binaryExpression(
-                                                    "<",
-                                                    types.identifier("useState"),
-                                                    types.identifier("string")
-                                                ),
-                                                types.parenthesizedExpression(types.stringLiteral(""))
-                                            )
-                                        )
-                                    ]
-                                )
-                            ])
-                        )
-                    )
-                ])
-            )
+            types.stringLiteral("")
         ]
-/// END Simple function declaration/body
     )
+    useStateTypeCallExpression.typeParameters = types.tsTypeParameterInstantiation([
+        types.tsStringKeyword()
+    ])
+
+    path.pushContainer(
+      "body",
+      /// START Simple function declaration/body
+      [
+        types.variableDeclaration("const", [
+          types.variableDeclarator(
+            types.identifier("handleSubmit"),
+            types.arrowFunctionExpression(
+              [
+                Object.assign(types.identifier("event"), {
+                  typeAnnotation: types.typeAnnotation(
+                    types.genericTypeAnnotation(types.identifier("any"))
+                  ),
+                  // leadingComment: "//"
+                }),
+              ],
+              types.blockStatement([
+                types.expressionStatement(
+                  types.callExpression(
+                    types.memberExpression(
+                      types.identifier("event"),
+                      types.identifier("preventDefault")
+                    ),
+                    []
+                  )
+                ),
+                commentDebugger,
+              ])
+            )
+          ),
+        ]),
+        types.exportNamedDeclaration(
+          types.variableDeclaration("const", [
+            types.variableDeclarator(
+              // typeAnnotation on identifier -> https://github.com/babel/babel/issues/12895
+              Object.assign(types.identifier("FormCreatorInner"), {
+                typeAnnotation: types.typeAnnotation(
+                  types.genericTypeAnnotation(
+                    types.qualifiedTypeIdentifier(
+                      types.identifier("FC"),
+                      types.identifier("React")
+                    ),
+                    types.typeParameterInstantiation([
+                      types.objectTypeAnnotation([]),
+                    ])
+                  )
+                ),
+              }),
+              types.arrowFunctionExpression(
+                [
+                  // types.objectPattern([])
+                ],
+                // blockStatement body, is just an array of the function statements...
+                types.blockStatement([
+                  astFunctions.createStringUseState({
+                    valueName: "firstName",
+                    setValue: "setFirstName",
+                    initialValue: "",
+                  }),
+                  astFunctions.createStringUseState({
+                    valueName: "phone",
+                    setValue: "setPhone",
+                    initialValue: "",
+                  }),
+                  astFunctions.createStringUseState({
+                    valueName: "email",
+                    setValue: "setEmail",
+                    initialValue: "",
+                  }),
+                  types.returnStatement(
+                    types.jsxElement(
+                      types.jsxOpeningElement(types.jsxIdentifier("div"), []),
+                      types.jsxClosingElement(types.jsxIdentifier("div")),
+                      [types.jsxText("\n            AST test poop \n")]
+                    )
+                  ),
+                ])
+              )
+            ),
+          ])
+        ),
+      ]
+      /// END Simple function declaration/body
+    );
 };
 
 
@@ -174,49 +184,8 @@ const codeToAst = (code: string = "", setBabelFileResult?: any) => {
     const babelFileResult = changeCodetoAST(code)
     setBabelFileResult(babelFileResult)
 }
-export const FormCreator: React.FC<{}> = () => {
-    const [babelFileResult, setBabelFileResult] = useState<any>()
-    const [astResult, setAstResult] = useState<any>()
-    const [finalCode, setFinalCode] = useState("");
 
-    return (
-        <ASTtoolsContainer>
-            {/* <TopBar>
-                <button onClick={() => {
-                    codeToAst("", setBabelFileResult)
-                }}>
-                    {`Code To Blank AST`}
-                </button>
-                <Spacer />
-               
-            </TopBar> */}
-            <TopBar>
-                <button onClick={() => {
-                    codeToAst("", setBabelFileResult)
-                }}>
-                    {`Code To Blank AST`}
-                </button>
-                <Spacer />
-                <button onClick={() => {
-                    const ast = transformAST(babelFileResult, setBabelFileResult)
-                    setAstResult(ast)
-                }}>
-                    {`Add Body to AST`}
-                </button>
-                <Spacer />
-                <button onClick={() => {
-                    const finalCode = changeAstToCode(astResult, babelFileResult)
-                    setFinalCode(finalCode?.code || '')
-                }}>
-                    {`AST back to Code`}
-                </button>
-            </TopBar>
-            <ColumnsContainer>
-                <Column>
-                    <FormCreatorInner />
-                    <div>
-{`----------------------------------------------
-import React, { useState } from "react";
+const theString = `import React, { useState } from "react";
 import { TextInput } from "ready-fields";
 
 
@@ -259,7 +228,50 @@ export const FormCreatorInner: React.FC<{}> = () => {
             </form>
         </div>
     )
-}`}
+}`
+export const FormCreator: React.FC<{}> = () => {
+    const [babelFileResult, setBabelFileResult] = useState<any>()
+    const [astResult, setAstResult] = useState<any>()
+    const [finalCode, setFinalCode] = useState("");
+
+    return (
+        <ASTtoolsContainer>
+            <TopBar>
+                <button onClick={() => {
+                    codeToAst(theString, setBabelFileResult)
+                }}>
+                    {`Code To full AST`}
+                </button>
+                <Spacer />
+            </TopBar>
+
+            <TopBar>
+                <button onClick={() => {
+                    codeToAst("", setBabelFileResult)
+                }}>
+                    {`Code To blank AST`}
+                </button>
+                <Spacer />
+                <button onClick={() => {
+                    const ast = transformAST(babelFileResult, setBabelFileResult)
+                    setAstResult(ast)
+                }}>
+                    {`Add Body to AST`}
+                </button>
+                <Spacer />
+                <button onClick={() => {
+                    const finalCode = changeAstToCode(astResult, babelFileResult)
+                    setFinalCode(finalCode?.code || '')
+                }}>
+                    {`AST back to Code`}
+                </button>
+            </TopBar>
+            <ColumnsContainer>
+                <Column>
+                    <FormCreatorInner />
+                    <div>
+{`----------------------------------------------
+${theString}`}
                     </div>
                 </Column>
                 
