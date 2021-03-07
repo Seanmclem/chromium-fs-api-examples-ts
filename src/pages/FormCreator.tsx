@@ -158,6 +158,18 @@ const addExport = (path: NodePath<types.Program>) => {
                                 types.jsxAttribute(
                                     types.jsxIdentifier("name"),
                                     types.stringLiteral("first-name")
+                                ),
+                                types.jsxAttribute(
+                                    types.jsxIdentifier("label"),
+                                    types.stringLiteral("First Name")
+                                ),
+                                types.jsxAttribute(
+                                    types.jsxIdentifier("text"),
+                                    types.jsxExpressionContainer(types.identifier("firstName"))
+                                ),
+                                types.jsxAttribute(
+                                    types.jsxIdentifier("setText"),
+                                    types.jsxExpressionContainer(types.identifier("setFirstName"))
                                 )
                             ]
                           ),
