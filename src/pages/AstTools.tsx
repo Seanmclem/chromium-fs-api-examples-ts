@@ -48,7 +48,7 @@ export const Column = styled.div`
     border: 1px solid black;
     margin: 5px 10px;
     padding: 10px;
-    white-space: pre;
+    white-space: pre-wrap;
     overflow-x: auto;
 `
 
