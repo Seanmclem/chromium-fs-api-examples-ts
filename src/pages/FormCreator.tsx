@@ -151,96 +151,123 @@ const addExport = (path: NodePath<types.Program>) => {
                       types.jsxOpeningElement(types.jsxIdentifier("div"), []),
                       types.jsxClosingElement(types.jsxIdentifier("div")),
                       [
-                        types.jsxElement(
-                          types.jsxOpeningElement(
-                            types.jsxIdentifier("TextInput"),
-                            [
-                              types.jsxAttribute(
-                                types.jsxIdentifier("name"),
-                                types.stringLiteral("first-name")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("label"),
-                                types.stringLiteral("First Name")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("text"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("firstName")
-                                )
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("setText"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("setFirstName")
-                                )
-                              ),
-                            ]
-                          ),
-                          null,
-                          []
-                        ),
+                        types.jsxText("\n \n"),
 
                         types.jsxElement(
-                          types.jsxOpeningElement(
-                            types.jsxIdentifier("TextInput"),
+                            types.jsxOpeningElement(
+                                types.jsxIdentifier("form"),
+                                [
+                                    types.jsxAttribute(
+                                        types.jsxIdentifier("onSubmit"),
+                                        types.jsxExpressionContainer(
+                                            types.identifier("handleSubmit")
+                                        )                                    ),
+                                ]
+                            ),
+                            types.jsxClosingElement(
+                                types.jsxIdentifier("form")
+                            ),
                             [
-                              types.jsxAttribute(
-                                types.jsxIdentifier("name"),
-                                types.stringLiteral("phone")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("label"),
-                                types.stringLiteral("Phone")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("text"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("phone")
-                                )
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("setText"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("setPhone")
-                                )
-                              ),
-                            ]
-                          ),
-                          null,
-                          []
-                        ),
 
-                        types.jsxElement(
-                          types.jsxOpeningElement(
-                            types.jsxIdentifier("TextInput"),
-                            [
-                              types.jsxAttribute(
-                                types.jsxIdentifier("name"),
-                                types.stringLiteral("email")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("label"),
-                                types.stringLiteral("Email")
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("text"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("email")
-                                )
-                              ),
-                              types.jsxAttribute(
-                                types.jsxIdentifier("setText"),
-                                types.jsxExpressionContainer(
-                                  types.identifier("setEmail")
-                                )
-                              ),
+                                types.jsxText("\n \n"),
+
+                                types.jsxElement(
+                                  types.jsxOpeningElement(
+                                    types.jsxIdentifier("TextInput"),
+                                    [
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("name"),
+                                        types.stringLiteral("first-name")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("label"),
+                                        types.stringLiteral("First Name")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("text"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("firstName")
+                                        )
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("setText"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("setFirstName")
+                                        )
+                                      ),
+                                    ]
+                                  ),
+                                  null,
+                                  []
+                                ),
+                                types.jsxText("\n \n"),
+        
+                                types.jsxElement(
+                                  types.jsxOpeningElement(
+                                    types.jsxIdentifier("TextInput"),
+                                    [
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("name"),
+                                        types.stringLiteral("phone")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("label"),
+                                        types.stringLiteral("Phone")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("text"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("phone")
+                                        )
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("setText"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("setPhone")
+                                        )
+                                      ),
+                                    ]
+                                  ),
+                                  null,
+                                  []
+                                ),
+                                types.jsxText("\n \n"),
+        
+                                types.jsxElement(
+                                  types.jsxOpeningElement(
+                                    types.jsxIdentifier("TextInput"),
+                                    [
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("name"),
+                                        types.stringLiteral("email")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("label"),
+                                        types.stringLiteral("Email")
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("text"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("email")
+                                        )
+                                      ),
+                                      types.jsxAttribute(
+                                        types.jsxIdentifier("setText"),
+                                        types.jsxExpressionContainer(
+                                          types.identifier("setEmail")
+                                        )
+                                      ),
+                                    ]
+                                  ),
+                                  null,
+                                  []
+                                ),
+                                types.jsxText("\n \n"),
+        
                             ]
-                          ),
-                          null,
-                          []
                         ),
                         
+                        types.jsxText("\n \n"),
                       ]
                     )
                   ),
