@@ -264,6 +264,26 @@ const addExport = (path: NodePath<types.Program>) => {
                                 ),
                                 types.jsxText("\n \n"),
         
+                                types.jsxElement(
+                                    types.jsxOpeningElement(
+                                      types.jsxIdentifier("button"),
+                                      [
+                                        types.jsxAttribute(
+                                            types.jsxIdentifier("type"),
+                                            types.stringLiteral("ssubmit")
+                                          ),
+                                      ]
+                                    ),
+                                    types.jsxClosingElement(
+                                        types.jsxIdentifier("button")
+                                    ),
+                                    [
+                                        types.jsxText("\n           Submit\n"),
+                                    ]
+                                ),
+
+                                types.jsxText("\n \n"),
+
                             ]
                         ),
                         
