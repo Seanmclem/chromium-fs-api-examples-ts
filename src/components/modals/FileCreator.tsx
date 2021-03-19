@@ -38,7 +38,7 @@ export const FileCreator: React.FC<props> = ({
                 name="file-name"
                 text={fileNameText}
                 setText={setfileNameText}
-                onPressEnter={handleCreateFile}
+                onPressEnter={handleCreateFile} // this? here
                 stealFocus
             />
             <SubmitButton

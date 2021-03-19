@@ -408,17 +408,19 @@ export const FormCreator: React.FC<{}> = () => {
                 <Column>
                     <FormCreatorInner />
                     <div>
-{`----------------------------------------------
-${theString}`}
+                      {`----------------------------------------------
+                      ${theString}`}
                     </div>
                 </Column>
                 
                 <Column>
-                    {babelFileResult?.ast && <ReactJson
+                    {babelFileResult?.ast && 
+                      <ReactJson
                         src={babelFileResult.ast}
                         collapsed
                         enableClipboard={false}
-                    />}
+                      />
+                    }
                 </Column>
                 <Column>
                     {finalCode}

@@ -6,6 +6,7 @@ import { useContextMenu } from 'react-contexify'
 import { FOLDER_MENU_ID } from '../../enums'
 
 import { HighlightedService } from '../../../../services/HighlightedService'
+import { useForceUpdate } from '../../../../hooks/useForceUpdate'
 
 
 interface Props {
@@ -18,39 +19,39 @@ export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectF
     const [open, setOpen] = useState(false)
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
+    const forceUpdate = useForceUpdate()
 
     const [specificPath] = useState(`${dirPath}/${folderHandle.name}`)
     const depth = (dirPath?.split("/").length || 0) - 1 || 0;  
 
     const { show: showContextMenu } = useContextMenu({ id: FOLDER_MENU_ID });
 
-    useEffect(()=>console.log('rerender'))
-    const unsubscribe = useCallback(() => {
-        if(subscription){
-            subscription.unsubscribe()
+    useEffect(()=>{
+        return () => {
+            subscription?.unsubscribe?.()
             setSubscription(undefined)
         }
-    }, [subscription])
-    useEffect(() => {
-        return unsubscribe()
-    }, [unsubscribe])
+    }, [])
+
 
     const subscribeHighlightFolder = () => {
         const sub = HighlightedService.getItem().subscribe((folder) => {
             if (folder?.path === specificPath) {
                 setIsHighlighted(true)
+                setSubscription(sub)
             } else {
                 setIsHighlighted(false)
-                unsubscribe()
+                sub.unsubscribe()
+                setSubscription(undefined)
             }
         });
-        setSubscription(sub)
     }
 
     const handleRigthClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        showContextMenu(event, {id: FOLDER_MENU_ID, props: {folderHandle}})
+        showContextMenu(event, {id: FOLDER_MENU_ID, props: {folderHandle, forceUpdate}})
         subscribeHighlightFolder()
         HighlightedService.setItem({path: specificPath, handle: folderHandle})
+        // need to also set global zustand thing here for force re-render?
     }
 
     return (

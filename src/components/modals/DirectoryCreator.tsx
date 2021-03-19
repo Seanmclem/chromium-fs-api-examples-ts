@@ -9,13 +9,14 @@ import { SubmitButton } from '../SubmitButton';
 
 interface props {
     directoryHandle: FileSystemDirectoryHandle,
-    setCreateDirectoryModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setCreateDirectoryModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const DirectoryCreator: React.FC<props> = ({
     directoryHandle,
-    setCreateDirectoryModalOpen
-}) => { 
+    setCreateDirectoryModalOpen,
+}) => {
+    debugger;
     const [directoryName, setDirectoryName] = useState("")
 
     const cleanup = () => {

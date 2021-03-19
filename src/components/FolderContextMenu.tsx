@@ -20,13 +20,16 @@ enum Actions {
 
 export const FolderContextMenu = () => {
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
+
     const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
     const [ createDirectoryModalOpen, setCreateDirectoryModalOpen ] = useState<boolean>(false)
 
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
-        const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from ItemMenu.tsx
-        
+        const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from FolderItem.tsx
+        const forceReRenderParent: () => void = props?.forceUpdate; // passed from FolderItem.tsx
+        // ^ set in zustand
+
         setDirectoryHandle(folderHandle)
 
         if(action === Actions.NewFolder) {
@@ -39,6 +42,7 @@ export const FolderContextMenu = () => {
 
     const onCloseMenu = () => {
         HighlightedService.clearItem()
+        // ^ unset forceReRenderParent in zustand
     }
 
     const onCloseModal = () => {

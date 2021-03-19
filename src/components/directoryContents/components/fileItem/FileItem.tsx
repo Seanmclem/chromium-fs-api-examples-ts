@@ -16,28 +16,26 @@ export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile,
 
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
-    const unsubscribe = useCallback(() => {
-        if(subscription){
-            subscription.unsubscribe()
+
+    
+    useEffect(()=>{
+        return () => {
+            subscription?.unsubscribe?.()
             setSubscription(undefined)
         }
-    }, [subscription])
-    useEffect(() => {
-        return unsubscribe()
-    }, [unsubscribe])
-
-
+    }, [])
 
     const subscribeHighlightFolder = () => {
         const sub = HighlightedService.getItem().subscribe((folder) => {
             if (folder?.path === specificPath) {
                 setIsHighlighted(true)
+                setSubscription(sub)
             } else {
                 setIsHighlighted(false)
-                unsubscribe()
+                sub.unsubscribe()
+                setSubscription(undefined)
             }
         });
-        setSubscription(sub)
     }
 
     const depth = (dirPath?.split("/").length || 0) - 1 || 0;  
