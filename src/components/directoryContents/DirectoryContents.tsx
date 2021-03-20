@@ -5,6 +5,8 @@ import { EntryType, getDirectoryContents } from '../../utils/file-system-utils'
 import { HideDrawerBtn } from './components/HideDrawerBtn'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { ActionsBar } from './components/ActionsBar'
+import { FolderContextMenu } from '../FolderContextMenu'
+import { FileContextMenu } from '../FileContextMenu'
 
 interface Props {
     handleSelectFile? : any;
@@ -29,6 +31,12 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
         const contents = await getDirectoryContents(handle)
         setRootHandle(handle)
         setDirectoryContents(contents)
+    }
+
+    const refreshFileSystem = () => {
+        if(rootHandle) {
+            setupFileSystem(rootHandle)
+        }
     }
 
     if (!rootHandle || !directoryContents) {
@@ -65,7 +73,7 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                     )}
                     <div className="main-folder-list">
                         <div className="folder-name">'{rootHandle.name}' Contents:</div>
-                        <ActionsBar rootHandle={rootHandle} setupFileSystem={setupFileSystem} />
+                        <ActionsBar refreshFileSystem={refreshFileSystem} />
                         {directoryContents.map(entry => (
                             <FileOrFolderList
                                 key={entry[0]}
@@ -75,7 +83,12 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                             />
                         ))}
                     </div>
-                </div>            
+                </div> 
+
+                <FolderContextMenu
+                    refreshFileSystem={refreshFileSystem}
+                />
+                <FileContextMenu />
             </>
 
         ) : (

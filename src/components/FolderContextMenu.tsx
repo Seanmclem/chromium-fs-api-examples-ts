@@ -16,9 +16,13 @@ import { HighlightedService } from '../services/HighlightedService';
 enum Actions {
     NewFolder = "new-folder",
     NewFile = "new-file",
-} 
+}
 
-export const FolderContextMenu = () => {
+interface props {
+    refreshFileSystem: () => void,
+}
+
+export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
 
     const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
@@ -76,6 +80,7 @@ export const FolderContextMenu = () => {
                     <DirectoryCreator 
                         directoryHandle={directoryHandle}
                         setCreateDirectoryModalOpen={setCreateDirectoryModalOpen}
+                        refreshFileSystem={refreshFileSystem}
                     />
                 </ModalReady>
             )}

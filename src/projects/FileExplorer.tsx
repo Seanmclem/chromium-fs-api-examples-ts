@@ -3,8 +3,6 @@ import { DirectoryContents } from "../components/directoryContents/DirectoryCont
 import styled from "styled-components"
 import { FileViewerByType } from "../components/FileViewerByType"
 import { TopMenu } from "../components/TopMenu"
-import { FolderContextMenu } from "../components/FolderContextMenu"
-import { FileContextMenu } from "../components/FileContextMenu"
 
 const FileExplorerContainer = styled.div`
     height: 100vh;
@@ -27,18 +25,16 @@ export const FileExplorer: React.FC<{}> = () => {
 
     return (
         <FileExplorerContainer>
-                <TopMenu setAltRootHandle={setAltRootHandle} />
-                <InnerStuffContainer>
-                    <DirectoryContents
-                        handleSelectFile={handleSelectFileCustom}
-                        altRootHandle={altRootHandle}
-                    /> 
-                    <FileViewerByType
-                        fileHandle={selectedFile as FileSystemFileHandle}
-                    />
-                </InnerStuffContainer>
-            <FolderContextMenu />
-            <FileContextMenu />
+            <TopMenu setAltRootHandle={setAltRootHandle} />
+            <InnerStuffContainer>
+                <DirectoryContents
+                    handleSelectFile={handleSelectFileCustom}
+                    altRootHandle={altRootHandle}
+                /> 
+                <FileViewerByType
+                    fileHandle={selectedFile as FileSystemFileHandle}
+                />
+            </InnerStuffContainer>
         </FileExplorerContainer>
     )
 }

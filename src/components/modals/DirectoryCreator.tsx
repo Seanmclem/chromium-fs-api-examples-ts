@@ -10,23 +10,25 @@ import { SubmitButton } from '../SubmitButton';
 interface props {
     directoryHandle: FileSystemDirectoryHandle,
     setCreateDirectoryModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    refreshFileSystem: () => void,
 }
 
 export const DirectoryCreator: React.FC<props> = ({
     directoryHandle,
     setCreateDirectoryModalOpen,
+    refreshFileSystem
 }) => {
-    debugger;
     const [directoryName, setDirectoryName] = useState("")
 
     const cleanup = () => {
         setCreateDirectoryModalOpen(false)
     }
 
-    const handleCreateDirectory = () => {
+    const handleCreateDirectory = async () => {
         if (directoryName){
-            createDirectory(directoryHandle, directoryName)
-            cleanup()    
+            await createDirectory(directoryHandle, directoryName)
+            await refreshFileSystem() //TODO: type as promise
+            cleanup()
         }
     }
 

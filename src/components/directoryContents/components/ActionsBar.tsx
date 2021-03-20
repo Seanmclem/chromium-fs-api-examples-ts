@@ -13,10 +13,10 @@ const ActionsBarContainer = styled.div`
     padding: 0 10px;
 `
 
-export const ActionsBar = ({rootHandle, setupFileSystem}:any) => {
+export const ActionsBar = ({refreshFileSystem}:any) => {
 
     const handleRefreshRoot = () => {
-        setupFileSystem(rootHandle)
+        refreshFileSystem()
     }
 
     return (
