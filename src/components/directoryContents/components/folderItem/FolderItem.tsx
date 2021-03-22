@@ -12,10 +12,11 @@ import { useForceUpdate } from '../../../../hooks/useForceUpdate'
 interface Props {
     entry: FileSystemDirectoryHandle,
     handleSelectFile?: any,
-    dirPath?: string
+    dirPath?: string,
+    parentHandle: FileSystemDirectoryHandle
 }
 
-export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectFile, dirPath }) => {
+export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectFile, dirPath, parentHandle }) => {
     const [open, setOpen] = useState(false)
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
@@ -48,7 +49,7 @@ export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectF
     }
 
     const handleRigthClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        showContextMenu(event, {id: FOLDER_MENU_ID, props: {folderHandle, forceUpdate}})
+        showContextMenu(event, {id: FOLDER_MENU_ID, props: {folderHandle, parentHandle}})
         subscribeHighlightFolder()
         HighlightedService.setItem({path: specificPath, handle: folderHandle})
         // need to also set global zustand thing here for force re-render?

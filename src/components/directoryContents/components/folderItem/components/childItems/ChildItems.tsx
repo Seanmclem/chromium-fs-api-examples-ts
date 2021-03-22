@@ -33,6 +33,7 @@ export const ChildItems: React.FC<Props> = ({ parent, show, handleSelectFile, di
                         key={entry[0]}
                         entry={entry[1]}
                         handleSelectFile={handleSelectFile}
+                        parentHandle={parent}
                     />
                 ))}
             </ChildItemsContainer>

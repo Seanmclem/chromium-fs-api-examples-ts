@@ -8,16 +8,16 @@ import { HighlightedService } from '../../../../services/HighlightedService'
 interface Props {
     entry:FileSystemFileHandle, 
     handleSelectFile?: any,
-    dirPath?: string
+    dirPath?: string,
+    parentHandle: FileSystemDirectoryHandle
 }
 
-export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile, dirPath }) => {
+export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile, dirPath, parentHandle }) => {
     const [specificPath] = useState(`${dirPath}/${fileHandle.name}`)
 
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
 
-    
     useEffect(()=>{
         return () => {
             subscription?.unsubscribe?.()
@@ -42,7 +42,7 @@ export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile,
 
     const { show: showContextMenu } = useContextMenu({ id: FILE_MENU_ID });
     const handleRigthClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        showContextMenu(event, {id: FILE_MENU_ID, props: {fileHandle}})
+        showContextMenu(event, {id: FILE_MENU_ID, props: {fileHandle, parentHandle}})
         subscribeHighlightFolder()
         HighlightedService.setItem({path: specificPath, handle: fileHandle})
     }

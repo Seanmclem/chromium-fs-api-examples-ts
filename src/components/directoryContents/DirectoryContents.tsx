@@ -80,6 +80,7 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                                 entry={entry[1]}
                                 handleSelectFile={handleSelectFile}
                                 dirPath={rootHandle.name}
+                                parentHandle={rootHandle}
                             />
                         ))}
                     </div>
@@ -88,7 +89,9 @@ export const DirectoryContents: React.FC<Props> = ({ handleSelectFile, altRootHa
                 <FolderContextMenu
                     refreshFileSystem={refreshFileSystem}
                 />
-                <FileContextMenu />
+                <FileContextMenu
+                    refreshFileSystem={refreshFileSystem}
+                />
             </>
 
         ) : (
