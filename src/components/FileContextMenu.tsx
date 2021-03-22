@@ -35,9 +35,9 @@ export const FileContextMenu = () => {
     return (
         <>
             <Menu id={FILE_MENU_ID} onHidden={onCloseMenu}>
-                <Item onClick={(obj) => handleItemClick({...obj, action: Actions.EditAstTest})}>
+                {/* <Item onClick={(obj) => handleItemClick({...obj, action: Actions.EditAstTest})}>
                     Edit AST test
-                </Item>
+                </Item> */}
                 <Item onClick={(obj) => handleItemClick({...obj, action: Actions.Properties})}>
                     Properties
                 </Item>

@@ -64,7 +64,7 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
                 <Item onClick={(obj) => handleItemClick({...obj, action: Actions.NewFile})}>
                     New File
                 </Item>
-                <Separator />
+                {/* <Separator />
                 <Item disabled>Disabled</Item>
                 <Separator />
                 <Submenu label="Submenu">
@@ -72,7 +72,7 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
                     Sub Item 1
                 </Item>
                 <Item onClick={handleItemClick}>Sub Item 2</Item>
-                </Submenu>
+                </Submenu> */}
             </Menu>
             
             { (createDirectoryModalOpen && directoryHandle) && (
