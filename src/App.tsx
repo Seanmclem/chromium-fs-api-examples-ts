@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 import { ToastProvider } from 'react-toast-notifications';
@@ -19,13 +19,22 @@ import { AstTools } from './pages/AstTools';
 import { FormCreator } from './pages/FormCreator';
 
 const App = () => {
+    useEffect(() => {
+        if('showOpenFilePicker' in window === false) {
+            alert(`Unsupported Browser:
+Most tools on this site will require the new "File System Access API".
+This API curently has only limited support in Chromium browsers.
+It should work in the latest non-mobile versions of Chrome, Edge, and Opera, but nothing else. Other browsers will not work.
+More info: https://caniuse.com/native-filesystem-api `)
+        }
+    }, [])
     return (
         <div className="app">
-              <ToastProvider
-                autoDismiss
-                autoDismissTimeout={2750}
-                placement="top-right"
-            >
+                <ToastProvider
+                    autoDismiss
+                    autoDismissTimeout={2750}
+                    placement="top-right"
+                >
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/form-creator" component={FormCreator}/>
