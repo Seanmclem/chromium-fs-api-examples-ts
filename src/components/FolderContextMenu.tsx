@@ -31,8 +31,6 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
         const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from FolderItem.tsx
-        const forceReRenderParent: () => void = props?.forceUpdate; // passed from FolderItem.tsx
-        // ^ set in zustand
 
         setDirectoryHandle(folderHandle)
 
@@ -46,7 +44,6 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
 
     const onCloseMenu = () => {
         HighlightedService.clearItem()
-        // ^ unset forceReRenderParent in zustand
     }
 
     const onCloseModal = () => {
