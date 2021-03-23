@@ -20,7 +20,6 @@ export const FolderItem: React.FC<Props> = ({ entry: folderHandle, handleSelectF
     const [open, setOpen] = useState(false)
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
-    const forceUpdate = useForceUpdate()
 
     const [specificPath] = useState(`${dirPath}/${folderHandle.name}`)
     const depth = (dirPath?.split("/").length || 0) - 1 || 0;  
