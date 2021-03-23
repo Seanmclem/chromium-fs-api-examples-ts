@@ -39,7 +39,8 @@ export const FileContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
         }
     }
 
-    const deleteFile = async ({parentDirecoryHandle, fileHandle}: any) => {
+    const deleteFile = async ({parentDirecoryHandle, fileHandle}:
+        {parentDirecoryHandle: FileSystemDirectoryHandle, fileHandle: FileSystemFileHandle}) => {
         try {
             await parentDirecoryHandle.removeEntry(fileHandle.name)
             refreshFileSystem()
