@@ -12,10 +12,12 @@ import { ModalReady } from './ModalReady';
 import { DirectoryCreator } from './modals/DirectoryCreator';
 import { FileCreator } from './modals/FileCreator';
 import { HighlightedService } from '../services/HighlightedService';
+import { useToasts } from 'react-toast-notifications';
 
 enum Actions {
     NewFolder = "new-folder",
     NewFile = "new-file",
+    DeleteFolder = "delete-folder"
 }
 
 interface props {
@@ -23,6 +25,7 @@ interface props {
 }
 
 export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
+    const { addToast } = useToasts();
     const [ directoryHandle, setDirectoryHandle ] = useState<FileSystemDirectoryHandle | undefined>(undefined)
 
     const [ createFileModalOpen, setCreateFileModalOpen ] = useState<boolean>(false)
@@ -31,6 +34,7 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
     const handleItemClick = ({ event, props, triggerEvent, data, action } : any) => {
         console.log({event, props, triggerEvent, data, action} );
         const folderHandle: FileSystemDirectoryHandle = props?.folderHandle; // passed from FolderItem.tsx
+        const parentDirecoryHandle: FileSystemDirectoryHandle = props?.parentHandle;
 
         setDirectoryHandle(folderHandle)
 
@@ -39,6 +43,23 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
         }
         else if(action === Actions.NewFile) {
             setCreateFileModalOpen(true)
+        }
+        else if(action === Actions.DeleteFolder) {
+            deleteDirectory({parentDirecoryHandle, folderHandle})
+        }
+    }
+
+    const deleteDirectory = async ({parentDirecoryHandle, folderHandle}:
+        {parentDirecoryHandle: FileSystemDirectoryHandle, folderHandle: FileSystemDirectoryHandle}) => {
+        try {
+            await parentDirecoryHandle.requestPermission({ mode : "readwrite" })
+            await folderHandle.requestPermission({ mode : "readwrite" })
+            await parentDirecoryHandle.removeEntry(folderHandle.name, { recursive: true })
+            refreshFileSystem()
+            addToast("Deleted directory", { appearance: "success" })
+        } catch(error) {
+            console.error('Failed to delete directory', error)
+            addToast("Failed to delete directory", { appearance: "error" })
         }
     }
 
@@ -60,6 +81,9 @@ export const FolderContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
                 </Item>
                 <Item onClick={(obj) => handleItemClick({...obj, action: Actions.NewFile})}>
                     New File
+                </Item>
+                <Item onClick={(obj) => handleItemClick({...obj, action: Actions.DeleteFolder})}>
+                    Delete
                 </Item>
                 {/* <Separator />
                 <Item disabled>Disabled</Item>

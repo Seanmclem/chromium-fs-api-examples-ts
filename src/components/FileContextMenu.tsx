@@ -34,7 +34,6 @@ export const FileContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
         } else if(action === Actions.Properties) {
             debugger;
         } else if(action === Actions.DeleteFile) {
-            debugger;
             deleteFile({parentDirecoryHandle, fileHandle})
         }
     }
@@ -42,6 +41,8 @@ export const FileContextMenu: React.VFC<props> = ({ refreshFileSystem }) => {
     const deleteFile = async ({parentDirecoryHandle, fileHandle}:
         {parentDirecoryHandle: FileSystemDirectoryHandle, fileHandle: FileSystemFileHandle}) => {
         try {
+            await parentDirecoryHandle.requestPermission({ mode : "readwrite" })
+            await fileHandle.requestPermission({ mode : "readwrite" })
             await parentDirecoryHandle.removeEntry(fileHandle.name)
             refreshFileSystem()
             addToast("Deleted file", { appearance: "success" })
