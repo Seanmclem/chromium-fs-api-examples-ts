@@ -39,7 +39,7 @@ export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
                     Open new root folder
                 </MenuItem>
             </Menu>
-            <Menu menuButton={
+            {/* <Menu menuButton={
                 <MenuButton>Go To</MenuButton>
             }>
                 <MenuItem onClick={gotoAstTools}>
@@ -48,7 +48,7 @@ export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
                 <MenuItem onClick={gotoFormCreator}>
                     Form Creator
                 </MenuItem>
-            </Menu>
+            </Menu> */}
         </TopMenuContainer>
     )
 }
