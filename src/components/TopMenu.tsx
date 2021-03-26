@@ -19,6 +19,11 @@ interface props {
     setAltRootHandle?: any;
 }
 
+const openInNewTab = (url: string) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+}
+
 export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
     const history = useHistory();
     
@@ -37,6 +42,13 @@ export const TopMenu: React.FC<props> = ({setAltRootHandle}) => {
             }>
                 <MenuItem onClick={showFolderPicker}>
                     Open new root folder
+                </MenuItem>
+            </Menu>
+            <Menu menuButton={
+                <MenuButton>About</MenuButton>
+            }>
+                <MenuItem onClick={() => openInNewTab('https://github.com/Seanmclem/chromium-fs-api-examples-ts')}>
+                    Github Repo
                 </MenuItem>
             </Menu>
             {/* <Menu menuButton={
