@@ -86,7 +86,7 @@ export interface VideoData {
 
 export const getVideoData = async (fileHandle: FileSystemFileHandle): Promise<VideoData> => {
     const file: File = await fileHandle.getFile()
-    const type: string = await file.type
+    const type: string = file.type
     let blobUrl = URL.createObjectURL(file)
 
     const data: VideoData = {

@@ -5,7 +5,7 @@ interface props {
 }
 
 export const FormBox: React.FC<props> = ({children}) => {
-
+        
     return (
         <div>
             {children}

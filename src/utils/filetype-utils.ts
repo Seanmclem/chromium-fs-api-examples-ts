@@ -15,14 +15,14 @@ export const getFileTypeByExtension = (extension: string): 'image' | 'video' | '
     }
 }
 
-export const getExtension = (fileHandle: FileSystemFileHandle) => {
+export const getFileExtensionFromHandle = (fileHandle: FileSystemFileHandle) => {
     const array = fileHandle.name.split('.')
     const lastItem = array[array.length - 1]
     return lastItem
 }
 
-export const getFileExtensionFromHandle = (fileHandle: FileSystemFileHandle) => {
-    const ext = getExtension(fileHandle)
+export const getFileTypeFromHandle = (fileHandle: FileSystemFileHandle) => {
+    const ext = getFileExtensionFromHandle(fileHandle)
     const type = getFileTypeByExtension(ext)
     return type
 }

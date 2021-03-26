@@ -1,5 +1,5 @@
 import React from 'react'
-import { getFileExtensionFromHandle } from '../utils/filetype-utils'
+import { getFileTypeFromHandle } from '../utils/filetype-utils'
 import { ImageFileViewer } from './FileViewers/ImageFileViewer'
 import { TextFileViewer } from './FileViewers/TextFileViewer'
 import { VideoFileViewer } from './FileViewers/VideoFileViewer'
@@ -10,7 +10,7 @@ interface props {
 
 export const FileViewerByType: React.FC<props> = ({fileHandle}) => {
     if(fileHandle){
-        const type = getFileExtensionFromHandle(fileHandle)
+        const type = getFileTypeFromHandle  (fileHandle)
 
         if(type === 'image'){
             return <ImageFileViewer fileHandle={fileHandle} />
