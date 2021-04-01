@@ -18,7 +18,7 @@ export const FileItem: React.FC<Props> = ({ entry: fileHandle, handleSelectFile,
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [subscription, setSubscription] = useState<any | undefined>(undefined)
 
-    useEffect(()=>{
+    useEffect(() => {
         return () => {
             subscription?.unsubscribe?.()
             setSubscription(undefined)
