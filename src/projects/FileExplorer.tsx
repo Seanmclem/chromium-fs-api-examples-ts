@@ -1,40 +1,46 @@
-import React, { useCallback, useState } from "react"
-import { DirectoryContents } from "../components/directoryContents/DirectoryContents"
-import styled from "styled-components"
-import { FileViewerByType } from "../components/FileViewerByType"
-import { TopMenu } from "../components/TopMenu"
+import React, { useCallback, useState } from "react";
+import { DirectoryContents } from "../components/directoryContents/DirectoryContents";
+import styled from "styled-components";
+import { FileViewerByType } from "../components/FileViewerByType";
+import { TopMenu } from "../components/TopMenu";
 
 const FileExplorerContainer = styled.div`
-    height: 100vh;
-`
+  height: 100vh;
+  overflow: hidden;
+`;
 
 const InnerStuffContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: 95%;
-`
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 30px); // TODO: make variable
+`;
 
 export const FileExplorer: React.FC<{}> = () => {
-    const [altRootHandle, setAltRootHandle] = useState<FileSystemDirectoryHandle| undefined>(undefined)
-    const [selectedFile, setSelectedFile] = useState<FileSystemHandle| undefined>(undefined)
+  const [altRootHandle, setAltRootHandle] = useState<
+    FileSystemDirectoryHandle | undefined
+  >(undefined);
+  const [selectedFile, setSelectedFile] = useState<
+    FileSystemHandle | undefined
+  >(undefined);
 
-    const handleSelectFileCustom = useCallback(async (file: FileSystemFileHandle) => {
-        console.log({customFileFn:file})
-        setSelectedFile(file)
-    }, [])
+  const handleSelectFileCustom = useCallback(
+    async (file: FileSystemFileHandle) => {
+      console.log({ customFileFn: file });
+      setSelectedFile(file);
+    },
+    []
+  );
 
-    return (
-        <FileExplorerContainer>
-            <TopMenu setAltRootHandle={setAltRootHandle} />
-            <InnerStuffContainer>
-                <DirectoryContents
-                    handleSelectFile={handleSelectFileCustom}
-                    altRootHandle={altRootHandle}
-                /> 
-                <FileViewerByType
-                    fileHandle={selectedFile as FileSystemFileHandle}
-                />
-            </InnerStuffContainer>
-        </FileExplorerContainer>
-    )
-}
+  return (
+    <FileExplorerContainer>
+      <TopMenu setAltRootHandle={setAltRootHandle} />
+      <InnerStuffContainer>
+        <DirectoryContents
+          handleSelectFile={handleSelectFileCustom}
+          altRootHandle={altRootHandle}
+        />
+        <FileViewerByType fileHandle={selectedFile as FileSystemFileHandle} />
+      </InnerStuffContainer>
+    </FileExplorerContainer>
+  );
+};
