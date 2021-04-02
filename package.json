@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-toast-notifications": "^2.4.3",
+    "react-tooltip": "^4.2.17",
     "react-use": "^15.3.4",
     "ready-fields": "^1.0.8",
     "styled-components": "^5.2.1",

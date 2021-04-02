@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from "react"
-import styled from "styled-components"
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { getFileBlobUrl } from "../../utils/file-system-utils";
-
-const Contianer = styled.div`
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    padding: 10% 0 0 10%;
-
-    width: 100%;
-    height: auto;
-    
-    border: 1px solid black;
-    border-radius: 10px;
-`
+import { ViewerContainer } from "../FileViewerByType";
 
 interface props {
-    fileHandle: FileSystemFileHandle;
+  fileHandle: FileSystemFileHandle;
 }
 
-export const ImageFileViewer: React.FC<props> = ({fileHandle}) => {
-    const [url, setUrl] = useState<string>('')
+export const ImageFileViewer: React.FC<props> = ({ fileHandle }) => {
+  const [url, setUrl] = useState<string>("");
 
-    useEffect(() => {
-        fileToUrlState(fileHandle)
-    }, [fileHandle])
+  useEffect(() => {
+    fileToUrlState(fileHandle);
+  }, [fileHandle]);
 
-    const fileToUrlState = async (fileHandle: FileSystemFileHandle) => {
-        const urlResult = await getFileBlobUrl(fileHandle)
-        setUrl(urlResult)
-    }
-    
-    return (
-        <Contianer>
-            {url ?
-                <img alt="failed to load. I'm sorry.." src={url} height="100px" width="100px"/>
-            : null}
-        </Contianer>
-    )
-}
+  const fileToUrlState = async (fileHandle: FileSystemFileHandle) => {
+    const urlResult = await getFileBlobUrl(fileHandle);
+    setUrl(urlResult);
+  };
+
+  return (
+    <ViewerContainer>
+      {url ? (
+        <img
+          alt="failed to load. I'm sorry.."
+          src={url}
+          height="100px"
+          width="100px"
+        />
+      ) : null}
+    </ViewerContainer>
+  );
+};

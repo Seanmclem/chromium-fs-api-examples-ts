@@ -11,8 +11,11 @@ import "@szhsin/react-menu/dist/index.css";
 import { useHistory } from "react-router-dom";
 
 const TopMenuContainer = styled.div`
+  border-radius: 0 0 5px 5px;
+  padding: 0 5px;
+  margin: 0 5px;
   height: 30px;
-  border: 2px solid darkgray;
+  border: 1px solid black;
 `;
 
 interface props {
