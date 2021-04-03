@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Editor from "@monaco-editor/react";
-import { getTextFileContents, writeFile } from "../../utils/file-system-utils";
+import {
+  getTextFileContents,
+  writeFile,
+} from "../../../utils/file-system-utils";
 // import ts from "typescript"
 import { editor } from "monaco-editor";
-import { ViewerContainer } from "../FileViewerByType";
+import { ViewerContainer } from "../../FileViewerByType";
 
 interface props {
   fileHandle: FileSystemFileHandle;

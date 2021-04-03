@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getVideoData, VideoData } from "../../utils/file-system-utils";
-import { ViewerContainer } from "../FileViewerByType";
+import { getVideoData, VideoData } from "../../../utils/file-system-utils";
+import { ViewerContainer } from "../../FileViewerByType";
 
 interface props {
   fileHandle: FileSystemFileHandle;

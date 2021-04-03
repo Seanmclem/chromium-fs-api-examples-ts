@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { getFileTypeFromHandle } from "../utils/filetype-utils";
-import { ImageFileViewer } from "./FileViewers/ImageFileViewer";
-import { TextFileViewer } from "./FileViewers/TextFileViewer";
-import { VideoFileViewer } from "./FileViewers/VideoFileViewer";
+import { ImageFileViewer } from "./viewingArea/body/ImageFileViewer";
+import { TextFileViewer } from "./viewingArea/body/TextFileViewer";
+import { VideoFileViewer } from "./viewingArea/body/VideoFileViewer";
 
 interface props {
   fileHandle?: FileSystemFileHandle;

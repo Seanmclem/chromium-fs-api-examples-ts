@@ -3,7 +3,7 @@ import { DirectoryContents } from "../components/directoryContents/DirectoryCont
 import styled from "styled-components";
 import { FileViewerByType } from "../components/FileViewerByType";
 import { TopMenu } from "../components/TopMenu";
-import { ViewingArea } from "../components/FileViewers/ViewingArea";
+import { ViewingArea } from "../components/viewingArea/body/ViewingArea";
 
 const FileExplorerContainer = styled.div`
   height: 100vh;

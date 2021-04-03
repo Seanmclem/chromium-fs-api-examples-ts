@@ -19,5 +19,10 @@ export const ViewingAreaContainer = styled.div`
 interface props {}
 
 export const ViewingArea: React.FC<props> = ({}) => {
-  return <ViewingAreaContainer>Viewing Area Container</ViewingAreaContainer>;
+  return (
+    <ViewingAreaContainer>
+      {/* // top bar of TABS 
+    // Body of output again */}
+    </ViewingAreaContainer>
+  );
 };

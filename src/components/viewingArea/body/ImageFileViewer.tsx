@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { getFileBlobUrl } from "../../utils/file-system-utils";
-import { ViewerContainer } from "../FileViewerByType";
+import { getFileBlobUrl } from "../../../utils/file-system-utils";
+import { ViewerContainer } from "../../FileViewerByType";
 
 interface props {
   fileHandle: FileSystemFileHandle;
