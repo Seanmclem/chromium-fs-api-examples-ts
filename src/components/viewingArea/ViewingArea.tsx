@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { EmptyAreaBody } from "./body/EmptyAreaBody";
+import { TabContainer } from "./tabs/TabsContainer";
 
 export const ViewingAreaContainer = styled.div`
   background-color: var(--color-panels);
@@ -18,11 +20,11 @@ export const ViewingAreaContainer = styled.div`
 
 interface props {}
 
-export const ViewingArea: React.FC<props> = ({}) => {
+export const ViewingArea: React.FC<props> = () => {
   return (
     <ViewingAreaContainer>
-      {/* // top bar of TABS 
-    // Body of output again */}
+      <TabContainer /> {/* top bar of TABS */}
+      <EmptyAreaBody /> {/* Body of output again */}
     </ViewingAreaContainer>
   );
 };
