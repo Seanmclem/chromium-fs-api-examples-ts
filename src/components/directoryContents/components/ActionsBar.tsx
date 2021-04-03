@@ -6,8 +6,9 @@ import ReactTooltip from "react-tooltip";
 const ActionsBarContainer = styled.div`
   width: auto;
   height: 25px;
-  background-color: azure;
-  border-bottom: 1px solid #d4d4d4;
+  background-color: rgba(240, 255, 255, 0.5);
+  /* border-bottom: 1px solid #d4d4d4; */
+  box-shadow: 0px 0px 4px 0px #d4d4d4;
   margin-bottom: 10px;
 
   display: flex;
