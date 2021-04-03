@@ -2,13 +2,14 @@
   // display: flex;
   // flex-direction: row;
   // height: 95%;
-
+  background-color: var(--color-panels);
+  box-shadow: var(--shadow-panel);
+  margin: 15px var(--margins-panel) 15px var(--margins-panel);
+  overflow: hidden;
+  //border: 1px solid black;
+  border-radius: var(--radius-panel);
   position: relative;
   user-select: none;
-  margin: 10px 5px 15px 5px;
-  overflow: hidden;
-  border: 1px solid black;
-  border-radius: 10px;
 
   .folder-name {
     white-space: nowrap;

@@ -3,6 +3,7 @@ import { DirectoryContents } from "../components/directoryContents/DirectoryCont
 import styled from "styled-components";
 import { FileViewerByType } from "../components/FileViewerByType";
 import { TopMenu } from "../components/TopMenu";
+import { ViewingArea } from "../components/FileViewers/ViewingArea";
 
 const FileExplorerContainer = styled.div`
   height: 100vh;
@@ -12,20 +13,21 @@ const FileExplorerContainer = styled.div`
 const InnerStuffContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 33px); // TODO: make variable
+  height: calc(100vh - var(--top-menu-height)); // TODO: make variable
 `;
-
-const DirConWrap = styled.div``;
 
 export const FileExplorer: React.FC<{}> = () => {
   const [altRootHandle, setAltRootHandle] = useState<
     FileSystemDirectoryHandle | undefined
   >(undefined);
+
   const [selectedFile, setSelectedFile] = useState<
     FileSystemHandle | undefined
   >(undefined);
+  // TODO: refactor for TABS
 
   const handleSelectFileCustom = useCallback(
+    // TODO: refactor for TABS
     async (file: FileSystemFileHandle) => {
       console.log({ customFileFn: file });
       setSelectedFile(file);
@@ -37,14 +39,12 @@ export const FileExplorer: React.FC<{}> = () => {
     <FileExplorerContainer>
       <TopMenu setAltRootHandle={setAltRootHandle} />
       <InnerStuffContainer>
-        {/* <DirConWrap className="dir-con-wrap"> */}
         <DirectoryContents
           handleSelectFile={handleSelectFileCustom}
           altRootHandle={altRootHandle}
         />
-        {/* </DirConWrap> */}
-
-        <FileViewerByType fileHandle={selectedFile as FileSystemFileHandle} />
+        <ViewingArea />
+        {/* <FileViewerByType fileHandle={selectedFile as FileSystemFileHandle} /> */}
       </InnerStuffContainer>
     </FileExplorerContainer>
   );
