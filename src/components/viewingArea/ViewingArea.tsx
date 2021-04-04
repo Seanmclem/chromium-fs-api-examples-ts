@@ -10,7 +10,6 @@ export const ViewingAreaContainer = styled.div`
   margin: 15px var(--margins-panel) 15px var(--margins-panel);
 
   flex-grow: 1;
-  padding: 10%;
 
   width: auto;
   height: auto;
