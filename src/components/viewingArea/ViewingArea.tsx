@@ -8,7 +8,7 @@ export const ViewingAreaContainer = styled.div`
   box-shadow: var(--shadow-panel);
   border-radius: var(--radius-panel);
   margin: 15px var(--margins-panel) 15px var(--margins-panel);
-
+  overflow: hidden;
   flex-grow: 1;
 
   width: auto;
