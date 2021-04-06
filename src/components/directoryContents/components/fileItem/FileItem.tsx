@@ -61,15 +61,13 @@ export const FileItem: React.FC<Props> = ({
   };
 
   const handleSelectFileDefault = (file: FileSystemFileHandle) => {
-    // here ... // test me!
-    console.log({ file });
+    console.log("file-selected ->", { file });
     openTabs?.tabs?.push({
       name: fileHandle.name,
       path: specificPath,
       fileHandle: fileHandle,
     });
-    console.log("open tabs", openTabs?.tabs);
-  };
+    console.log("open tabs", openTabs?.tabs);  };
 
   return (
     <div

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./DirectoryContents.scss";
 import { FileOrFolderList } from "./components/fileOrFolderList/FileOrFolderList";
 import { EntryType, getDirectoryContents } from "../../utils/file-system-utils";
-import { HideDrawerBtn } from "./components/HideDrawerBtn";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ActionsBar } from "./components/ActionsBar";
 import { FolderContextMenu } from "../FolderContextMenu";
