@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./FileItem.scss";
 import { FileIcon } from "./components/fileIcon/FileIcon";
 import { useContextMenu } from "react-contexify";
@@ -31,6 +31,7 @@ export const FileItem: React.FC<Props> = ({
       subscription?.unsubscribe?.();
       setSubscription(undefined);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const subscribeHighlightFolder = () => {
