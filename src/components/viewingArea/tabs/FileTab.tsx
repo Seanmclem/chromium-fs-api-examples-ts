@@ -24,15 +24,19 @@ interface ContainerStyle {
   };
 }
 
-const NameContainer = styled.div``;
+const NameContainer = styled.div`
+  user-select: none;
+`;
 
 const FileTabContainer = styled.div<ContainerStyle>`
   border-right: ${(props) =>
     props.placement.last ? "none" : "1px solid black"};
-  background-color: ${({ isActive }) => (isActive ? "blue" : "initial")};
+  background-color: ${({ isActive }) => (isActive ? "rgba(240,255,255,1)" : "initial")};
+  box-shadow: ${({ isActive }) => (isActive ? "0px 0px 4px 0px #d4d4d4" : "initial")};
   padding: 0 10px;
   align-items: center;
   display: flex;
+  cursor: default;
 `;
 
 export const FileTab: React.FC<props> = ({

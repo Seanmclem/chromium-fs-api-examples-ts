@@ -4,9 +4,12 @@ import { MdKeyboardArrowLeft, MdRefresh } from "react-icons/md";
 import ReactTooltip from "react-tooltip";
 
 const ActionsBarContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: auto;
   height: 25px;
-  background-color: rgba(240, 255, 255, 0.5);
+  background-color: rgba(240, 255, 255, 1);
   /* border-bottom: 1px solid #d4d4d4; */
   box-shadow: 0px 0px 4px 0px #d4d4d4;
   margin-bottom: 10px;
