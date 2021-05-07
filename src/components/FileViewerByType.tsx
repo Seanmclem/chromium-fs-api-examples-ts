@@ -16,10 +16,13 @@ export const ViewerContainer = styled.div`
   margin: 10px 5px 15px 5px;
 
   width: auto;
-  height: auto;
+  /* height: auto; */
 
   border: 1px solid black;
   border-radius: 10px;
+
+  height: calc(100% - 30px);
+  box-sizing: border-box;
 `;
 
 export const FileViewerByType: React.FC<props> = ({ fileHandle }) => {

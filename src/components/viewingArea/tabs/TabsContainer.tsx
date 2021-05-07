@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useSnapshot } from "valtio";
-import { openTabs } from "../../../stores/openTabsStore";
+import { useFileStore } from "../../../stores/fileStore";
+
 import { FileTab } from "./FileTab";
 
-interface props {}
+interface props { }
 
 const TabContainerMain = styled.div`
   display: flex;
@@ -14,21 +14,24 @@ const TabContainerMain = styled.div`
 `;
 
 export const TabContainer: React.FC<props> = () => {
-  const openTabsSnapshot = useSnapshot(openTabs);
 
+  const openTabs = useFileStore(state => state.openTabs)
+
+  // console.log('test', openTabsSnapshot.tabs)
+  debugger
   return (
     <TabContainerMain>
-      {openTabsSnapshot.tabs.map((tab, index) =>
+      {openTabs.tabs.map((tab, index) =>
         tab.fileHandle ? (
           <FileTab
             key={tab.path}
             name={tab.name}
             path={tab.path}
-            fileHandle={tab.fileHandle}
+            // fileHandle={tab.fileHandle}
             isActive={!!tab.isActive}
             placement={{
               first: index === 0,
-              last: index === openTabsSnapshot.tabs.length - 1,
+              last: index === openTabs.tabs.length - 1,
             }}
           />
         ) : (

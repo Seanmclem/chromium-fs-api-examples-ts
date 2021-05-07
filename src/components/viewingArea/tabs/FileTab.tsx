@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
-import { openTabs } from "../../../stores/openTabsStore";
+import { useFileStore } from "../../../stores/fileStore";
+
 
 interface placement {
   first: boolean;
@@ -11,7 +12,7 @@ interface placement {
 interface props {
   name: string;
   path: string;
-  fileHandle: FileSystemFileHandle;
+  // fileHandle: FileSystemFileHandle;
   placement: placement;
   isActive: boolean;
 }
@@ -42,28 +43,20 @@ const FileTabContainer = styled.div<ContainerStyle>`
 export const FileTab: React.FC<props> = ({
   name,
   path,
-  fileHandle,
+  // fileHandle,
   placement,
   isActive,
 }) => {
-  const closeTab = () => {
-    openTabs.tabs = openTabs.tabs.filter(tab => tab.path !== path)
-  };
-  const makeActive = () => {
-    openTabs.tabs.forEach((tab) => (tab.isActive = false));
-    openTabs.tabs.forEach((tab) => {
-      if (tab.path === path) {
-        tab.isActive = true;
-      }
-    });
-  };
+
+  const closeTab = useFileStore(state => state.closeTab)
+  const makeActive = useFileStore(state => state.makeActive)
 
   return (
     <FileTabContainer placement={placement} isActive={isActive}>
-      <NameContainer onClick={makeActive}>{name}</NameContainer>
+      <NameContainer onClick={() => makeActive(path)}>{name}</NameContainer>
       <MdClose
         style={{ marginLeft: "10px", cursor: "pointer" }}
-        onClick={closeTab}
+        onClick={() => closeTab(path)}
       />
     </FileTabContainer>
   );

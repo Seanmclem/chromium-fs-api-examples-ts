@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { EmptyAreaBody } from "./body/EmptyAreaBody";
+import { TabsStackAreaBody } from "./body/TabsStackAreaBody";
 import { TabContainer } from "./tabs/TabsContainer";
 
 export const ViewingAreaContainer = styled.div`
@@ -17,13 +18,13 @@ export const ViewingAreaContainer = styled.div`
   //border: 1px solid black;
 `;
 
-interface props {}
+interface props { }
 
 export const ViewingArea: React.FC<props> = () => {
   return (
     <ViewingAreaContainer>
       <TabContainer /> {/* top bar of TABS */}
-      <EmptyAreaBody /> {/* Body of output again */}
+      <TabsStackAreaBody /> {/* Body of output again */}
     </ViewingAreaContainer>
   );
 };

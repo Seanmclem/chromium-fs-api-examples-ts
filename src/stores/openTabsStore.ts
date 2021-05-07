@@ -3,7 +3,7 @@ import { proxy } from 'valtio'
 interface FileTab {
     name: string;
     path: string;
-    fileHandle: FileSystemFileHandle;
+    fileHandle: any; // todo: kill me
     isActive?: boolean; //mirrored
     hasPendingChanges?: boolean; //mirrored
     saveFunction?: any; //mirrored
