@@ -9,6 +9,7 @@ interface props { }
 
 const TabContainerMain = styled.div`
   display: flex;
+  overflow-x: auto;
   height: 30px;
   border-radius: 10px 10px 0 0; // TODO: ^v needs vars
 `;
