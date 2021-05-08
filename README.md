@@ -6,9 +6,9 @@ This project acts as a bit of a tech-demo of Chromium's new native file system A
 
 This API is one I have been waiting for. As it will help bridge the last gaps between native apps and web apps.
 
-My aim for this project is to stay close to this new spec, and become very familiar with it. I'd like to build out utility functions for common file system interactions. These would be as generic and framework agnostic as possible. I would use this project as the basis for others that use the new API.
+My aim for this project is to stay close to this new spec, and become very familiar with it. I'd like to build out utility functions for common file system interactions. These would be as generic and framework agnostic as possible. I will probably use this project as the basis for other new projects that use the new API.
 
-This new File System Access API, at time of writing, is only supported in more recent non-mobile Chromium based browsers. It has been available in the stable channel for a while. It does not work in Firefox, Safari, or any mobile browsers. Only things like, Chrome, Edge, Brave, and other Chromium based browsers.
+This new File System Access API, at time of writing, is only supported in more recent non-mobile Chromium based browsers. It has been available in the stable channel for a while. It does not work in Firefox, Safari, or any mobile browsers. Only browsers like, Chrome, Edge, Brave, and other Chromium based browsers.
 
 Todo:
 
