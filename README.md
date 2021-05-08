@@ -1,46 +1,24 @@
-# Getting Started with Create React App
+# Client-side File Manager 📂
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## File System Access API
 
-## Available Scripts
+This project acts as a bit of a tech-demo of Chromium's new native file system API which they call the "File System Access API". There have been previous attempts to standardize a native file system API for browsers, but they were not fully adopted and mostly deprecated.
 
-In the project directory, you can run:
+This API is one I have been waiting for. As it will help bridge the last gaps between native apps and web apps.
 
-### `npm start`
+My aim for this project is to stay close to this new spec, and become very familiar with it. I'd like to build out utility functions for common file system interactions. These would be as generic and framework agnostic as possible. I would use this project as the basis for others that use the new API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This new File System Access API, at time of writing, is only supported in more recent non-mobile Chromium based browsers. It has been available in the stable channel for a while. It does not work in Firefox, Safari, or any mobile browsers. Only things like, Chrome, Edge, Brave, and other Chromium based browsers.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Todo:
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - [X] Text, Audo, Video
+ - [X] Create files and folders
+ - [X] Delete files and folders
+ - [X] Better CSS
+ - [X] Tabbed interface
+ - [ ] Better saving and pending-changes management
+ - [ ] Better image and video viewing
+ - [ ] View Settings, other settings
+ - [ ] CSS
+ - [ ] More Todos...
