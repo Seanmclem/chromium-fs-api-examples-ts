@@ -5,7 +5,7 @@ import { useContextMenu } from "react-contexify";
 import { FILE_MENU_ID } from "../../enums";
 import { HighlightedService } from "../../../../services/HighlightedService";
 
-import { useFileStore } from "../../../../stores/fileStore";
+import { FileTab, useFileStore } from "../../../../stores/fileStore";
 
 interface Props {
   entry: FileSystemFileHandle;
@@ -72,10 +72,11 @@ export const FileItem: React.FC<Props> = ({
       makeActive(specificPath)
       return
     }
-    const fileTab = {
+    const fileTab: FileTab = {
       name: fileHandle.name,
       path: specificPath,
       fileHandle: fileHandle,
+      isActive: false
     }
 
     addFileToTabs(fileTab)

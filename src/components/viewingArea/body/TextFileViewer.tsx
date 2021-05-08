@@ -8,12 +8,13 @@ import {
 // import ts from "typescript"
 import { editor } from "monaco-editor";
 import { ViewerContainer } from "../../FileViewerByType";
+import { FileTab } from "../../../stores/fileStore";
 
 interface props {
-  fileHandle: FileSystemFileHandle;
+  fileTab: FileTab;
 }
 
-export const TextFileViewer: React.FC<props> = ({ fileHandle }) => {
+export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   const [text, setText] = useState<string>("");
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
@@ -26,12 +27,12 @@ export const TextFileViewer: React.FC<props> = ({ fileHandle }) => {
 
   const handleSave = () => {
     const textToSave = editorRef.current?.getValue();
-    textToSave && writeFile(fileHandle, textToSave);
+    textToSave && writeFile(fileTab.fileHandle, textToSave);
   };
 
   useEffect(() => {
-    fileTextToState(fileHandle);
-  }, [fileHandle]);
+    fileTextToState(fileTab.fileHandle);
+  }, [fileTab.fileHandle]);
 
   const fileTextToState = async (fileHandle: FileSystemFileHandle) => {
     const fileText = await getTextFileContents(fileHandle);
@@ -47,6 +48,7 @@ export const TextFileViewer: React.FC<props> = ({ fileHandle }) => {
 
   return (
     <ViewerContainer
+      isActive={fileTab.isActive}
       style={{
         overflow: "hidden",
         padding: "initial",

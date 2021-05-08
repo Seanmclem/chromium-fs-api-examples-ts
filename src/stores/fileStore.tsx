@@ -9,7 +9,7 @@ export interface FileTab {
     name: string;
     path: string;
     fileHandle: FileSystemFileHandle; // todo: kill me
-    isActive?: boolean; //mirrored
+    isActive: boolean; //mirrored
     hasPendingChanges?: boolean; //mirrored
     saveFunction?: any; //mirrored
 }

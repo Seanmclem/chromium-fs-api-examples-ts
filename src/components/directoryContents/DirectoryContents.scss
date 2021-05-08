@@ -1,7 +1,5 @@
 .main-folder-list-container {
-  // display: flex;
-  // flex-direction: row;
-  // height: 95%;
+  min-width: 250px;
   background-color: var(--color-panels);
   box-shadow: var(--shadow-panel);
   margin: 15px var(--margins-panel) 15px var(--margins-panel);
@@ -28,7 +26,7 @@
   .main-folder-list {
     // border: 1px solid black;
     // width: fit-content;
-    min-width: 250px;
+    // min-width: 250px;
 
     overflow: auto;
     height: 100%;

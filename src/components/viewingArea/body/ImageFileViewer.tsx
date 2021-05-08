@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { FileTab } from "../../../stores/fileStore";
 import { getFileBlobUrl } from "../../../utils/file-system-utils";
 import { ViewerContainer } from "../../FileViewerByType";
 
 interface props {
-  fileHandle: FileSystemFileHandle;
+  fileTab: FileTab;
 }
 
-export const ImageFileViewer: React.FC<props> = ({ fileHandle }) => {
+export const ImageFileViewer: React.FC<props> = ({ fileTab }) => {
   const [url, setUrl] = useState<string>("");
 
   useEffect(() => {
-    fileToUrlState(fileHandle);
-  }, [fileHandle]);
+    fileToUrlState(fileTab.fileHandle);
+  }, [fileTab.fileHandle]);
 
   const fileToUrlState = async (fileHandle: FileSystemFileHandle) => {
     const urlResult = await getFileBlobUrl(fileHandle);
@@ -19,13 +20,15 @@ export const ImageFileViewer: React.FC<props> = ({ fileHandle }) => {
   };
 
   return (
-    <ViewerContainer>
+    <ViewerContainer
+      isActive={fileTab.isActive}
+    >
       {url ? (
         <img
           alt="failed to load. I'm sorry.."
           src={url}
-          height="100px"
-          width="100px"
+          height="auto"
+          width="auto"
         />
       ) : null}
     </ViewerContainer>
