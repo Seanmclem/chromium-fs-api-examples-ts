@@ -1,10 +1,5 @@
 import create, { SetState } from "zustand";
 
-//export interface SelectedFolder {
-//     path: string;
-//     folderHandle: FileSystemDirectoryHandle;
-// }
-
 export interface FileTab {
     name: string;
     path: string;
@@ -19,29 +14,28 @@ export interface openTabsProps {
 }
 
 type ISet = {
-    // selectedFolder?: SelectedFolder;
-    // contextHighlightedFolder?: SelectedFolder;
-    // setContextHighlightFolder: (selectedFolder?: SelectedFolder) => void;
-    // setSelectedFolder: (selectedFolder?: SelectedFolder) => void;
-    makeActive: (path: string) => void;
-    closeTab: (path: string) => void;
-    addTab: (newTab: FileTab) => void;
     openTabs: openTabsProps;
+    addTab: (newTab: FileTab) => void;
+    closeTab: (path: string) => void;
+    makeActive: (path: string) => void;
+    setHasPendingChanges: (path: string, hasPendingChanges: boolean) => void;
 }
 
 export const useFileStore = create<ISet>((set: SetState<ISet>) => ({
-    // selectedFolder: undefined,
-    // contextHighlightedFolder: undefined,
-    // setContextHighlightFolder: (folder?: SelectedFolder) => set((_state: ISet) => ({ contextHighlightedFolder: folder })),
-    // setSelectedFolder: (folder?: SelectedFolder) => set((_state: ISet) => ({ selectedFolder: folder })),
+    openTabs: { tabs: [] },
 
-
+    setHasPendingChanges: (path: string, hasPendingChanges: boolean) => set((_state: ISet) => {
+        const newOpenTabs = _state.openTabs.tabs.map(tab => tab.path === path ? {
+            ...tab,
+            hasPendingChanges
+        } : tab)
+        return { openTabs: { tabs: newOpenTabs } }
+    }),
 
     addTab: (newTab: FileTab) => set((_state: ISet) => {
         const newOpenTabs = [..._state.openTabs.tabs, newTab]
         return { openTabs: { tabs: newOpenTabs } }
     }),
-    openTabs: { tabs: [] },
 
     closeTab: (path: string) => set((_state: ISet) => {
         const newOpenTabs = _state.openTabs.tabs.filter(tab => tab.path !== path)

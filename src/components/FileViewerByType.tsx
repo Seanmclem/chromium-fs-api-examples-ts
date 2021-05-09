@@ -18,18 +18,21 @@ interface ViewerContainer_StyleProps {
 export const ViewerContainer = styled.div<ViewerContainer_StyleProps>`
   flex-grow: 1;
   padding: 10%;
-  margin: 10px;
-  width: calc(100% - 20px);
+
+  --double-margin: 20px;
+  margin: calc(var(--double-margin) / 2);
+  width: calc(100% - var(--double-margin));
+
   background-color: #FFF;
   border: 1px solid black;
   border-radius: 10px;
-
-  height: calc(100% - 20px);
+  height: calc(100% - var(--double-margin));
   box-sizing: border-box;
 
   position: absolute;
   top: 0;
   z-index: ${({ isActive }) => (isActive ? 100 : 0)};
+  opacity: ${({ isActive }) => (isActive ? 1 : 0)};
 `;
 
 export const FileViewerByType: React.FC<props> = ({ fileTab }) => {

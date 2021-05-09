@@ -9,6 +9,7 @@ import {
 import { editor } from "monaco-editor";
 import { ViewerContainer } from "../../FileViewerByType";
 import { FileTab } from "../../../stores/fileStore";
+import { useToasts } from "react-toast-notifications";
 
 interface props {
   fileTab: FileTab;
@@ -25,9 +26,20 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
     editorRef.current = editor;
   };
 
-  const handleSave = () => {
+  const { addToast } = useToasts();
+  const handleSave = async () => {
     const textToSave = editorRef.current?.getValue();
-    textToSave && writeFile(fileTab.fileHandle, textToSave);
+    try {
+      if (textToSave) {
+        await writeFile(fileTab.fileHandle, textToSave);
+        addToast("Saved file", { appearance: "success" })
+      }
+    }
+    catch (error) {
+      console.error('Failed to save file', error)
+      addToast("Failed to save file", { appearance: "error" })
+    }
+
   };
 
   useEffect(() => {
@@ -37,13 +49,6 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   const fileTextToState = async (fileHandle: FileSystemFileHandle) => {
     const fileText = await getTextFileContents(fileHandle);
     setText(fileText);
-    // debugger;
-    // const test = ts.createSourceFile('boo.txt', fileText, ts.ScriptTarget.JSON)
-    // debugger
-    // console.log('test', test)
-    // crazy AST parsed from text
-    //need to test turning back to a file
-    // then understand any and modify it
   };
 
   return (
