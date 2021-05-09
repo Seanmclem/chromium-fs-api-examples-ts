@@ -19,6 +19,7 @@
   &.closed {
     border: none;
     max-width: 0;
+    min-width: initial;
     overflow: hidden;
     box-shadow: none;
   }
