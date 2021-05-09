@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Editor from "@monaco-editor/react";
+import Editor, { Monaco } from "@monaco-editor/react";
+import monaco from 'monaco-editor'
 import {
   getTextFileContents,
   writeFile,
@@ -20,8 +21,8 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
   const handleEditorDidMount = (
-    _getEditorValue: () => string,
-    editor: editor.IStandaloneCodeEditor
+    editor: monaco.editor.IStandaloneCodeEditor,
+    _monaco: Monaco
   ) => {
     editorRef.current = editor;
   };
@@ -39,7 +40,6 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
       console.error('Failed to save file', error)
       addToast("Failed to save file", { appearance: "error" })
     }
-
   };
 
   useEffect(() => {
@@ -64,7 +64,8 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
         <Editor
           height="100%"
           value={text}
-          editorDidMount={handleEditorDidMount}
+          onMount={handleEditorDidMount}
+          onChange={() => null}
         />
       ) : null}
       {/* no language="anything", gives basic default text editor, should use primarily at first */}
