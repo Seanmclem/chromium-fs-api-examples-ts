@@ -3,10 +3,10 @@ import create, { SetState } from "zustand";
 export interface FileTab {
     name: string;
     path: string;
-    fileHandle: FileSystemFileHandle; // todo: kill me
+    fileHandle: FileSystemFileHandle;
     isActive: boolean; //mirrored
     hasPendingChanges?: boolean; //mirrored
-    saveFunction?: any; //mirrored
+    saveFunction?: (...args: any[]) => any; //mirrored
 }
 
 export interface openTabsProps {
@@ -19,10 +19,19 @@ type ISet = {
     closeTab: (path: string) => void;
     makeActive: (path: string) => void;
     setHasPendingChanges: (path: string, hasPendingChanges: boolean) => void;
+    setFileTabSaveFunction: (path: string, saveFunction: (...args: any[]) => void) => void;
 }
 
 export const useFileStore = create<ISet>((set: SetState<ISet>) => ({
     openTabs: { tabs: [] },
+
+    setFileTabSaveFunction: (path: string, saveFunction: (...args: any[]) => void) => set((_state: ISet) => {
+        const newOpenTabs = _state.openTabs.tabs.map(tab => tab.path === path ? {
+            ...tab,
+            saveFunction
+        } : tab)
+        return { openTabs: { tabs: newOpenTabs } }
+    }),
 
     setHasPendingChanges: (path: string, hasPendingChanges: boolean) => set((_state: ISet) => {
         const newOpenTabs = _state.openTabs.tabs.map(tab => tab.path === path ? {

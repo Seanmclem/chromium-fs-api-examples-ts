@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Editor, { Monaco } from "@monaco-editor/react";
 import monaco from 'monaco-editor'
 import {
@@ -16,7 +16,7 @@ interface props {
 
 export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   const setHasPendingChanges = useFileStore(state => state.setHasPendingChanges)
-
+  const setFileTabSaveFunction = useFileStore(state => state.setFileTabSaveFunction)
 
   useEffect(() => {
     fileUnmodifiedTextToState()
@@ -38,12 +38,14 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   };
 
   const { addToast } = useToasts();
-  const handleSave = async () => {
+
+  const handleSave = useCallback(async () => {
     const textToSave = editorRef.current?.getValue();
     try {
       if (textToSave) {
         await writeFile(fileTab.fileHandle, textToSave);
         setTextUnmodified(textToSave);
+        setHasPendingChanges(fileTab.path, false)
         addToast("Saved file", { appearance: "success" })
       }
     }
@@ -51,7 +53,11 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
       console.error('Failed to save file', error)
       addToast("Failed to save file", { appearance: "error" })
     }
-  };
+  }, [addToast, fileTab.fileHandle]);
+
+  useEffect(() => {
+    setFileTabSaveFunction(fileTab.path, handleSave)
+  }, [fileTab.path, handleSave, setFileTabSaveFunction])
 
   useEffect(() => {
     fileTextToState(fileTab.fileHandle);
@@ -77,7 +83,6 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
         padding: "initial",
       }}
     >
-      <button onClick={handleSave}>SAVE</button>
       {text ? (
         <Editor
           height="100%"

@@ -9,6 +9,7 @@ import {
 
 import "@szhsin/react-menu/dist/index.css";
 import { useHistory } from "react-router-dom";
+import { useFileStore } from "../stores/fileStore";
 
 const TopMenuContainer = styled.div`
   background-color: var(--color-panels);
@@ -31,6 +32,8 @@ const openInNewTab = (url: string) => {
 
 export const TopMenu: React.FC<props> = ({ setAltRootHandle }) => {
   const history = useHistory();
+  const openTabs = useFileStore(state => state.openTabs.tabs)
+  const fileTab = openTabs.find(tab => tab.isActive)
 
   const showFolderPicker = async () => {
     const handle = await window.showDirectoryPicker();
@@ -44,6 +47,9 @@ export const TopMenu: React.FC<props> = ({ setAltRootHandle }) => {
     <TopMenuContainer>
       <Menu menuButton={<MenuButton>File</MenuButton>}>
         <MenuItem onClick={showFolderPicker}>Open new root folder</MenuItem>
+        {fileTab?.saveFunction ? (
+          <MenuItem disabled={!fileTab.hasPendingChanges} onClick={fileTab.saveFunction}>Save</MenuItem>
+        ) : ''}
       </Menu>
       <Menu menuButton={<MenuButton>About</MenuButton>}>
         <MenuItem
