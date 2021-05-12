@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
+import { AiTwotoneCloseCircle } from "react-icons/ai"
 import { FileTab as FileTabProp, useFileStore } from "../../../stores/fileStore";
+import { useHover } from "../../../hooks/useHover";
 
 
 interface placement {
@@ -44,14 +46,21 @@ export const FileTab: React.FC<props> = ({
   const { isActive, path, name } = fileTab
   const closeTab = useFileStore(state => state.closeTab)
   const makeActive = useFileStore(state => state.makeActive)
+  const [hoverRef, isHovered] = useHover<any>();
 
   return (
-    <FileTabContainer placement={placement} isActive={isActive}>
+    <FileTabContainer ref={hoverRef} placement={placement} isActive={isActive}>
       <NameContainer onClick={() => makeActive(path)}>{name}</NameContainer>
-      <MdClose
-        style={{ marginLeft: "10px", cursor: "pointer" }}
-        onClick={() => closeTab(path)}
-      />
+      { (fileTab.hasPendingChanges && !isHovered) ?
+        <AiTwotoneCloseCircle
+          color="#a9a9a9"
+          style={{ marginLeft: "10px", cursor: "pointer" }}
+          onClick={() => closeTab(path)}
+        />
+        : <MdClose
+          style={{ marginLeft: "10px", cursor: "pointer" }}
+          onClick={() => closeTab(path)}
+        />}
     </FileTabContainer>
   );
 };
