@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
-import { useFileStore } from "../../../stores/fileStore";
+import { FileTab as FileTabProp, useFileStore } from "../../../stores/fileStore";
 
 
 interface placement {
@@ -10,11 +10,8 @@ interface placement {
 }
 
 interface props {
-  name: string;
-  path: string;
-  // fileHandle: FileSystemFileHandle;
+  fileTab: FileTabProp;
   placement: placement;
-  isActive: boolean;
 }
 
 interface ContainerStyle {
@@ -41,13 +38,10 @@ const FileTabContainer = styled.div<ContainerStyle>`
 `;
 
 export const FileTab: React.FC<props> = ({
-  name,
-  path,
-  // fileHandle,
+  fileTab,
   placement,
-  isActive,
 }) => {
-
+  const { isActive, path, name } = fileTab
   const closeTab = useFileStore(state => state.closeTab)
   const makeActive = useFileStore(state => state.makeActive)
 

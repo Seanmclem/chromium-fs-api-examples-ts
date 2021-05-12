@@ -26,10 +26,7 @@ export const TabContainer: React.FC<props> = () => {
         tab.fileHandle ? (
           <FileTab
             key={tab.path}
-            name={tab.name}
-            path={tab.path}
-            // fileHandle={tab.fileHandle}
-            isActive={!!tab.isActive}
+            fileTab={tab}
             placement={{
               first: index === 0,
               last: index === openTabs.tabs.length - 1,
