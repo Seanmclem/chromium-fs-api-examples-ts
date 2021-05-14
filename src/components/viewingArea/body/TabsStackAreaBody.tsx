@@ -22,7 +22,7 @@ export const TabsStackAreaBody: React.FC<props> = () => {
 
   return <Container>
     {openTabs.tabs.map(tab => (
-      <FileViewerByType fileTab={tab} /> //activeFile?.fileHandle
+      <FileViewerByType key={tab.path} fileTab={tab} /> //activeFile?.fileHandle
     ))}
   </Container>;
 };
