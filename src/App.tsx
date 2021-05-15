@@ -44,7 +44,7 @@ More info: https://caniuse.com/native-filesystem-api `);
       <ToastProvider
         autoDismiss
         autoDismissTimeout={2750}
-        placement="top-right"
+        placement="bottom-left"
       >
         <BrowserRouter>
           <Switch>
