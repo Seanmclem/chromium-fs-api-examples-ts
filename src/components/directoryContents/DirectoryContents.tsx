@@ -73,9 +73,8 @@ export const DirectoryContents: React.FC<Props> = ({
           />
         )}
         <div
-          className={`main-folder-list-container ${
-            !drawerOpen ? `closed` : ""
-          }`}
+          className={`main-folder-list-container ${!drawerOpen ? `closed` : ""
+            }`}
         >
           <div className="main-folder-list">
             <ActionsBar
@@ -83,15 +82,18 @@ export const DirectoryContents: React.FC<Props> = ({
               setDrawerOpen={setDrawerOpen}
             />
             <div className="folder-name">'{rootHandle.name}' Contents:</div>
-            {directoryContents.map((entry) => (
-              <FileOrFolderList
-                key={entry[0]}
-                entry={entry[1]}
-                handleSelectFile={handleSelectFile}
-                dirPath={rootHandle.name}
-                parentHandle={rootHandle}
-              />
-            ))}
+            <div className="folder-padding">
+              {directoryContents.map((entry) => (
+                <FileOrFolderList
+                  key={entry[0]}
+                  entry={entry[1]}
+                  handleSelectFile={handleSelectFile}
+                  dirPath={rootHandle.name}
+                  parentHandle={rootHandle}
+                />
+              ))}
+            </div>
+
           </div>
         </div>
 

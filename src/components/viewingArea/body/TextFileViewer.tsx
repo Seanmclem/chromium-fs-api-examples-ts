@@ -35,6 +35,9 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
     _monaco: Monaco
   ) => {
     editorRef.current = editor;
+    editorRef.current.addCommand(_monaco.KeyMod.CtrlCmd | _monaco.KeyCode.KEY_S, function () {
+      handleSave()
+    });
   };
 
   const { addToast } = useToasts();
@@ -53,11 +56,12 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
       console.error('Failed to save file', error)
       addToast("Failed to save file", { appearance: "error" })
     }
-  }, [addToast, fileTab.fileHandle]);
+  }, [addToast, fileTab.fileHandle, fileTab.path, setHasPendingChanges]);
 
   useEffect(() => {
     setFileTabSaveFunction(fileTab.path, handleSave)
   }, [fileTab.path, handleSave, setFileTabSaveFunction])
+
 
   useEffect(() => {
     fileTextToState(fileTab.fileHandle);
@@ -71,8 +75,6 @@ export const TextFileViewer: React.FC<props> = ({ fileTab }) => {
   const handleEditorChange = (value: string | undefined, _event: monaco.editor.IModelContentChangedEvent) => {
     const hasChanges = value !== textUnmodified
     setHasPendingChanges(fileTab.path, hasChanges)
-    console.log('hasChanges', hasChanges) // broaddcast to zustand when a tab hasPendingChanges
-    console.log('Text change')
   }
 
   return (
