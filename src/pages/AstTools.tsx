@@ -109,7 +109,7 @@ const addExport = (path: NodePath<types.Program>) => {
                   types.jsxElement(
                     types.jsxOpeningElement(types.jsxIdentifier("div"), []),
                     types.jsxClosingElement(types.jsxIdentifier("div")),
-                    [types.jsxText("\n            AST test poop \n")]
+                    [types.jsxText("\n            AST test DONE \n")]
                   )
                 ),
               ] //,
